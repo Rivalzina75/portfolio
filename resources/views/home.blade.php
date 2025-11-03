@@ -1,36 +1,17 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio BTS SIO - Nom Prénom</title>
-    @vite(['resources/css/style.css', 'resources/js/app.js'])
-</head>
-<body>
-    <!-- Particles Background -->
-    <canvas id="particles"></canvas>
+@extends('layouts.app') 
 
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <a href="#accueil" class="nav-link active">Accueil</a>
-            <a href="#presentation" class="nav-link">Présentation</a>
-            <a href="#competences" class="nav-link">Compétences</a>
-            <a href="#projets" class="nav-link">Projets</a>
-            <a href="#contexte" class="nav-link">Contexte Pro</a>
-            <a href="#veille" class="nav-link">Veille Techno</a>
-            <a href="#contact" class="nav-link">Contact</a>
-        </div>
-    </nav>
+@section('title', 'BTS SIO SLAM - Portfolio de Mekaoui Reda') 
 
-    <!-- Section Accueil / About Me -->
+@section('content')
+
+    <!-- Section Accueil -->
     <section id="accueil" class="section hero-section">
         <div class="container">
             <div class="hero-content">
                 <div class="hero-text">
                     <h1 class="hero-title fade-in">Bienvenue</h1>
                     <p class="hero-subtitle fade-in-delay-1">
-                        Je suis <span class="highlight">Votre Nom</span>, étudiant en BTS SIO option SLAM, passionné par le développement web et désireux de poursuivre ma carrière dans ce domaine.
+                        Je suis <span class="highlight">Mekaoui Reda</span>, étudiant en BTS SIO option SLAM, passionné par le développement web et désireux de poursuivre ma carrière dans ce domaine.
                     </p>
                     <p class="hero-description fade-in-delay-2">
                         Actuellement en formation, je développe mes compétences en programmation, gestion de bases de données et conception d'applications. Mon objectif est de devenir développeur full-stack et de contribuer à des projets innovants.
@@ -43,9 +24,9 @@
                 <div class="hero-logo fade-in-delay-2">
                     <div class="logo-container">
                         <div class="logo-square">
-                            <span class="logo-letter">N</span>
+                            <span class="logo-letter">M</span>
                         </div>
-                        <h2 class="logo-name">VOTRE NOM</h2>
+                        <h2 class="logo-name">Mekaoui</h2>
                     </div>
                 </div>
             </div>
@@ -54,33 +35,51 @@
 
     <!-- Section Présentation -->
     <section id="presentation" class="section">
-        <div class="container">
+        <di v class="container">
             <h2 class="section-title">Présentation</h2>
             <div class="presentation-grid">
                 <div class="presentation-card">
                     <div class="card-icon">🎓</div>
                     <h3>Formation</h3>
-                    <p>BTS Services Informatiques aux Organisations</p>
-                    <p class="highlight">Option SLAM</p>
-                    <p class="text-small">Solutions Logicielles et Applications Métiers</p>
+                    
+                    <h4>BTS Services Informatiques aux Organisations (SIO)</h4>
+                    <p class="highlight">Option SLAM (Solutions Logicielles et Applications Métiers)</p>
+                    <p class="text-small">Actuellement en 2ème année.</p>
+                    
+                    <p>Focus sur la conception, le développement d'applications web et mobiles, et l'administration BDD.</p> 
+
+                    <hr class="formation-separator"> 
+                    
+                    <h4>Baccalauréat Général</h4>
+                    <p class="highlight">Option Mathématique et Physique-chimie</p>
+                    <p>Obtenu en 2024 au Lycée Maurice Ravel à Paris 75020</p>
                 </div>
                 <div class="presentation-card">
                     <div class="card-icon">💼</div>
                     <h3>Ambitions</h3>
-                    <p>Devenir développeur web full-stack et travailler sur des projets innovants qui ont un impact positif.</p>
+                    
+                    <p>Mon ambition est de devenir un Développeur Full-Stack autonome, capable de gérer l'intégralité du cycle de vie d'une application.</p>
+                    
+                    <ul class="missions-list" style="margin-top: 0.8rem;">
+                        <li>Maîtriser la chaîne logicielle (Front-end UX/UI et Back-end PHP/Laravel).</li>
+                        <li>Contribuer à des projets d'innovation technologique avec un fort impact métier.</li>
+                    </ul>
+
+                    <p class="highlight" style="margin-top: 1rem;">Évoluer vers des rôles de leadership technique et d'architecture logicielle à long terme.</p>
                 </div>
                 <div class="presentation-card">
-                    <div class="card-icon">🚀</div>
+                    <div class="card-icon">🎯</div>
                     <h3>Objectifs</h3>
-                    <p>Continuer à apprendre, me perfectionner dans les technologies modernes et contribuer à des projets d'envergure.</p>
+                    
+                    <p>J'articule mon parcours autour de la progression technique et de l'acquisition d'expertise concrète :</p>
+                    
+                    <ul class="missions-list" style="margin-top: 0.8rem;">
+                        <li>Court Terme : Poursuivre en Licence Professionnelle ou Bachelor après l'obtention du BTS SIO.</li>
+                        <li>Expertise : Acquérir une maîtrise avancée des frameworks modernes (ex: Vue.js, React, Laravel).</li>
+                    </ul>
+
+                    <p class="highlight" style="margin-top: 1rem;">Mon objectif actuel est de trouver une alternance pour mettre en pratique ces connaissances.</p>
                 </div>
-            </div>
-            <div class="about-details">
-                <h3>Mon Parcours</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
-            </div>
-        </div>
     </section>
 
     <!-- Section Compétences -->
@@ -223,22 +222,23 @@
         <div class="container">
             <h2 class="section-title">Projets & Réalisations</h2>
             <div class="projects-grid">
-                <div class="project-card">
+                <a href="/mon-portfolio" class="project-card">
                     <div class="project-image">
                         <div class="project-overlay">
-                            <button class="btn-view" onclick="openModal('project1')">Voir détails</button>
+                            {{-- Le lien est plus discret ici, car toute la carte est cliquable --}}
+                            <span class="btn-view">Voir l'étude de cas</span> 
                         </div>
                     </div>
                     <div class="project-content">
-                        <h3>Projet 1 - Application Web E-commerce</h3>
-                        <p>Développement d'une plateforme e-commerce complète avec Laravel et MySQL.</p>
+                        <h3>Projet : Portfolio BTS SIO</h3>
+                        <p>Conception et développement de ce portfolio pour l'épreuve E4 du BTS SIO SLAM.</p>
                         <div class="project-tags">
-                            <span class="tag">Laravel</span>
-                            <span class="tag">MySQL</span>
-                            <span class="tag">Bootstrap</span>
+                            <span class="tag">Laravel/Blade</span>
+                            <span class="tag">HTML/CSS</span>
+                            <span class="tag">Responsive Design</span>
                         </div>
                     </div>
-                </div>
+                </a>
 
                 <div class="project-card">
                     <div class="project-image">
@@ -328,7 +328,7 @@
                     </div>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. L'intelligence artificielle transforme profondément le développement web moderne. Les outils comme GitHub Copilot et ChatGPT révolutionnent la façon dont les développeurs écrivent du code.</p>
                     <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Les frameworks de machine learning permettent maintenant d'intégrer des fonctionnalités intelligentes directement dans les applications web.</p>
-                    <div class="veille-tags">
+                    <div class="veille-tags">N
                         <span class="tag">IA</span>
                         <span class="tag">Machine Learning</span>
                         <span class="tag">Automatisation</span>
@@ -387,11 +387,11 @@
                         <span class="contact-icon">📍</span>
                         <div>
                             <p class="contact-label">Localisation</p>
-                            <p>Votre Ville, France</p>
+                            <p>Paris, France</p>
                         </div>
                     </div>
                     <div class="social-links">
-                        <a href="#" class="social-link" title="GitHub">
+                        <a href="https://github.com/Rivalzina75" class="social-link" title="GitHub">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                             </svg>
@@ -403,7 +403,8 @@
                         </a>
                     </div>
                 </div>
-                <form id="contactForm" class="contact-form" action="contact.php" method="POST">
+                <form id="contactForm" class="contact-form" action="{{ route('portfolio.contact.submit') }}" method="POST">
+                @csrf
                     <div class="form-group">
                         <label for="name">Nom complet</label>
                         <input type="text" id="name" name="name" required>
@@ -428,47 +429,10 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2024 Portfolio BTS SIO. Tous droits réservés.</p>
-            <p>Développé avec ❤️ pour le BTS SIO</p>
-        </div>
-    </footer>
-
     <!-- Modals for Projects -->
-    <div id="project1" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal('project1')">&times;</span>
-            <h2>Application Web E-commerce</h2>
-            <div class="modal-body">
-                <h3>Description du Projet</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ce projet consistait à développer une plateforme e-commerce complète permettant aux utilisateurs de parcourir des produits, de les ajouter au panier et de finaliser leurs achats.</p>
+    
 
-                <h3>Technologies Utilisées</h3>
-                <ul>
-                    <li>Laravel 10 pour le backend</li>
-                    <li>MySQL pour la base de données</li>
-                    <li>Bootstrap 5 pour l'interface utilisateur</li>
-                    <li>JavaScript pour les interactions dynamiques</li>
-                </ul>
-
-                <h3>Fonctionnalités Principales</h3>
-                <ul>
-                    <li>Système d'authentification et gestion des utilisateurs</li>
-                    <li>Catalogue de produits avec recherche et filtres</li>
-                    <li>Panier d'achat et processus de commande</li>
-                    <li>Panel d'administration pour gérer les produits</li>
-                    <li>Système de paiement sécurisé</li>
-                </ul>
-
-                <h3>Compétences Développées</h3>
-                <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ce projet m'a permis de renforcer mes compétences en développement web full-stack, en gestion de bases de données relationnelles et en sécurisation des applications web.</p>
-            </div>
-        </div>
-    </div>
-
-    <div id="project2" class="modal">
+    <!-- <div id="project2" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('project2')">&times;</span>
             <h2>API REST - Gestion de Tâches</h2>
@@ -497,9 +461,9 @@
                 <p>Ut enim ad minim veniam, quis nostrud exercitation. Maîtrise des principes REST, sécurisation des API, gestion des tokens JWT, et documentation avec Swagger.</p>
             </div>
         </div>
-    </div>
+    </div> -->
 
-    <div id="project3" class="modal">
+    <!-- <div id="project3" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal('project3')">&times;</span>
             <h2>Système de Gestion de Stock</h2>
@@ -528,8 +492,7 @@
                 <p>Duis aute irure dolor in reprehenderit. L'application a permis à l'entreprise de réduire de 30% le temps de gestion du stock et d'éviter les ruptures de stock.</p>
             </div>
         </div>
-    </div>
-
-    <script src="script.js"></script>
+    </div> -->
+@endsection
 </body>
 </html>

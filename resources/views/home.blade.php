@@ -35,51 +35,45 @@
 
     <!-- Section Présentation -->
     <section id="presentation" class="section">
-        <di v class="container">
+        <div class="container">
             <h2 class="section-title">Présentation</h2>
             <div class="presentation-grid">
                 <div class="presentation-card">
                     <div class="card-icon">🎓</div>
                     <h3>Formation</h3>
-                    
                     <h4>BTS Services Informatiques aux Organisations (SIO)</h4>
                     <p class="highlight">Option SLAM (Solutions Logicielles et Applications Métiers)</p>
-                    <p class="text-small">Actuellement en 2ème année.</p>
-                    
-                    <p>Focus sur la conception, le développement d'applications web et mobiles, et l'administration BDD.</p> 
-
-                    <hr class="formation-separator"> 
-                    
+                    <p class="text-small">Avec l'option Mathématiques Approfondies.</p>
                     <h4>Baccalauréat Général</h4>
                     <p class="highlight">Option Mathématique et Physique-chimie</p>
-                    <p>Obtenu en 2024 au Lycée Maurice Ravel à Paris 75020</p>
+                    <p>Obtenu en 2024 au Lycée Maurice Ravel à Paris 75020.</p>
                 </div>
                 <div class="presentation-card">
-                    <div class="card-icon">💼</div>
-                    <h3>Ambitions</h3>
-                    
-                    <p>Mon ambition est de devenir un Développeur Full-Stack autonome, capable de gérer l'intégralité du cycle de vie d'une application.</p>
-                    
-                    <ul class="missions-list" style="margin-top: 0.8rem;">
-                        <li>Maîtriser la chaîne logicielle (Front-end UX/UI et Back-end PHP/Laravel).</li>
-                        <li>Contribuer à des projets d'innovation technologique avec un fort impact métier.</li>
-                    </ul>
-
-                    <p class="highlight" style="margin-top: 1rem;">Évoluer vers des rôles de leadership technique et d'architecture logicielle à long terme.</p>
+                    <div class="card-icon">💡</div>
+                    <h3>Méthodologie & Atouts</h3>
+                    <h4>Analyse & Conception</h4>
+                    <p class="text-small">Compréhension des besoins utilisateurs et modélisation.</p>
+                    <h4>Gestion de projet</h4>
+                    <p class="text-small">Familiarité avec les méthodes Agiles et cycle en V pour le travail en équipe.</p>
+                    <h4>Qualité logicielle</h4>
+                    <p class="text-small">Écriture de code propre, commenté et versionné.</p>
+                    <h4>Soft Skills</h4>
+                    <p class="text-small">Curieux, autonome et force de proposition pour trouver des solutions.</p>
                 </div>
                 <div class="presentation-card">
                     <div class="card-icon">🎯</div>
                     <h3>Objectifs</h3>
-                    
-                    <p>J'articule mon parcours autour de la progression technique et de l'acquisition d'expertise concrète :</p>
-                    
-                    <ul class="missions-list" style="margin-top: 0.8rem;">
-                        <li>Court Terme : Poursuivre en Licence Professionnelle ou Bachelor après l'obtention du BTS SIO.</li>
-                        <li>Expertise : Acquérir une maîtrise avancée des frameworks modernes (ex: Vue.js, React, Laravel).</li>
-                    </ul>
-
-                    <p class="highlight" style="margin-top: 1rem;">Mon objectif actuel est de trouver une alternance pour mettre en pratique ces connaissances.</p>
+                    <h4>Objectif Cursus</h4>
+                    <p class="text-small">Poursuivre jusqu'au Master (via Licence) en spécialisation PHP.</p>
+                    <h4>Objectif Expertise</h4>
+                    <p class="text-small">Maîtriser les frameworks modernes (Laravel, React, Vue.js).</p>
+                    <h4>Objectif Carrière</h4>
+                    <p class="text-small">Évoluer à long terme vers un poste de Lead Développeur ou Architecte.</p>
+                    <h4>Objectif Actuel</h4>
+                    <p class="text-small">Trouver une alternance pour mettre en pratique ces connaissances.</p>
                 </div>
+            </div>
+        </div> 
     </section>
 
     <!-- Section Compétences -->

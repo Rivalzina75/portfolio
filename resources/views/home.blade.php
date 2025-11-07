@@ -78,79 +78,138 @@
 
     <!-- Section Compétences -->
     <section id="competences" class="section bg-dark">
-    <div class="container">
-        <h2 class="section-title">Compétences Techniques</h2>
-
-        <div class="skill-category" style="overflow: visible;"> <h3 class="category-title" style="text-align: center;">
-                <span class="category-icon">🌐</span>
-                Langages & Frameworks Web
-            </h3>
-
-            <div class="coverflow-slider">
-                <div class="coverflow-wrapper">
-                    <div class="coverflow-slide">
-                        <img src="/icons/html5-plain.svg" alt="HTML5">
-                        <span>HTML5</span>
-                    </div>
-                    <div class="coverflow-slide">
-                        <img src="/icons/css3-plain.svg" alt="CSS3">
-                        <span>CSS3</span>
-                    </div>
-                    <div class="coverflow-slide">
-                        <img src="/icons/javascript-plain.svg" alt="JavaScript">
-                        <span>JavaScript</span>
-                    </div>
-                    <div class="coverflow-slide">
-                        <img src="/icons/php-original.svg" alt="PHP">
-                        <span>PHP</span>
-                    </div>
-                    <div class="coverflow-slide">
-                        <img src="/icons/laravel-original.svg" alt="Laravel">
-                        <span>Laravel</span>
-                    </div>
-                </div>
-                
-                <button class="slider-btn-3d btn-prev-3d">‹</button>
-                <button class="slider-btn-3d btn-next-3d">›</button>
-            </div>
-        </div>
-
-        <div class="skill-category" style="overflow: visible; margin-top: 3rem;">
-            <h3 class="category-title" style="text-align: center;">
-                <span class="category-icon">🗄️</span>
-                Bases de Données & Outils
-            </h3>
-
-            <div class="coverflow-slider">
-                <div class="coverflow-wrapper">
-                    <div class="coverflow-slide">
-                        <img src="/icons/mysql-original.svg" alt="MySQL">
-                        <span>MySQL</span>
-                    </div>
-                    <div class="coverflow-slide">
-                        <img src="/icons/java-original.svg" alt="Java">
-                        <span>Java</span>
-                    </div>
-                    <div class="coverflow-slide">
-                        <img src="/icons/docker-plain-wordmark.svg" alt="Docker">
-                        <span>Docker</span>
-                    </div>
-                    <div class="coverflow-slide">
-                        <img src="/icons/git-original.svg" alt="Git">
-                        <span>Git</span>
-                    </div>
-                    <div class="coverflow-slide">
-                        <img src="/icons/github-original.svg" alt="GitHub">
-                        <span>GitHub</span>
+        <div class="container">
+            <h2 class="section-title">Compétences Techniques</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3 class="category-title">
+                        <span class="category-icon">🌐</span>
+                        Développement Web
+                    </h3>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <div class="skill-name">HTML / CSS</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="90"></div>
+                            </div>
+                            <span class="skill-percent">90%</span>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">JavaScript</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="80"></div>
+                            </div>
+                            <span class="skill-percent">80%</span>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">PHP</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="85"></div>
+                            </div>
+                            <span class="skill-percent">85%</span>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">Laravel</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="75"></div>
+                            </div>
+                            <span class="skill-percent">75%</span>
+                        </div>
                     </div>
                 </div>
-                
-                <button class="slider-btn-3d btn-prev-3d">‹</button>
-                <button class="slider-btn-3d btn-next-3d">›</button>
+
+                <div class="skill-category">
+                    <h3 class="category-title">
+                        <span class="category-icon">🗄️</span>
+                        Bases de Données
+                    </h3>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <div class="skill-name">MySQL</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="85"></div>
+                            </div>
+                            <span class="skill-percent">85%</span>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">PostgreSQL</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="70"></div>
+                            </div>
+                            <span class="skill-percent">70%</span>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">MongoDB</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="65"></div>
+                            </div>
+                            <span class="skill-percent">65%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3 class="category-title">
+                        <span class="category-icon">🛠️</span>
+                        Outils & Frameworks
+                    </h3>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <div class="skill-name">Git / GitHub</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="80"></div>
+                            </div>
+                            <span class="skill-percent">80%</span>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">Bootstrap</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="85"></div>
+                            </div>
+                            <span class="skill-percent">85%</span>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">API REST</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="75"></div>
+                            </div>
+                            <span class="skill-percent">75%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <h3 class="category-title">
+                        <span class="category-icon">💻</span>
+                        Autres Compétences
+                    </h3>
+                    <div class="skills-list">
+                        <div class="skill-item">
+                            <div class="skill-name">Python</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="70"></div>
+                            </div>
+                            <span class="skill-percent">70%</span>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">Java</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="65"></div>
+                            </div>
+                            <span class="skill-percent">65%</span>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-name">Linux</div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" data-progress="75"></div>
+                            </div>
+                            <span class="skill-percent">75%</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-
-    </div> </section>
+    </section>
 
     <!-- Section Projets -->
     <section id="projets" class="section">
@@ -213,63 +272,40 @@
     </section>
 
     <!-- Section Contexte Professionnel -->
-    <section id="competences" class="section bg-dark">
-    <div class="container">
-        <h2 class="section-title">Compétences Techniques</h2>
-        <div class="skills-grid-tags"> <div class="skill-category">
-                <h3 class="category-title">
-                    <span class="category-icon">🌐</span>
-                    Langages & Frameworks Web
-                </h3>
-                <div class="skills-tags">
-                    <span class="tag">HTML5</span>
-                    <span class="tag">CSS3</span>
-                    <span class="tag">JavaScript</span>
-                    <span class="tag">PHP</span>
-                    <span class="tag">Laravel</span>
+    <section id="contexte" class="section bg-dark">
+        <div class="container">
+            <h2 class="section-title">Contexte Professionnel</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Stage - Développeur Web</h3>
+                        <p class="timeline-date">Entreprise XYZ • 2024 - 2025</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Développement de fonctionnalités pour le site web principal de l'entreprise. Maintenance et optimisation du code existant. Collaboration avec l'équipe technique pour la mise en place de nouvelles solutions.</p>
+                        <ul class="missions-list">
+                            <li>Développement de modules PHP pour le CMS interne</li>
+                            <li>Optimisation des requêtes SQL et amélioration des performances</li>
+                            <li>Intégration de templates responsive</li>
+                            <li>Tests unitaires et débogage</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h3>Projet Tutoré - Application Mobile</h3>
+                        <p class="timeline-date">BTS SIO • 2024</p>
+                        <p>Conception et développement d'une application de gestion pour les étudiants. Travail en équipe avec méthode Agile. Présentation du projet devant un jury professionnel.</p>
+                        <ul class="missions-list">
+                            <li>Analyse des besoins et rédaction du cahier des charges</li>
+                            <li>Développement du backend avec Laravel</li>
+                            <li>Documentation technique complète</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-
-            <div class="skill-category">
-                <h3 class="category-title">
-                    <span class="category-icon">🗄️</span>
-                    Bases de Données & Outils
-                </h3>
-                <div class="skills-tags">
-                    <span class="tag">MySQL</span>
-                    <span class="tag">Java</span>
-                    <span class="tag">Docker</span>
-                    <span class="tag">Canva</span>
-                </div>
-            </div>
-
-            <div class="skill-category">
-                <h3 class="category-title">
-                    <span class="category-icon">💻</span>
-                    Systèmes & Langages Transversaux
-                </h3>
-                <div class="skills-tags">
-                    <span class="tag">Linux</span>
-                    <span class="tag">Python</span>
-                </div>
-            </div>
-
-            <div class="skill-category">
-                <h3 class="category-title">
-                    <span class="category-icon">🛠️</span>
-                    Outils de Développement
-                </h3>
-                <div class="skills-tags">
-                    <span class="tag">VS Code</span>
-                    <span class="tag">Git / GitHub</span>
-                    <span class="tag">Composer & npm</span>
-                    <span class="tag">Eclipse</span>
-                </div>
-            </div>
-
-        </div> 
-    </div> 
-</section>
+        </div>
+    </section>
 
     <!-- Section Veille Technologique -->
     <section id="veille" class="section">

@@ -1,5 +1,4 @@
 import './bootstrap';
-
 // ============================================
 // Particles Animation
 // ============================================
@@ -390,82 +389,3 @@ backToTopBtn.addEventListener('mouseenter', () => {
 backToTopBtn.addEventListener('mouseleave', () => {
     backToTopBtn.style.transform = 'translateY(0)';
 });
-
-// ============================================
-// Skill Sliders (Pure 3D Coverflow)
-// ============================================
-function initCoverflowSliders() {
-    const sliders = document.querySelectorAll('.coverflow-slider');
-
-    sliders.forEach(slider => {
-        const wrapper = slider.querySelector('.coverflow-wrapper');
-        const slides = Array.from(wrapper.children);
-        const nextButton = slider.querySelector('.btn-next-3d');
-        const prevButton = slider.querySelector('.btn-prev-3d');
-        
-        if (slides.length === 0) return;
-
-        let currentIndex = 0;
-        let autoSlideInterval = null;
-        let pauseTimer = null;
-        const totalSlides = slides.length;
-
-        // Fonction pour appliquer les transformations 3D
-        function updateSlider() {
-            slides.forEach((slide, index) => {
-                let offset = index - currentIndex;
-                
-                // Gère la boucle
-                if (offset < -Math.floor(totalSlides / 2)) {
-                    offset += totalSlides;
-                } else if (offset > Math.floor(totalSlides / 2)) {
-                    offset -= totalSlides;
-                }
-
-                // Applique les styles 3D
-                const rotateY = offset * 40; // Angle de rotation
-                const translateZ = Math.abs(offset) * -100; // Profondeur
-                const opacity = (Math.abs(offset) > 1) ? 0.4 : 1; // Effet "moins dense"
-
-                slide.style.transform = `rotateY(${rotateY}deg) translateZ(${translateZ}px)`;
-                slide.style.opacity = opacity;
-                slide.style.zIndex = totalSlides - Math.abs(offset);
-            });
-        }
-
-        // --- GESTION DE L'AUTOPLAY ---
-        function startAutoSlide() {
-            clearInterval(autoSlideInterval);
-            autoSlideInterval = setInterval(() => {
-                currentIndex = (currentIndex + 1) % totalSlides; // Boucle
-                updateSlider();
-            }, 3000); // 3 secondes
-        }
-
-        function pauseAutoSlide(duration) {
-            clearInterval(autoSlideInterval);
-            clearTimeout(pauseTimer);
-            pauseTimer = setTimeout(startAutoSlide, duration);
-        }
-
-        // --- ÉCOUTEURS D'ÉVÉNEMENTS ---
-        nextButton.addEventListener('click', () => {
-            currentIndex = (currentIndex + 1) % totalSlides;
-            updateSlider();
-            pauseAutoSlide(10000); // Pause de 10s
-        });
-
-        prevButton.addEventListener('click', () => {
-            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-            updateSlider();
-            pauseAutoSlide(10000); // Pause de 10s
-        });
-
-        slider.addEventListener('mouseenter', () => clearInterval(autoSlideInterval));
-        slider.addEventListener('mouseleave', startAutoSlide);
-
-        // --- DÉMARRAGE ---
-        updateSlider(); // Positionne au début
-        startAutoSlide(); // Lance l'auto-slide
-    });
-}

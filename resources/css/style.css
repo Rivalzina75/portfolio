@@ -1,7 +1,4 @@
 @import 'tailwindcss';
-@import 'swiper/css';
-@import 'swiper/css/navigation'; 
-@import 'swiper/css/effect-coverflow';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -1029,55 +1026,3 @@ body {
         margin: 10% auto;
     }
 }
-
-/* ============================================
-   Skills Section (Tags)
-   ============================================ */
-
-.skills-grid-tags {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-}
-
-.skills-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.75rem; /* Espace entre les tags */
-    margin-top: 1.5rem;
-}
-
-/* NOTE : La classe .tag est déjà stylisée 
-   dans ta section Projets (style.css)
-*/
-
-/* Flèches (nouveau nom de classe) */
-.slider-btn-3d {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 100;
-    
-    background: rgba(79, 195, 247, 0.1);
-    border: 1px solid rgba(79, 195, 247, 0.3);
-    border-radius: 50%;
-    width: 40px; 
-    height: 40px; 
-    cursor: pointer;
-    transition: var(--transition);
-    
-    /* Style du texte */
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: var(--primary-color);
-    line-height: 40px;
-    text-align: center;
-    padding: 0;
-}
-.slider-btn-3d:hover {
-    background: var(--primary-color);
-    color: white;
-}
-.btn-prev-3d { left: 20px; } 
-.btn-next-3d { right: 20px; }
-

@@ -1,454 +1,206 @@
 import './bootstrap';
-// ============================================
-// Particles Animation
-// ============================================
+
+// ========== Particles ==========
 const canvas = document.getElementById('particles');
-const ctx = canvas.getContext('2d');
+if (canvas) {
+    const ctx = canvas.getContext('2d');
+    const particles = [];
+    const count = 120;
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+    const resize = () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    };
 
-let particlesArray = [];
-const numberOfParticles = 100;
-
-class Particle {
-    constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 3 + 1;
-        this.speedX = Math.random() * 0.5 - 0.25;
-        this.speedY = Math.random() * 0.5 - 0.25;
-        this.opacity = Math.random() * 0.5 + 0.2;
-    }
-
-    update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-
-        if (this.x > canvas.width || this.x < 0) {
-            this.speedX = -this.speedX;
+    class Particle {
+        constructor() {
+            this.reset();
         }
-        if (this.y > canvas.height || this.y < 0) {
-            this.speedY = -this.speedY;
+        reset() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 2 + 1;
+            this.speedX = (Math.random() - 0.5) * 0.6;
+            this.speedY = (Math.random() - 0.5) * 0.6;
+            this.opacity = Math.random() * 0.4 + 0.2;
         }
-    }
-
-    draw() {
-        ctx.fillStyle = `rgba(79, 195, 247, ${this.opacity})`;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-    }
-}
-
-function initParticles() {
-    particlesArray = [];
-    for (let i = 0; i < numberOfParticles; i++) {
-        particlesArray.push(new Particle());
-    }
-}
-
-function animateParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-    for (let i = 0; i < particlesArray.length; i++) {
-        particlesArray[i].update();
-        particlesArray[i].draw();
-
-        // Connect particles
-        for (let j = i + 1; j < particlesArray.length; j++) {
-            const dx = particlesArray[i].x - particlesArray[j].x;
-            const dy = particlesArray[i].y - particlesArray[j].y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-
-            if (distance < 150) {
-                ctx.strokeStyle = `rgba(79, 195, 247, ${0.2 - distance / 750})`;
-                ctx.lineWidth = 1;
-                ctx.beginPath();
-                ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
-                ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
-                ctx.stroke();
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                this.reset();
             }
         }
-    }
-    requestAnimationFrame(animateParticles);
-}
-
-// Resize handler
-window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    initParticles();
-});
-
-// Initialize particles
-initParticles();
-animateParticles();
-
-// ============================================
-// Navigation Active Link
-// ============================================
-const sections = document.querySelectorAll('.section');
-const navLinks = document.querySelectorAll('.nav-link');
-
-function setActiveLink() {
-    let currentSection = '';
-
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-
-        if (window.scrollY >= sectionTop - 200) {
-            currentSection = section.getAttribute('id');
+        draw() {
+            ctx.fillStyle = `rgba(99, 209, 255, ${this.opacity})`;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
         }
-    });
-
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${currentSection}`) {
-            link.classList.add('active');
-        }
-    });
-}
-
-window.addEventListener('scroll', setActiveLink);
-
-// ============================================
-// Smooth Scroll (VERSION DÉFINITIVE)
-// ============================================
-navLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-        const targetHref = link.getAttribute('href');
-
-        // CONDITION STRICTE : Intercepter UNIQUEMENT si le lien est une ancre locale (#...)
-        // Cela exclut TOUS les liens commençant par / (ex: /, /projets, /#presentation)
-        if (targetHref.startsWith('#')) {
-            e.preventDefault(); // BLOQUE le comportement par défaut pour gérer le smooth scroll
-
-            const targetSection = document.querySelector(targetHref);
-
-            if (targetSection) {
-                // Effectuer le défilement doux
-                window.scrollTo({
-                    top: targetSection.offsetTop - 80,
-                    behavior: 'smooth'
-                });
-            }
-        }
-        // Pour les autres liens (ex: /projets, /#presentation), le script ne fait rien.
-        // C'est le navigateur qui gérera le clic, mais il doit rediriger correctement.
-    });
-});
-// ============================================
-// Skills Progress Animation
-// ============================================
-function animateSkills() {
-    const skillBars = document.querySelectorAll('.skill-progress');
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const progress = entry.target.getAttribute('data-progress');
-                entry.target.style.width = progress + '%';
-            }
-        });
-    }, { threshold: 0.5 });
-
-    skillBars.forEach(bar => observer.observe(bar));
-}
-
-// ============================================
-// Modal Functions
-// ============================================
-function openModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.style.display = 'block';
-        document.body.style.overflow = 'hidden';
     }
-}
 
-function closeModal(modalId) {
-    const modal = document.getElementById(modalId);
-    if (modal) {
-        modal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-    }
-}
-
-// Close modal when clicking outside
-window.addEventListener('click', (e) => {
-    if (e.target.classList.contains('modal')) {
-        e.target.style.display = 'none';
-        document.body.style.overflow = 'auto';
-    }
-});
-
-// Close modal with Escape key
-window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-        const modals = document.querySelectorAll('.modal');
-        modals.forEach(modal => {
-            modal.style.display = 'none';
-        });
-        document.body.style.overflow = 'auto';
-    }
-});
-
-// ============================================
-// Form Submission
-// ============================================
-const contactForm = document.getElementById('contactForm');
-
-if (contactForm) {
-    contactForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        const formData = new FormData(this);
-
-        // Show loading state
-        const submitBtn = this.querySelector('.btn-submit');
-        const originalText = submitBtn.textContent;
-        submitBtn.textContent = 'Envoi en cours...';
-        submitBtn.disabled = true;
-
-        // Send form data with fetch
-        fetch(this.action, { // 'this.action' lit l'URL de la route Laravel
-            method: 'POST',
-            body: formData,
-            headers: {
-                'X-Requested-With': 'XMLHttpRequest'
-                // Nécessaire pour que Laravel réponde en JSON en cas d'erreur
-            }
-            // Le @csrf token est déjà inclus dans le formData
-        })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    alert('Message envoyé avec succès ! Je vous répondrai dans les plus brefs délais.');
-                    contactForm.reset();
-                } else {
-                    alert('Erreur lors de l\'envoi du message. Veuillez réessayer.');
+    const connect = () => {
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 140) {
+                    ctx.strokeStyle = `rgba(124, 255, 227, ${0.22 - dist / 600})`;
+                    ctx.lineWidth = 0.7;
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
                 }
-            })
-            .catch(error => {
-                console.error('Erreur:', error);
-                alert('Erreur lors de l\'envoi du message. Veuillez réessayer.');
-            })
-            .finally(() => {
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            });
-    });
-}
-
-// ============================================
-// Parallax Effect on Mouse Move
-// ============================================
-document.addEventListener('mousemove', (e) => {
-    const mouseX = e.clientX / window.innerWidth;
-    const mouseY = e.clientY / window.innerHeight;
-
-    const logo = document.querySelector('.logo-container');
-    if (logo) {
-        const moveX = (mouseX - 0.5) * 20;
-        const moveY = (mouseY - 0.5) * 20;
-        logo.style.transform = `translate(${moveX}px, ${moveY}px)`;
-    }
-});
-
-// ============================================
-// Typing Effect for Hero Title (Optional)
-// ============================================
-function typeWriter(element, text, speed = 100) {
-    let i = 0;
-    element.textContent = '';
-
-    function type() {
-        if (i < text.length) {
-            element.textContent += text.charAt(i);
-            i++;
-            setTimeout(type, speed);
+            }
         }
-    }
+    };
 
-    type();
+    const animate = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => { p.update(); p.draw(); });
+        connect();
+        requestAnimationFrame(animate);
+    };
+
+    resize();
+    window.addEventListener('resize', resize);
+    for (let i = 0; i < count; i++) particles.push(new Particle());
+    animate();
 }
-
-// ============================================
-// Add Glow Effect on Hover for Cards
-// ============================================
-function addGlowEffect() {
-    const cards = document.querySelectorAll('.presentation-card, .project-card, .veille-card');
-
-    cards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-            const rect = card.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-
-            card.style.setProperty('--mouse-x', `${x}px`);
-            card.style.setProperty('--mouse-y', `${y}px`);
-        });
-    });
-}
-
-// ============================================
-// Counter Animation for Stats (if needed)
-// ============================================
-function animateCounter(element, target, duration = 2000) {
-    let start = 0;
-    const increment = target / (duration / 16);
-
-    const timer = setInterval(() => {
-        start += increment;
-        if (start >= target) {
-            element.textContent = target;
-            clearInterval(timer);
-        } else {
-            element.textContent = Math.floor(start);
-        }
-    }, 16);
-}
-
-// ============================================
-// Initialize All Functions
-// ============================================
 
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Initialisation de Swiper (Configuration optimisée) ---
-    const skillsSwiper = new Swiper('#skillsSwiper', {
-        // Mode normal sans effet spécial
-        effect: 'slide',
-        
-        grabCursor: true,
-        loop: true,
-        centeredSlides: true,
-        
-        // Espacement entre les slides
-        spaceBetween: 20,
-        
-        // Vitesse de transition
-        speed: 600,
-        
-        // Autoplay
-        autoplay: {
-            delay: 3000,
-            disableOnInteraction: false,
-            pauseOnMouseEnter: true,
-        },
-        
-        // Navigation
-        navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-        },
-        
-        // Breakpoints responsive
-        breakpoints: {
-            // Mobile (320px et +)
-            320: {
-                slidesPerView: 1,
-                spaceBetween: 15,
-            },
-            // Petite tablette (640px et +)
-            640: {
-                slidesPerView: 3,
-                spaceBetween: 20,
-            },
-            // Tablette (768px et +)
-            768: {
-                slidesPerView: 3,
-                spaceBetween: 20,
-            },
-            // Desktop (1024px et +)
-            1024: {
-                slidesPerView: 5,
-                spaceBetween: 25,
-            },
-            // Large desktop (1280px et +)
-            1280: {
-                slidesPerView: 5,
-                spaceBetween: 30,
+    // ========== Mobile Nav Toggle ==========
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+    if (navToggle && navMenu) {
+        navToggle.addEventListener('click', () => {
+            const isOpen = navMenu.classList.toggle('open');
+            navToggle.setAttribute('aria-expanded', String(isOpen));
+        });
+    }
+
+    // ========== Navigation Active State (fixed) ==========
+    const sections = document.querySelectorAll('.section[id]');
+    const navLinks = document.querySelectorAll('.nav a[href^="#"]');
+
+    const updateActiveNav = () => {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.clientHeight;
+            if (window.scrollY >= sectionTop - 120) {
+                current = section.getAttribute('id');
             }
-        }
-    });
-    
-    // Logique de pause de l'autoplay lors du clic sur les flèches
-    let autoplayPauseTimer;
-    const pauseAutoplayFor10s = () => {
-        skillsSwiper.autoplay.stop();
-        clearTimeout(autoplayPauseTimer);
-        autoplayPauseTimer = setTimeout(() => {
-            skillsSwiper.autoplay.start();
-        }, 10000); 
+        });
+
+        navLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href === `#${current}`) {
+                link.classList.add('active');
+            } else {
+                link.classList.remove('active');
+            }
+        });
     };
-    
-    if (skillsSwiper.navigation) {
-        skillsSwiper.navigation.nextEl.addEventListener('click', pauseAutoplayFor10s);
-        skillsSwiper.navigation.prevEl.addEventListener('click', pauseAutoplayFor10s);
-    }
-});
-         // Fin de DOMContentLoaded
-// ============================================
-// Loading Animation (Optional)
-// ============================================
-window.addEventListener('load', () => {
-    document.body.style.opacity = '0';
-    setTimeout(() => {
-        document.body.style.transition = 'opacity 0.5s ease-in';
-        document.body.style.opacity = '1';
-    }, 100);
-});
 
-// ============================================
-// Back to Top Button (Optional Enhancement)
-// ============================================
-const backToTopBtn = document.createElement('button');
-backToTopBtn.innerHTML = '↑';
-backToTopBtn.className = 'back-to-top';
-backToTopBtn.style.cssText = `
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 50px;
-    height: 50px;
-    background: linear-gradient(135deg, #4fc3f7, #26c6da);
-    color: white;
-    border: none;
-    border-radius: 50%;
-    font-size: 1.5rem;
-    cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    z-index: 1000;
-    box-shadow: 0 5px 20px rgba(79, 195, 247, 0.4);
-`;
+    window.addEventListener('scroll', updateActiveNav);
+    updateActiveNav();
 
-document.body.appendChild(backToTopBtn);
-
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 500) {
-        backToTopBtn.style.opacity = '1';
-        backToTopBtn.style.visibility = 'visible';
-    } else {
-        backToTopBtn.style.opacity = '0';
-        backToTopBtn.style.visibility = 'hidden';
-    }
-});
-
-backToTopBtn.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
+    // ========== Smooth Scroll ==========
+    navLinks.forEach(link => {
+        link.addEventListener('click', e => {
+            e.preventDefault();
+            const href = link.getAttribute('href');
+            const target = document.querySelector(href);
+            if (target) {
+                const top = target.offsetTop - 70;
+                window.scrollTo({ top, behavior: 'smooth' });
+                navMenu?.classList.remove('open');
+            }
+        });
     });
-});
 
-backToTopBtn.addEventListener('mouseenter', () => {
-    backToTopBtn.style.transform = 'translateY(-5px)';
-});
+    // ========== Carousel Projects ==========
+    const track = document.getElementById('carouselTrack');
+    const prevBtn = document.querySelector('.carousel-prev');
+    const nextBtn = document.querySelector('.carousel-next');
+    const dots = document.querySelectorAll('.dot');
+    let currentSlide = 0;
 
-backToTopBtn.addEventListener('mouseleave', () => {
-    backToTopBtn.style.transform = 'translateY(0)';
+    if (track && prevBtn && nextBtn && dots.length > 0) {
+        const slides = document.querySelectorAll('.carousel-slide');
+        const totalSlides = slides.length;
+
+        const updateSlide = (index) => {
+            if (index < 0) currentSlide = totalSlides - 1;
+            if (index >= totalSlides) currentSlide = 0;
+            
+            const scrollLeft = currentSlide * (track.clientWidth + 16);
+            track.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+            
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === currentSlide);
+            });
+        };
+
+        prevBtn.addEventListener('click', () => {
+            currentSlide--;
+            updateSlide(currentSlide);
+        });
+
+        nextBtn.addEventListener('click', () => {
+            currentSlide++;
+            updateSlide(currentSlide);
+        });
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                currentSlide = index;
+                updateSlide(currentSlide);
+            });
+        });
+
+        updateSlide(0);
+    }
+
+    // ========== Contact Form AJAX ==========
+    const contactForm = document.getElementById('contactForm');
+    const status = document.getElementById('formStatus');
+    if (contactForm) {
+        contactForm.addEventListener('submit', async e => {
+            e.preventDefault();
+            const submitBtn = contactForm.querySelector('.btn-submit');
+            const original = submitBtn ? submitBtn.textContent : '';
+            if (submitBtn) {
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Envoi...';
+            }
+            status.textContent = '';
+            try {
+                const response = await fetch(contactForm.action, {
+                    method: 'POST',
+                    body: new FormData(contactForm),
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                });
+                const data = await response.json();
+                if (data.success) {
+                    contactForm.reset();
+                    status.textContent = 'Message envoyé ✓ Je reviens vers vous rapidement.';
+                    status.style.color = '#7cffe3';
+                } else {
+                    status.textContent = data.message || 'Une erreur est survenue. Merci de réessayer.';
+                }
+            } catch (err) {
+                console.error(err);
+                status.textContent = 'Impossible d\'envoyer le message pour le moment.';
+            } finally {
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = original;
+                }
+            }
+        });
+    }
 });

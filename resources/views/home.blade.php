@@ -4,61 +4,19 @@
 
 @section('content')
     <section id="accueil" class="section hero">
-        <div class="container hero-grid">
-            <div class="hero-copy">
-                <p class="hero-loader">Chargement de mon univers...</p>
-                <p class="eyebrow">BTS SIO SLAM • Promotion 2025</p>
-                <h1>Développeur full-stack en devenir.</h1>
-                <p class="lede">
-                    Je conçois des applications web modernes avec Laravel, un front soigné et un delivery rigoureux. Ce portfolio rassemble mes projets, ma veille et mon parcours pour l'épreuve E4.
-                </p>
-                <div class="hero-cta">
-                    <a class="btn primary" href="#projets">Voir mes projets</a>
-                    <a class="btn ghost" href="#contact">Planifier un échange</a>
-                </div>
-                <div class="hero-badges">
-                    <span class="badge">Laravel • Blade • Vite</span>
-                    <span class="badge">Autonomie & pédagogie</span>
-                    <span class="badge">Alternance recherchée</span>
-                    <span class="badge accent">Disponible dès maintenant</span>
-                </div>
-                <div class="stats">
-                    <div class="stat-card">
-                        <p class="stat-value">15+</p>
-                        <p class="stat-label">Maquettes & POC</p>
-                    </div>
-                    <div class="stat-card">
-                        <p class="stat-value">6</p>
-                        <p class="stat-label">Projets suivis de A à Z</p>
-                    </div>
-                    <div class="stat-card">
-                        <p class="stat-value">3</p>
-                        <p class="stat-label">Stages / missions réalisées</p>
-                    </div>
-                </div>
+        <div class="container hero-simple">
+            <p class="eyebrow">BTS SIO SLAM • Promotion 2025</p>
+            <h1>Développeur full-stack en devenir.</h1>
+            <p class="lede">
+                Je conçois des applications web modernes avec Laravel, un front soigné et un delivery rigoureux.
+            </p>
+            <div class="hero-cta">
+                <a class="btn primary" href="#projets">Voir mes projets</a>
+                <a class="btn ghost" href="#contact">Discuter</a>
             </div>
-            <div class="hero-panel">
-                <div class="floating-card">
-                    <p class="tagline">Code, design et rigueur.</p>
-                    <h3>Mekaoui Reda</h3>
-                    <p class="role">Étudiant BTS SIO SLAM</p>
-                    <ul class="pill-list">
-                        <li>Laravel / PHP 8</li>
-                        <li>JavaScript (ES2022)</li>
-                        <li>MySQL & SQL</li>
-                        <li>Docker • Linux</li>
-                    </ul>
-                    <div class="mini-cards">
-                        <div>
-                            <p class="mini-label">Disponible</p>
-                            <p class="mini-value">Alternance 2025</p>
-                        </div>
-                        <div>
-                            <p class="mini-label">Basé à</p>
-                            <p class="mini-value">Paris • Remote</p>
-                        </div>
-                    </div>
-                </div>
+            <div class="hero-badges">
+                <span class="badge">Laravel • Blade • Vite</span>
+                <span class="badge accent">Alternance 2025</span>
             </div>
         </div>
     </section>

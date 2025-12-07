@@ -148,17 +148,15 @@ body {
     padding-top: 130px;
 }
 
-.hero-grid {
+.hero-simple {
+    max-width: 720px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 32px;
-    align-items: center;
+    gap: 12px;
 }
 
-.hero-copy h1 {
+.hero-simple h1 {
     font-size: clamp(2.4rem, 3.5vw, 3.2rem);
     line-height: 1.15;
-    margin-bottom: 14px;
     background: linear-gradient(120deg, var(--primary), var(--accent));
     background-clip: text;
     -webkit-background-clip: text;
@@ -247,10 +245,7 @@ body {
 }
 
 .stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-    gap: 12px;
-    margin-top: 16px;
+    display: none;
 }
 
 .stat-card {
@@ -273,20 +268,8 @@ body {
 }
 
 .hero-panel .floating-card {
-    background: linear-gradient(140deg, rgba(99, 209, 255, 0.08), rgba(124, 255, 227, 0.05));
-    border: 1px solid var(--stroke);
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: var(--shadow);
+    display: none;
 }
-
-.tagline { color: var(--primary); font-weight: 600; margin-bottom: 3px; font-size: 0.9rem; }
-.floating-card h3 { font-size: 1.5rem; margin-bottom: 4px; }
-.role { color: var(--muted); margin-bottom: 10px; font-size: 0.9rem; }
-.pill-list { list-style: none; display: grid; gap: 6px; margin: 10px 0; color: var(--text); font-size: 0.9rem; }
-.mini-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-top: 10px; }
-.mini-label { color: var(--muted); font-size: 0.8rem; }
-.mini-value { font-weight: 600; font-size: 0.9rem; }
 
 .section-head { margin-bottom: 24px; }
 .section-head h2 { font-size: clamp(2rem, 2.5vw, 2.4rem); margin-bottom: 8px; line-height: 1.1; }

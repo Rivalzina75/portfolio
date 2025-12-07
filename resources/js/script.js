@@ -137,7 +137,9 @@ document.addEventListener('DOMContentLoaded', () => {
             if (index < 0) currentSlide = totalSlides - 1;
             if (index >= totalSlides) currentSlide = 0;
             
-            const scrollLeft = currentSlide * (track.clientWidth + 16);
+            // Scroll to center the slide
+            const slideWidth = track.clientWidth;
+            const scrollLeft = currentSlide * slideWidth;
             track.scrollTo({ left: scrollLeft, behavior: 'smooth' });
             
             dots.forEach((dot, i) => {

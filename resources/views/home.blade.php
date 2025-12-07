@@ -67,39 +67,44 @@
                 <h2>Technologies maîtrisées</h2>
                 <p class="lede">Langages, frameworks et outils du quotidien.</p>
             </div>
-            <div class="skills-grid">
-                @foreach ([
-                    ['HTML5', 'html5-plain.svg'],
-                    ['CSS3', 'css3-plain.svg'],
-                    ['JavaScript', 'javascript-plain.svg'],
-                    ['PHP 8', 'php-original.svg'],
-                    ['Laravel', 'laravel-original.svg'],
-                    ['MySQL', 'mysql-original.svg'],
-                    ['Docker', 'docker-plain-wordmark.svg'],
-                    ['Linux', 'linux-original.svg'],
-                    ['Git', 'git-plain.svg'],
-                    ['GitHub', 'github-original.svg'],
-                    ['Composer', 'composer-original.svg'],
-                    ['NPM', 'npm-original.svg'],
-                ] as [$label, $icon])
-                    <div class="skill-card">
-                        <img src="{{ asset('icons/' . $icon) }}" alt="{{ $label }}" loading="lazy">
-                        <p>{{ $label }}</p>
+            <div class="skills-block">
+                <div class="skills-grid">
+                    @foreach ([
+                        ['HTML5', 'html5-plain.svg'],
+                        ['CSS3', 'css3-plain.svg'],
+                        ['JavaScript', 'javascript-plain.svg'],
+                        ['PHP 8', 'php-original.svg'],
+                        ['Laravel', 'laravel-original.svg'],
+                        ['MySQL', 'mysql-original.svg'],
+                        ['Docker', 'docker-plain-wordmark.svg'],
+                        ['Linux', 'linux-original.svg'],
+                        ['Git', 'git-plain.svg'],
+                        ['GitHub', 'github-original.svg'],
+                        ['Composer', 'composer-original.svg'],
+                        ['NPM', 'npm-original.svg'],
+                        ['Python', 'python-original.svg'],
+                        ['Java', 'java-original.svg'],
+                        ['Langage C', 'c-original.svg'],
+                    ] as [$label, $icon])
+                        <div class="skill-card">
+                            <img src="{{ asset('icons/' . $icon) }}" alt="{{ $label }}" loading="lazy">
+                            <p>{{ $label }}</p>
+                        </div>
+                    @endforeach
+                </div>
+                <div class="skill-summary">
+                    <div class="summary-box">
+                        <p class="mini-label">Frontend</p>
+                        <p>HTML5, CSS3, JavaScript, Vite, animations personnalisées</p>
                     </div>
-                @endforeach
-            </div>
-            <div class="skill-summary">
-                <div class="summary-box">
-                    <p class="mini-label">Frontend</p>
-                    <p>HTML5, CSS3, JavaScript, Vite, animations personnalisées</p>
-                </div>
-                <div class="summary-box">
-                    <p class="mini-label">Backend</p>
-                    <p>Laravel 10, PHP 8, Eloquent, middlewares, Mailables</p>
-                </div>
-                <div class="summary-box">
-                    <p class="mini-label">Infrastruc.</p>
-                    <p>Docker/Sail, Linux, MySQL, CI/CD basique, Git</p>
+                    <div class="summary-box">
+                        <p class="mini-label">Backend</p>
+                        <p>Laravel 10, PHP 8, Eloquent, middlewares, Mailables</p>
+                    </div>
+                    <div class="summary-box">
+                        <p class="mini-label">Infrastruc.</p>
+                        <p>Docker/Sail, Linux, MySQL, CI/CD basique, Git</p>
+                    </div>
                 </div>
             </div>
         </div>

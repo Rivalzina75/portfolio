@@ -314,19 +314,82 @@ function animateCounter(element, target, duration = 2000) {
 // ============================================
 // Initialize All Functions
 // ============================================
+
 document.addEventListener('DOMContentLoaded', () => {
-    animateSkills();
-    addGlowEffect();
-    setActiveLink();
-
-    // Optional: Typing effect for hero title
-    // const heroTitle = document.querySelector('.hero-title');
-    // if (heroTitle) {
-    //     const originalText = heroTitle.textContent;
-    //     typeWriter(heroTitle, originalText, 100);
-    // }
+    // --- Initialisation de Swiper (Configuration optimisée) ---
+    const skillsSwiper = new Swiper('#skillsSwiper', {
+        // Mode normal sans effet spécial
+        effect: 'slide',
+        
+        grabCursor: true,
+        loop: true,
+        centeredSlides: true,
+        
+        // Espacement entre les slides
+        spaceBetween: 20,
+        
+        // Vitesse de transition
+        speed: 600,
+        
+        // Autoplay
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+            pauseOnMouseEnter: true,
+        },
+        
+        // Navigation
+        navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+        },
+        
+        // Breakpoints responsive
+        breakpoints: {
+            // Mobile (320px et +)
+            320: {
+                slidesPerView: 1,
+                spaceBetween: 15,
+            },
+            // Petite tablette (640px et +)
+            640: {
+                slidesPerView: 3,
+                spaceBetween: 20,
+            },
+            // Tablette (768px et +)
+            768: {
+                slidesPerView: 3,
+                spaceBetween: 20,
+            },
+            // Desktop (1024px et +)
+            1024: {
+                slidesPerView: 5,
+                spaceBetween: 25,
+            },
+            // Large desktop (1280px et +)
+            1280: {
+                slidesPerView: 5,
+                spaceBetween: 30,
+            }
+        }
+    });
+    
+    // Logique de pause de l'autoplay lors du clic sur les flèches
+    let autoplayPauseTimer;
+    const pauseAutoplayFor10s = () => {
+        skillsSwiper.autoplay.stop();
+        clearTimeout(autoplayPauseTimer);
+        autoplayPauseTimer = setTimeout(() => {
+            skillsSwiper.autoplay.start();
+        }, 10000); 
+    };
+    
+    if (skillsSwiper.navigation) {
+        skillsSwiper.navigation.nextEl.addEventListener('click', pauseAutoplayFor10s);
+        skillsSwiper.navigation.prevEl.addEventListener('click', pauseAutoplayFor10s);
+    }
 });
-
+         // Fin de DOMContentLoaded
 // ============================================
 // Loading Animation (Optional)
 // ============================================

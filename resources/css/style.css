@@ -337,6 +337,12 @@ body {
     color: var(--primary-color);
 }
 
+.presentation-card h4 {
+    color: var(--text-primary);
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+}
+
 .presentation-card p {
     color: var(--text-secondary);
     margin-bottom: 0.5rem;
@@ -365,98 +371,156 @@ body {
     margin-bottom: 1rem;
 }
 
-/* ============================================
-   Skills Section
-   ============================================ */
-.skills-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
+.about-details ul {
+    list-style: none;
+    padding-left: 0;
 }
 
-.skill-category {
-    background: rgba(38, 52, 71, 0.6);
-    padding: 2rem;
-    border-radius: 15px;
-    border: 1px solid rgba(79, 195, 247, 0.2);
-    backdrop-filter: blur(10px);
+.about-details li {
+    padding-left: 1.5rem;
+    position: relative;
+    margin-bottom: 0.5rem;
+    color: var(--text-secondary);
 }
 
-.category-title {
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
+.about-details li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
     color: var(--primary-color);
-    display: flex;
+}
+
+/* ============================================
+   Skills Section - CARROUSEL OPTIMISÉ
+   ============================================ */
+
+/* Container Swiper */
+#competences {
+    position: relative;
+    padding: 0 80px; /* Espace pour les flèches extérieures */
+}
+
+#competences .swiper {
+    min-height: 350px;
+    padding: 3rem 0;
+    overflow: visible;
+    position: relative;
+}
+
+.swiper-wrapper {
     align-items: center;
-    gap: 0.5rem;
 }
 
-.category-icon {
-    font-size: 1.8rem;
-}
-
-.skills-list {
+/* Style de base pour chaque slide de compétence */
+.skill-slide-item {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    padding: 2rem 1.5rem;
+    background: rgba(38, 52, 71, 0.4);
+    border-radius: 15px;
+    border: 1px solid rgba(79, 195, 247, 0.15);
+    backdrop-filter: blur(10px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    height: 200px;
+    width: 180px;
 }
 
-.skill-item {
-    position: relative;
+/* Icône de la compétence */
+.skill-slide-icon {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    opacity: 0.5;
+    filter: grayscale(50%) brightness(0.9);
 }
 
-.skill-name {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
-    color: var(--text-primary);
-    font-weight: 500;
-}
-
-.skill-bar {
-    height: 10px;
-    background: rgba(79, 195, 247, 0.1);
-    border-radius: 10px;
-    overflow: hidden;
-    position: relative;
-}
-
-.skill-progress {
-    height: 100%;
-    background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-    border-radius: 10px;
-    width: 0;
-    transition: width 1.5s ease-out;
-    position: relative;
-}
-
-.skill-progress::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    width: 50px;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3));
-    animation: shimmer 2s infinite;
-}
-
-@keyframes shimmer {
-    0% {
-        transform: translateX(-100%);
-    }
-
-    100% {
-        transform: translateX(100%);
-    }
-}
-
-.skill-percent {
-    position: absolute;
-    right: 0;
-    top: -25px;
+/* Nom de la compétence */
+.skill-slide-name {
+    color: var(--text-secondary);
     font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: center;
+    opacity: 0.7;
+}
+
+/* ============================================
+   SLIDE ACTIVE (au centre) - MISE EN VALEUR
+   ============================================ */
+
+.swiper-slide-active .skill-slide-item {
+    transform: scale(1.15);
+    background: rgba(38, 52, 71, 0.85);
+    border: 2px solid var(--primary-color);
+    box-shadow: 
+        0 15px 40px rgba(79, 195, 247, 0.3),
+        0 0 30px rgba(79, 195, 247, 0.15);
+}
+
+.swiper-slide-active .skill-slide-icon {
+    width: 90px;
+    height: 90px;
+    opacity: 1;
+    filter: grayscale(0%) brightness(1.1) drop-shadow(0 0 15px rgba(79, 195, 247, 0.5));
+}
+
+.swiper-slide-active .skill-slide-name {
     color: var(--primary-color);
-    font-weight: 600;
+    font-weight: 700;
+    font-size: 1rem;
+    opacity: 1;
+}
+
+/* ============================================
+   Boutons de navigation - EXTÉRIEURS
+   ============================================ */
+
+#competences .swiper-button-prev,
+#competences .swiper-button-next {
+    color: var(--primary-color);
+    width: 50px;
+    height: 50px;
+    background: rgba(38, 52, 71, 0.9);
+    border-radius: 50%;
+    border: 2px solid var(--primary-color);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#competences .swiper-button-prev::after,
+#competences .swiper-button-next::after {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+#competences .swiper-button-prev:hover,
+#competences .swiper-button-next:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 8px 25px rgba(79, 195, 247, 0.6);
+}
+
+/* Positionnement à l'extérieur */
+#competences .swiper-button-prev {
+    left: -60px;
+}
+
+#competences .swiper-button-next {
+    right: -60px;
+}
+
+/* Désactiver l'état disabled visuellement */
+#competences .swiper-button-prev.swiper-button-disabled,
+#competences .swiper-button-next.swiper-button-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 /* ============================================
@@ -475,6 +539,8 @@ body {
     border: 1px solid rgba(79, 195, 247, 0.2);
     transition: var(--transition);
     backdrop-filter: blur(10px);
+    text-decoration: none;
+    display: block;
 }
 
 .project-card:hover {
@@ -945,6 +1011,20 @@ body {
 /* ============================================
    Responsive Design
    ============================================ */
+@media (max-width: 1024px) {
+    #competences {
+        padding: 0 60px;
+    }
+    
+    #competences .swiper-button-prev {
+        left: -50px;
+    }
+    
+    #competences .swiper-button-next {
+        right: -50px;
+    }
+}
+
 @media (max-width: 968px) {
     .hero-content {
         grid-template-columns: 1fr;
@@ -991,6 +1071,35 @@ body {
     }
 }
 
+@media (max-width: 768px) {
+    #competences {
+        padding: 0 50px;
+    }
+    
+    #competences .swiper {
+        min-height: 300px;
+    }
+    
+    .skill-slide-item {
+        height: 180px;
+        padding: 1.5rem 1rem;
+    }
+    
+    #competences .swiper-button-prev,
+    #competences .swiper-button-next {
+        width: 45px;
+        height: 45px;
+    }
+    
+    #competences .swiper-button-prev {
+        left: -40px;
+    }
+    
+    #competences .swiper-button-next {
+        right: -40px;
+    }
+}
+
 @media (max-width: 640px) {
     .hero-title {
         font-size: 2.5rem;
@@ -1024,5 +1133,17 @@ body {
     .modal-content {
         padding: 2rem;
         margin: 10% auto;
+    }
+
+    #competences {
+        padding: 0 40px;
+    }
+    
+    #competences .swiper-button-prev {
+        left: -35px;
+    }
+    
+    #competences .swiper-button-next {
+        right: -35px;
     }
 }

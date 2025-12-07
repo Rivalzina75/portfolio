@@ -78,138 +78,82 @@
 
     <!-- Section Compétences -->
     <section id="competences" class="section bg-dark">
-        <div class="container">
-            <h2 class="section-title">Compétences Techniques</h2>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3 class="category-title">
-                        <span class="category-icon">🌐</span>
-                        Développement Web
-                    </h3>
-                    <div class="skills-list">
-                        <div class="skill-item">
-                            <div class="skill-name">HTML / CSS</div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="90"></div>
-                            </div>
-                            <span class="skill-percent">90%</span>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">JavaScript</div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="80"></div>
-                            </div>
-                            <span class="skill-percent">80%</span>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">PHP</div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="85"></div>
-                            </div>
-                            <span class="skill-percent">85%</span>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">Laravel</div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="75"></div>
-                            </div>
-                            <span class="skill-percent">75%</span>
-                        </div>
-                    </div>
-                </div>
+    <div class="container">
+        <h2 class="section-title">Mes Technologies & Outils</h2>
+        
+        <div class="swiper" id="skillsSwiper">
+            <div class="swiper-wrapper">
 
-                <div class="skill-category">
-                    <h3 class="category-title">
-                        <span class="category-icon">🗄️</span>
-                        Bases de Données
-                    </h3>
-                    <div class="skills-list">
-                        <div class="skill-item">
-                            <div class="skill-name">MySQL</div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="85"></div>
-                            </div>
-                            <span class="skill-percent">85%</span>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">PostgreSQL</div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="70"></div>
-                            </div>
-                            <span class="skill-percent">70%</span>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">MongoDB</div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="65"></div>
-                            </div>
-                            <span class="skill-percent">65%</span>
-                        </div>
-                    </div>
+                <div class="swiper-slide skill-slide-item">
+                    <img src="{{ asset('icons/html5-plain.svg') }}" alt="HTML5" class="skill-slide-icon">
+                    <p class="skill-slide-name">HTML5</p>
                 </div>
-
-                <div class="skill-category">
-                    <h3 class="category-title">
-                        <span class="category-icon">🛠️</span>
-                        Outils & Frameworks
-                    </h3>
-                    <div class="skills-list">
-                        <div class="skill-item">
-                            <div class="skill-name">Git / GitHub</div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="80"></div>
-                            </div>
-                            <span class="skill-percent">80%</span>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">Bootstrap</div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="85"></div>
-                            </div>
-                            <span class="skill-percent">85%</span>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">API REST</div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="75"></div>
-                            </div>
-                            <span class="skill-percent">75%</span>
-                        </div>
-                    </div>
+                <div class="swiper-slide skill-slide-item">
+                    <img src="{{ asset('icons/css3-plain.svg') }}" alt="CSS3" class="skill-slide-icon">
+                    <p class="skill-slide-name">CSS3</p>
                 </div>
-
-                <div class="skill-category">
-                    <h3 class="category-title">
-                        <span class="category-icon">💻</span>
-                        Autres Compétences
-                    </h3>
-                    <div class="skills-list">
-                        <div class="skill-item">
-                            <div class="skill-name">Python</div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="70"></div>
-                            </div>
-                            <span class="skill-percent">70%</span>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">Java</div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="65"></div>
-                            </div>
-                            <span class="skill-percent">65%</span>
-                        </div>
-                        <div class="skill-item">
-                            <div class="skill-name">Linux</div>
-                            <div class="skill-bar">
-                                <div class="skill-progress" data-progress="75"></div>
-                            </div>
-                            <span class="skill-percent">75%</span>
-                        </div>
-                    </div>
+                <div class="swiper-slide skill-slide-item">
+                    <img src="{{ asset('icons/javascript-plain.svg') }}" alt="JavaScript" class="skill-slide-icon">
+                    <p class="skill-slide-name">JavaScript</p>
                 </div>
-            </div>
+                <div class="swiper-slide skill-slide-item">
+                    <img src="{{ asset('icons/php-original.svg') }}" alt="PHP" class="skill-slide-icon">
+                    <p class="skill-slide-name">PHP</p>
+                </div>
+                <div class="swiper-slide skill-slide-item">
+                    <img src="{{ asset('icons/laravel-original.svg') }}" alt="Laravel" class="skill-slide-icon">
+                    <p class="skill-slide-name">Laravel</p>
+                </div>
+                <div class="swiper-slide skill-slide-item">
+                    <img src="{{ asset('icons/mysql-original.svg') }}" alt="MySQL" class="skill-slide-icon">
+                    <p class="skill-slide-name">MySQL</p>
+                </div>
+                <div class="swiper-slide skill-slide-item">
+                    <img src="{{ asset('icons/python-original.svg') }}" alt="Python" class="skill-slide-icon">
+                    <p class="skill-slide-name">Python</p>
+                </div>
+                <div class="swiper-slide skill-slide-item">
+                    <img src="{{ asset('icons/java-original.svg') }}" alt="Java" class="skill-slide-icon">
+                    <p class="skill-slide-name">Java</p>
+                </div>
+                <div class="swiper-slide skill-slide-item">
+                    <img src="{{ asset('icons/git-plain.svg') }}" alt="Git" class="skill-slide-icon">
+                    <p class="skill-slide-name">Git</p>
+                </div>
+                <div class="swiper-slide skill-slide-item">
+                    <img src="{{ asset('icons/github-original.svg') }}" alt="GitHub" class="skill-slide-icon">
+                    <p class="skill-slide-name">GitHub</p>
+                </div>
+                <div class="swiper-slide skill-slide-item">
+                    <img src="{{ asset('icons/docker-plain-wordmark.svg') }}" alt="Docker" class="skill-slide-icon">
+                    <p class="skill-slide-name">Docker</p>
+                </div>
+                <div class="swiper-slide skill-slide-item">
+                    <img src="{{ asset('icons/linux-original.svg') }}" alt="Linux" class="skill-slide-icon">
+                    <p class="skill-slide-name">Linux</p>
+                </div>
+                <div class="swiper-slide skill-slide-item">
+                    <img src="{{ asset('icons/vscode-original.svg') }}" alt="VS Code" class="skill-slide-icon">
+                    <p class="skill-slide-name">VS Code</p>
+                </div>
+                <div class="swiper-slide skill-slide-item">
+                    <img src="{{ asset('icons/composer-original.svg') }}" alt="Composer" class="skill-slide-icon">
+                    <p class="skill-slide-name">Composer</p>
+                </div>
+                <div class="swiper-slide skill-slide-item">
+                    <img src="{{ asset('icons/npm-original.svg') }}" alt="NPM" class="skill-slide-icon">
+                    <p class="skill-slide-name">NPM</p>
+                </div>
+                 <div class="swiper-slide skill-slide-item">
+                    <img src="{{ asset('icons/c-original.svg') }}" alt="Langage C" class="skill-slide-icon">
+                    <p class="skill-slide-name">Langage C</p>
+                </div>
+                </div> <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
         </div>
-    </section>
+
+    </div>
+</section>
 
     <!-- Section Projets -->
     <section id="projets" class="section">

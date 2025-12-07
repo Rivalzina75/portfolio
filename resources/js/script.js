@@ -136,10 +136,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const updateSlide = (index) => {
             if (index < 0) currentSlide = totalSlides - 1;
             if (index >= totalSlides) currentSlide = 0;
-            
-            // Scroll to center the slide
-            const slideWidth = track.clientWidth;
-            const scrollLeft = currentSlide * slideWidth;
+            const slide = slides[currentSlide];
+            const slideOffset = slide.offsetLeft;
+            const centerOffset = (track.clientWidth - slide.clientWidth) / 2;
+            const scrollLeft = slideOffset - Math.max(centerOffset, 0);
             track.scrollTo({ left: scrollLeft, behavior: 'smooth' });
             
             dots.forEach((dot, i) => {

@@ -490,7 +490,7 @@ body {
 .carousel-track {
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: minmax(100%, 100%);
+    grid-auto-columns: 100%;
     overflow-x: scroll;
     scroll-snap-type: x mandatory;
     gap: 0;
@@ -524,7 +524,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0 16px;
+    padding: 0;
 }
 
 .project-card-full {
@@ -537,10 +537,11 @@ body {
     box-shadow: 0 12px 40px rgba(0, 217, 255, 0.15);
     transition: var(--transition);
     width: 100%;
-    max-width: 520px;
+    max-width: 560px;
     height: auto;
     min-height: 540px;
     grid-template-rows: auto auto 1fr auto;
+    margin: 0 auto;
 }
 
 .project-card-full:hover {

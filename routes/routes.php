@@ -2,7 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController; // 🚀 CHANGEMENT ICI
-
+use App\Http\Controllers\PortfolioController; // 🚀 AJOUT ICI
+use App\Http\Controllers\ProjectController; // 🚀 AJOUT ICI?
 /*
 |--------------------------------------------------------------------------
 | Routes Web du Portfolio
@@ -40,5 +41,39 @@ Route::get('/veille', function () {
 // --- 4. ROUTE POUR LES DÉTAILS DES AUTRES PROJETS ---
 // Gérée par HomeController (ex: /projets/1)
 Route::get('/projets/{id}', [HomeController::class, 'showProject'])
-    ->where('id', '[0-9]+') 
+    ->where('id', '[0-9]+')
     ->name('portfolio.project.show');
+
+/*
+|--------------------------------------------------------------------------
+| Portfolio Routes
+|--------------------------------------------------------------------------
+|
+| Routes pour le portfolio BTS SIO de Mekaoui Reda
+|
+*/
+
+// Page d'accueil du portfolio
+Route::get('/', [PortfolioController::class, 'home'])->name('portfolio.home');
+
+// Formulaire de contact
+Route::post('/contact', [PortfolioController::class, 'submitContact'])->name('portfolio.contact.submit');
+
+// Pages de projets individuelles
+Route::prefix('projets')->group(function () {
+    Route::get('/{slug}', [PortfolioController::class, 'showProject'])->name('projects.show');
+});
+
+// Routes téléchargement du Tableau de synthèse dans public/files
+Route::get('/files/tableau-synthese', function () {
+    return response()->download(public_path('files/TableauSynsthèseBtsSioMekaouiReda.pdf'), 'Tableau_Synthese_BTS_SIO_Mekaoui_Reda.pdf');
+})->name('portfolio.tableau_synthese');
+
+// Pareil pour le CV dans public/files
+Route::get('/files/cv', function () {
+    return response()->download(public_path('files/CV-Mekaoui-Reda.pdf'), 'CV_Mekaoui_Reda.pdf');
+})->name('portfolio.cv');
+
+
+// Page de veille technologique détaillée (optionnel)
+Route::get('/veille', [PortfolioController::class, 'veille'])->name('portfolio.veille');

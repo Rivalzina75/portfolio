@@ -127,44 +127,122 @@ document.addEventListener('DOMContentLoaded', () => {
     const prevBtn = document.querySelector('.carousel-prev');
     const nextBtn = document.querySelector('.carousel-next');
     const dots = document.querySelectorAll('.dot');
-    let currentSlide = 0;
-
     if (track && prevBtn && nextBtn && dots.length > 0) {
-        const slides = document.querySelectorAll('.carousel-slide');
-        const totalSlides = slides.length;
+        const originals = Array.from(track.querySelectorAll('.carousel-slide'));
+        const firstClone = originals[0].cloneNode(true);
+        const lastClone = originals[originals.length - 1].cloneNode(true);
+        track.insertBefore(lastClone, track.firstChild);
+        track.appendChild(firstClone);
 
-        const updateSlide = (index) => {
-            if (index < 0) currentSlide = totalSlides - 1;
-            if (index >= totalSlides) currentSlide = 0;
-            const slide = slides[currentSlide];
-            const slideOffset = slide.offsetLeft;
-            const centerOffset = (track.clientWidth - slide.clientWidth) / 2;
-            const scrollLeft = slideOffset - Math.max(centerOffset, 0);
-            track.scrollTo({ left: scrollLeft, behavior: 'smooth' });
-            
-            dots.forEach((dot, i) => {
-                dot.classList.toggle('active', i === currentSlide);
-            });
+        const slides = Array.from(track.querySelectorAll('.carousel-slide'));
+        const logicalCount = originals.length;
+        let index = 1; // start on first real slide
+        let isDragging = false;
+        let startX = 0;
+        let currentTranslate = 0;
+        let prevTranslate = 0;
+        let slideWidth = 0;
+
+        const setTransition = (enabled) => {
+            track.style.transition = enabled ? 'transform 0.45s ease' : 'none';
         };
 
-        prevBtn.addEventListener('click', () => {
-            currentSlide--;
-            updateSlide(currentSlide);
+        const translate = () => {
+            track.style.transform = `translateX(${currentTranslate}px)`;
+        };
+
+        const updateDots = () => {
+            const logicalIndex = (index - 1 + logicalCount) % logicalCount;
+            dots.forEach((dot, i) => dot.classList.toggle('active', i === logicalIndex));
+        };
+
+        const goTo = (nextIndex) => {
+            index = nextIndex;
+            setTransition(true);
+            currentTranslate = -index * slideWidth;
+            translate();
+            updateDots();
+        };
+
+        prevBtn.addEventListener('click', () => goTo(index - 1));
+        nextBtn.addEventListener('click', () => goTo(index + 1));
+
+        dots.forEach((dot, i) => {
+            dot.addEventListener('click', () => goTo(i + 1)); // dots map to real slides
         });
 
-        nextBtn.addEventListener('click', () => {
-            currentSlide++;
-            updateSlide(currentSlide);
+        const pointerDown = (e) => {
+            isDragging = true;
+            setTransition(false);
+            startX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+            prevTranslate = currentTranslate;
+        };
+
+        const pointerMove = (e) => {
+            if (!isDragging) return;
+            const x = e.clientX || (e.touches && e.touches[0].clientX) || 0;
+            const delta = x - startX;
+            currentTranslate = prevTranslate + delta;
+            translate();
+        };
+
+        const pointerUp = () => {
+            if (!isDragging) return;
+            isDragging = false;
+            const moved = currentTranslate + index * slideWidth; // negative if swiped left
+            const threshold = slideWidth * 0.12;
+            if (moved < -threshold) {
+                goTo(index + 1);
+            } else if (moved > threshold) {
+                goTo(index - 1);
+            } else {
+                goTo(index);
+            }
+        };
+
+        track.addEventListener('mousedown', pointerDown);
+        track.addEventListener('touchstart', pointerDown, { passive: true });
+        window.addEventListener('mousemove', pointerMove);
+        window.addEventListener('touchmove', pointerMove, { passive: true });
+        window.addEventListener('mouseup', pointerUp);
+        window.addEventListener('touchend', pointerUp);
+
+        const measure = () => slides[0]?.getBoundingClientRect().width || track.clientWidth || 1;
+
+        const handleResize = () => {
+            const prevWidth = slideWidth || measure();
+            slideWidth = measure();
+            const ratio = slideWidth / (prevWidth || slideWidth);
+            currentTranslate *= ratio;
+            prevTranslate = currentTranslate;
+            setTransition(false);
+            translate();
+            requestAnimationFrame(() => setTransition(true));
+        };
+        window.addEventListener('resize', handleResize);
+
+        track.addEventListener('transitionend', () => {
+            if (index === 0) {
+                index = logicalCount;
+                setTransition(false);
+                currentTranslate = -index * slideWidth;
+                translate();
+            } else if (index === slides.length - 1) {
+                index = 1;
+                setTransition(false);
+                currentTranslate = -index * slideWidth;
+                translate();
+            }
+            requestAnimationFrame(() => setTransition(true));
         });
 
-        dots.forEach((dot, index) => {
-            dot.addEventListener('click', () => {
-                currentSlide = index;
-                updateSlide(currentSlide);
-            });
-        });
-
-        updateSlide(0);
+        // Init position without animation
+        setTransition(false);
+        slideWidth = measure();
+        currentTranslate = -index * slideWidth;
+        translate();
+        updateDots();
+        requestAnimationFrame(() => setTransition(true));
     }
 
     // ========== Contact Form AJAX ==========

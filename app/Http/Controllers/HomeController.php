@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
-use App\Mail\ContactMail; // Assurez-vous que ce fichier Mailable existe
+use Illuminate\Support\Facades\Log;
+use App\Mail\ContactMail;
 
 /**
  * Contrôleur principal du Portfolio BTS SIO
@@ -75,9 +76,8 @@ class HomeController extends Controller
                 'success' => true,
                 'message' => 'Votre message a été envoyé avec succès !'
             ], 200);
-
         } catch (\Exception $e) {
-            \Log::error('Erreur lors de l\'envoi du message de contact : ' . $e->getMessage());
+            Log::error('Erreur lors de l\'envoi du message de contact : ' . $e->getMessage());
             return response()->json([
                 'success' => false,
                 'message' => 'Une erreur est survenue lors de l\'envoi du message. Veuillez réessayer.'
@@ -98,7 +98,7 @@ class HomeController extends Controller
         if (!isset($projects[$id])) {
             abort(404);
         }
-        
+
         // CORRECTION : Pointez vers une vue de détails générique
         // (Vous devrez créer 'resources/views/Projects/details.blade.php')
         return view('Projects.details', [
@@ -108,8 +108,16 @@ class HomeController extends Controller
 
     // ... (Les méthodes getProjects() et getSkills() restent identiques à votre fichier) ...
 
-    private function getProjects() { /* ... */ }
-    private function getSkills() { /* ... */ }
-    public function apiProjects() { /* ... */ }
-    public function apiSkills() { /* ... */ }
+    private function getProjects()
+    { /* ... */
+    }
+    private function getSkills()
+    { /* ... */
+    }
+    public function apiProjects()
+    { /* ... */
+    }
+    public function apiSkills()
+    { /* ... */
+    }
 }

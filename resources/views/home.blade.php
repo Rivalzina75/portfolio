@@ -147,6 +147,8 @@
                             ['Git', 'git-plain.svg'],
                             ['GitHub', 'github-original.svg'],
                             ['Vite', 'vitejs-original.svg'],
+                            ['Composer', 'composer-original.svg'],
+                            ['NPM', 'npm-original.svg'],
                         ] as [$label, $icon])
                             <div class="skill-item">
                                 <img src="{{ asset('icons/' . $icon) }}"
@@ -168,8 +170,6 @@
                             ['MySQL', 'mysql-original.svg'],
                             ['VS Code', 'vscode-original.svg'],
                             ['IntelliJ IDEA', 'intellij-original.svg'],
-                            ['Composer', 'composer-original.svg'],
-                            ['NPM', 'npm-original.svg'],
                         ] as [$label, $icon])
                             <div class="skill-item">
                                 <img src="{{ asset('icons/' . $icon) }}"

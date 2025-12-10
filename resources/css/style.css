@@ -595,7 +595,7 @@ body {
 .skills-list {
     display: flex;
     flex-direction: column;
-    gap: 14px;
+    gap: 9px;
 }
 
 .skill-item {

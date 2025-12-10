@@ -8,7 +8,11 @@
     <section id="accueil" class="section hero">
         <div class="container hero-simple">
             <p class="eyebrow">BTS SIO SLAM • 2024-2026</p>
-            <h1>Mekaoui Reda</h1>
+            <svg class="hero-title" viewBox="0 0 800 100" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
+                <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+                    <text class="line" x="50%" y="75" text-anchor="middle" font-size="70" font-weight="bold" font-family="'Poppins', sans-serif">Reda Mekaoui</text>
+                </g>
+            </svg>
             <p class="hero-subtitle">Développeur full-stack en devenir</p>
             <p class="lede">
                 Je conçois des applications web modernes avec Laravel et JavaScript,

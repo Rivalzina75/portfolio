@@ -17,6 +17,7 @@
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap" rel="stylesheet">
 
     <!-- Styles -->
     @vite(['resources/css/style.css', 'resources/js/script.js'])
@@ -30,10 +31,6 @@
     <!-- Header Navigation -->
     <header class="site-header">
         <div class="nav-shell container">
-            <a href="{{ route('portfolio.home') }}" class="brand" aria-label="Retour à l'accueil">
-                MR<span>_</span>
-            </a>
-
             <button class="nav-toggle" id="navToggle" aria-label="Ouvrir le menu" aria-expanded="false">
                 <span></span>
                 <span></span>
@@ -81,5 +78,8 @@
     </footer>
 
     @stack('scripts')
+
+    <!-- Scroll to Top Button -->
+    <button id="scrollToTop" class="scroll-to-top" aria-label="Remonter en haut" title="Remonter en haut"></button>
 </body>
 </html>

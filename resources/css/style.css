@@ -81,7 +81,7 @@ body {
 .nav-shell {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding: 16px 0;
     gap: 24px;
     height: 60px;
@@ -248,12 +248,29 @@ body {
     font-size: clamp(2.5rem, 5vw, 4.2rem);
     line-height: 1.1;
     letter-spacing: -1.5px;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+    font-weight: 700;
+    background: linear-gradient(135deg, #00d9ff, #7cffe3);
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: glow 3s ease-in-out infinite;
-    margin-bottom: 8px;
+    margin: 24px 0 12px;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.hero-title {
+    max-width: 100%;
+    margin: 8px auto 8px;
+    height: auto;
+    color: #00d9ff;
+    animation: fadeInUp 0.8s ease-out;
+    font-family: 'Poppins', sans-serif;
+}
+
+.hero-title .line {
+    stroke: currentColor;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }
 
 @keyframes glow {
@@ -1083,4 +1100,45 @@ body {
 
 .foot-downloads a:hover {
     color: var(--primary);
+}
+
+/* ========== Scroll to Top Button ========== */
+.scroll-to-top {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    width: 50px;
+    height: 50px;
+    border: 2px solid var(--primary);
+    border-radius: 50%;
+    background: transparent;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease-out;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scroll-to-top::before {
+    content: '↑';
+    color: var(--primary);
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.scroll-to-top:hover {
+    background: var(--primary);
+    box-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+}
+
+.scroll-to-top:hover::before {
+    color: var(--bg-dark);
+}
+
+.scroll-to-top.visible {
+    opacity: 1;
+    visibility: visible;
 }

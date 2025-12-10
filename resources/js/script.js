@@ -1,4 +1,26 @@
 import './bootstrap';
+import anime from 'animejs';
+
+// ========== Hero Title Animation ==========
+const heroSvg = document.querySelector('.hero-title');
+if (heroSvg) {
+    const textElement = heroSvg.querySelector('.line');
+    if (textElement && textElement.tagName === 'text') {
+        // Animation for text element
+        const length = textElement.getComputedTextLength();
+        textElement.style.strokeDasharray = length;
+        textElement.style.strokeDashoffset = length;
+
+        anime({
+            targets: textElement,
+            strokeDashoffset: [length, 0],
+            duration: 2500,
+            easing: 'easeInOutQuad',
+            loop: true,
+            direction: 'alternate'
+        });
+    }
+}
 
 // ========== Particles ==========
 const canvas = document.getElementById('particles');
@@ -174,3 +196,23 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+// ========== Scroll to Top Button ==========
+const scrollToTopBtn = document.getElementById('scrollToTop');
+
+if (scrollToTopBtn) {
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            scrollToTopBtn.classList.add('visible');
+        } else {
+            scrollToTopBtn.classList.remove('visible');
+        }
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}

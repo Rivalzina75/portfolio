@@ -62,9 +62,8 @@
         <div class="container footer-grid">
             <div>
                 <p class="foot-brand">Mekaoui Reda — BTS SIO SLAM</p>
-                <p class="foot-note">Portfolio professionnel • Promotion 2025</p>
-                <p class="foot-note" style="margin-top: 8px; font-size: 0.75rem; opacity: 0.7;">
-                    Développé avec Laravel 10, Vite & Blade
+                <p style="font-size: 0.75rem; opacity: 0.7;">
+                    copyright © {{ date('Y') }} Mekaoui Reda. Tous droits réservés.
                 </p>
             </div>
             <div class="foot-downloads">
@@ -73,7 +72,7 @@
                 <a href="{{ route('portfolio.tableau_synthese') }}" download aria-label="Télécharger le tableau de synthèse">📊 Tableau synthèse</a>
             </div>
             <div class="foot-links">
-                <a href="mailto:reda.mekaoui.pro@gmail.com" aria-label="Envoyer un email">Email</a>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">Informations</p>
                 <a href="https://github.com/Rivalzina75" target="_blank" rel="noopener noreferrer" aria-label="Voir mon GitHub">GitHub</a>
                 <a href="https://linkedin.com/in/reda-mekaoui" target="_blank" rel="noopener noreferrer" aria-label="Voir mon LinkedIn">LinkedIn</a>
                 <a href="{{ route('portfolio.home') }}#contact">Contact</a>

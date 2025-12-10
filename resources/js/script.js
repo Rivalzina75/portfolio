@@ -122,129 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // ========== Carousel Projects ==========
-    const track = document.getElementById('carouselTrack');
-    const prevBtn = document.querySelector('.carousel-prev');
-    const nextBtn = document.querySelector('.carousel-next');
-    const dots = document.querySelectorAll('.dot');
-    if (track && prevBtn && nextBtn && dots.length > 0) {
-        const originals = Array.from(track.querySelectorAll('.carousel-slide'));
-        const firstClone = originals[0].cloneNode(true);
-        const lastClone = originals[originals.length - 1].cloneNode(true);
-        track.insertBefore(lastClone, track.firstChild);
-        track.appendChild(firstClone);
-
-        const slides = Array.from(track.querySelectorAll('.carousel-slide'));
-        const logicalCount = originals.length;
-        let index = 1; // start on first real slide
-        let isDragging = false;
-        let startX = 0;
-        let currentTranslate = 0;
-        let prevTranslate = 0;
-        let slideWidth = 0;
-
-        const setTransition = (enabled) => {
-            track.style.transition = enabled ? 'transform 0.45s ease' : 'none';
-        };
-
-        const translate = () => {
-            track.style.transform = `translateX(${currentTranslate}px)`;
-        };
-
-        const updateDots = () => {
-            const logicalIndex = (index - 1 + logicalCount) % logicalCount;
-            dots.forEach((dot, i) => dot.classList.toggle('active', i === logicalIndex));
-        };
-
-        const goTo = (nextIndex) => {
-            index = nextIndex;
-            setTransition(true);
-            currentTranslate = -index * slideWidth;
-            translate();
-            updateDots();
-        };
-
-        prevBtn.addEventListener('click', () => goTo(index - 1));
-        nextBtn.addEventListener('click', () => goTo(index + 1));
-
-        dots.forEach((dot, i) => {
-            dot.addEventListener('click', () => goTo(i + 1)); // dots map to real slides
-        });
-
-        const pointerDown = (e) => {
-            isDragging = true;
-            setTransition(false);
-            startX = e.clientX || (e.touches && e.touches[0].clientX) || 0;
-            prevTranslate = currentTranslate;
-        };
-
-        const pointerMove = (e) => {
-            if (!isDragging) return;
-            const x = e.clientX || (e.touches && e.touches[0].clientX) || 0;
-            const delta = x - startX;
-            currentTranslate = prevTranslate + delta;
-            translate();
-        };
-
-        const pointerUp = () => {
-            if (!isDragging) return;
-            isDragging = false;
-            const moved = currentTranslate + index * slideWidth; // negative if swiped left
-            const threshold = slideWidth * 0.12;
-            if (moved < -threshold) {
-                goTo(index + 1);
-            } else if (moved > threshold) {
-                goTo(index - 1);
-            } else {
-                goTo(index);
-            }
-        };
-
-        track.addEventListener('mousedown', pointerDown);
-        track.addEventListener('touchstart', pointerDown, { passive: true });
-        window.addEventListener('mousemove', pointerMove);
-        window.addEventListener('touchmove', pointerMove, { passive: true });
-        window.addEventListener('mouseup', pointerUp);
-        window.addEventListener('touchend', pointerUp);
-
-        const measure = () => slides[0]?.getBoundingClientRect().width || track.clientWidth || 1;
-
-        const handleResize = () => {
-            const prevWidth = slideWidth || measure();
-            slideWidth = measure();
-            const ratio = slideWidth / (prevWidth || slideWidth);
-            currentTranslate *= ratio;
-            prevTranslate = currentTranslate;
-            setTransition(false);
-            translate();
-            requestAnimationFrame(() => setTransition(true));
-        };
-        window.addEventListener('resize', handleResize);
-
-        track.addEventListener('transitionend', () => {
-            if (index === 0) {
-                index = logicalCount;
-                setTransition(false);
-                currentTranslate = -index * slideWidth;
-                translate();
-            } else if (index === slides.length - 1) {
-                index = 1;
-                setTransition(false);
-                currentTranslate = -index * slideWidth;
-                translate();
-            }
-            requestAnimationFrame(() => setTransition(true));
-        });
-
-        // Init position without animation
-        setTransition(false);
-        slideWidth = measure();
-        currentTranslate = -index * slideWidth;
-        translate();
-        updateDots();
-        requestAnimationFrame(() => setTransition(true));
-    }
-
     // ========== Contact Form AJAX ==========
     const contactForm = document.getElementById('contactForm');
     const status = document.getElementById('formStatus');
@@ -264,17 +141,30 @@ document.addEventListener('DOMContentLoaded', () => {
                     body: new FormData(contactForm),
                     headers: { 'X-Requested-With': 'XMLHttpRequest' }
                 });
-                const data = await response.json();
-                if (data.success) {
+
+                const data = await response.json().catch(() => ({}));
+
+                if (response.ok && data.success) {
                     contactForm.reset();
                     status.textContent = 'Message envoyé ✓ Je reviens vers vous rapidement.';
                     status.style.color = '#7cffe3';
-                } else {
-                    status.textContent = data.message || 'Une erreur est survenue. Merci de réessayer.';
+                    return;
                 }
+
+                // Gestion des erreurs de validation (422)
+                if (response.status === 422 && data.errors) {
+                    const firstError = Object.values(data.errors)[0]?.[0] || 'Validation échouée.';
+                    status.textContent = firstError;
+                    status.style.color = '#ff8686';
+                    return;
+                }
+
+                status.textContent = data.message || 'Une erreur est survenue. Merci de réessayer.';
+                status.style.color = '#ff8686';
             } catch (err) {
                 console.error(err);
                 status.textContent = 'Impossible d\'envoyer le message pour le moment.';
+                status.style.color = '#ff8686';
             } finally {
                 if (submitBtn) {
                     submitBtn.disabled = false;

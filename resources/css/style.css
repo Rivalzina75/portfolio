@@ -46,18 +46,6 @@ body {
     pointer-events: none;
 }
 
-/* ========== SCROLL PROGRESS BAR ========== */
-.scroll-progress {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 3px;
-    background: linear-gradient(90deg, var(--primary), var(--accent));
-    z-index: 100;
-    width: 0%;
-    transition: width 0.1s linear;
-}
-
 /* ========== HEADER ========== */
 .site-header {
     position: fixed;
@@ -638,46 +626,6 @@ body {
     margin: 0;
 }
 
-/* ========== STATS (Nouveau pour BTS SIO) ========== */
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 24px;
-    margin: 48px 0;
-}
-
-.stat-card {
-    text-align: center;
-    padding: 36px 24px;
-    background: linear-gradient(135deg, rgba(0, 217, 255, 0.09), rgba(0, 255, 204, 0.05));
-    border: 1px solid var(--stroke);
-    border-radius: 16px;
-    transition: var(--transition);
-}
-
-.stat-card:hover {
-    border-color: rgba(0, 217, 255, 0.35);
-    transform: translateY(-8px);
-    box-shadow: 0 14px 48px rgba(0, 217, 255, 0.2);
-}
-
-.stat-number {
-    font-size: 3.5rem;
-    font-weight: 700;
-    background: linear-gradient(135deg, var(--primary), var(--accent));
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    line-height: 1;
-    margin-bottom: 12px;
-}
-
-.stat-label {
-    color: var(--text-secondary);
-    font-size: 1rem;
-    font-weight: 500;
-}
-
 /* ========== TIMELINE (Parcours BTS) ========== */
 .timeline {
     max-width: 850px;
@@ -1096,9 +1044,8 @@ body {
 
 .foot-links {
     display: flex;
-    gap: 24px;
-    justify-content: flex-end;
-    align-items: center;
+    flex-direction: column;
+    gap: 12px;
 }
 
 @media (max-width: 768px) {

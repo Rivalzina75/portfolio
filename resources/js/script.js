@@ -1,5 +1,43 @@
 import './bootstrap';
 import anime from 'animejs';
+import Swiper from 'swiper';
+import { Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
+// ========== Projects Carousel ==========
+document.addEventListener('DOMContentLoaded', () => {
+    const swiperEl = document.querySelector('.projects-swiper');
+    if (swiperEl) {
+        new Swiper('.projects-swiper', {
+            modules: [Navigation, Pagination],
+            slidesPerView: 1,
+            spaceBetween: 30,
+            centeredSlides: true,
+            loop: true,
+            grabCursor: true,
+            navigation: {
+                nextEl: '.carousel-next',
+                prevEl: '.carousel-prev',
+            },
+            pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 1,
+                    spaceBetween: 40,
+                },
+                1200: {
+                    slidesPerView: 1,
+                    spaceBetween: 60,
+                },
+            },
+        });
+    }
+});
 
 // ========== Hero Title Animation ==========
 const heroSvg = document.querySelector('.hero-title');

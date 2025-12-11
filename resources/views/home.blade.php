@@ -193,6 +193,106 @@
                 <p class="eyebrow">Réalisations</p>
                 <h2>Projets & études de cas</h2>
             </div>
+
+            <div class="projects-carousel">
+                <button class="carousel-nav carousel-prev" aria-label="Précédent">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                </button>
+
+                <div class="swiper projects-swiper">
+                    <div class="swiper-wrapper">
+                        <!-- Projet 1 -->
+                        <div class="swiper-slide">
+                            <div class="project-card">
+                                <div class="project-preview">
+                                    <div class="project-mockup">
+                                        <div class="mockup-header">
+                                            <span class="mockup-dot"></span>
+                                            <span class="mockup-dot"></span>
+                                            <span class="mockup-dot"></span>
+                                        </div>
+                                        <div class="mockup-content">
+                                            <img src="{{ asset('images/project-1.png') }}" alt="Portfolio Personnel">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="project-info">
+                                    <h3>Portfolio Personnel</h3>
+                                    <p>Site web personnel développé avec Laravel et Vite. Design moderne avec animations SVG et particules interactives.</p>
+                                    <div class="project-tags">
+                                        <span class="tag">Laravel</span>
+                                        <span class="tag">JavaScript</span>
+                                        <span class="tag">CSS3</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Projet 2 -->
+                        <div class="swiper-slide">
+                            <div class="project-card">
+                                <div class="project-preview">
+                                    <div class="project-mockup">
+                                        <div class="mockup-header">
+                                            <span class="mockup-dot"></span>
+                                            <span class="mockup-dot"></span>
+                                            <span class="mockup-dot"></span>
+                                        </div>
+                                        <div class="mockup-content">
+                                            <img src="{{ asset('images/project-2.png') }}" alt="Application de Gestion">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="project-info">
+                                    <h3>Application de Gestion</h3>
+                                    <p>Application web de gestion avec système d'authentification, tableaux de bord et génération de rapports.</p>
+                                    <div class="project-tags">
+                                        <span class="tag">PHP</span>
+                                        <span class="tag">MySQL</span>
+                                        <span class="tag">Docker</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Projet 3 -->
+                        <div class="swiper-slide">
+                            <div class="project-card">
+                                <div class="project-preview">
+                                    <div class="project-mockup">
+                                        <div class="mockup-header">
+                                            <span class="mockup-dot"></span>
+                                            <span class="mockup-dot"></span>
+                                            <span class="mockup-dot"></span>
+                                        </div>
+                                        <div class="mockup-content">
+                                            <img src="{{ asset('images/project-3.png') }}" alt="API REST">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="project-info">
+                                    <h3>API REST</h3>
+                                    <p>API RESTful complète avec documentation Swagger, authentification JWT et tests automatisés.</p>
+                                    <div class="project-tags">
+                                        <span class="tag">Laravel</span>
+                                        <span class="tag">API</span>
+                                        <span class="tag">PHPUnit</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="swiper-pagination"></div>
+                </div>
+
+                <button class="carousel-nav carousel-next" aria-label="Suivant">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                </button>
+            </div>
         </div>
     </section>
 

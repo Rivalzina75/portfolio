@@ -155,88 +155,66 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ========== Veille Technologique (rotation locale) ==========
+    // ========== Veille Technologique (rotation avec RSS) ==========
     const veilleCards = document.querySelectorAll('#veilleCards .veille-card');
-    const veilleArticles = [
-        {
-            title: "ChatGPT et Copilot peinent sur les interactions UI complexes",
-            date: "12/12/2025",
-            image: null,
-            link: "#"
-        },
-        {
-            title: "Pourquoi les assistants IA surestiment le swipe mobile",
-            date: "10/12/2025",
-            image: null,
-            link: "#"
-        },
-        {
-            title: "Front-end low-code : limites sur les micro-interactions",
-            date: "08/12/2025",
-            image: null,
-            link: "#"
-        },
-        {
-            title: "Code qualité : valider le CSS animé proposé par l'IA",
-            date: "05/12/2025",
-            image: null,
-            link: "#"
-        },
-        {
-            title: "Debugging du code IA pour les gestures",
-            date: "03/12/2025",
-            image: null,
-            link: "#"
-        },
-        {
-            title: "Copilot UI : du rôle de rédacteur à validateur",
-            date: "30/11/2025",
-            image: null,
-            link: "#"
-        },
-        {
-            title: "Accessibilité : focus states oubliés par l'IA",
-            date: "28/11/2025",
-            image: null,
-            link: "#"
-        },
-        {
-            title: "Performance : animations générées et reflow",
-            date: "26/11/2025",
-            image: null,
-            link: "#"
-        }
+    let veilleArticles = [];
+    let veilleIndex = 0;
+
+    // Fallback articles if RSS fails
+    const fallbackArticles = [
+        { title: "ChatGPT et Copilot peinent sur les interactions UI complexes", date: "12/12/2025", image: null, link: "#" },
+        { title: "Pourquoi les assistants IA surestiment le swipe mobile", date: "10/12/2025", image: null, link: "#" },
+        { title: "Front-end low-code : limites sur les micro-interactions", date: "08/12/2025", image: null, link: "#" },
+        { title: "Code qualité : valider le CSS animé proposé par l'IA", date: "05/12/2025", image: null, link: "#" },
+        { title: "Debugging du code IA pour les gestures", date: "03/12/2025", image: null, link: "#" },
+        { title: "Copilot UI : du rôle de rédacteur à validateur", date: "30/11/2025", image: null, link: "#" },
+        { title: "Accessibilité : focus states oubliés par l'IA", date: "28/11/2025", image: null, link: "#" },
+        { title: "Performance : animations générées et reflow", date: "26/11/2025", image: null, link: "#" }
     ];
 
-    if (veilleCards.length && veilleArticles.length) {
-        let veilleIndex = 0;
-        const renderVeille = () => {
-            veilleCards.forEach((card, slot) => {
-                const art = veilleArticles[(veilleIndex + slot) % veilleArticles.length];
-                const imageEl = card.querySelector('.veille-image');
-                const titleEl = card.querySelector('.veille-title');
-                const dateEl = card.querySelector('.veille-date');
-                const linkEl = card.querySelector('.veille-link');
+    const renderVeille = () => {
+        veilleCards.forEach((card, slot) => {
+            const art = veilleArticles[(veilleIndex + slot) % veilleArticles.length];
+            const imageEl = card.querySelector('.veille-image');
+            const titleEl = card.querySelector('.veille-title');
+            const dateEl = card.querySelector('.veille-date');
+            const linkEl = card.querySelector('.veille-link');
 
-                // Update image
-                if (imageEl) {
-                    if (art.image) {
-                        imageEl.innerHTML = `<img src="${art.image}" alt="${art.title}">`;
-                    } else {
-                        imageEl.innerHTML = '';
-                    }
+            // Update image
+            if (imageEl) {
+                if (art.image) {
+                    imageEl.innerHTML = `<img src="${art.image}" alt="${art.title}" loading="lazy">`;
+                    imageEl.classList.remove('no-image');
+                } else {
+                    // Generate a random gradient color
+                    const colors = [
+                        ['#00d9ff', '#00ffcc'],
+                        ['#ff0080', '#ff8c00'],
+                        ['#7f39fb', '#ec4899'],
+                        ['#06b6d4', '#0891b2'],
+                        ['#3b82f6', '#8b5cf6'],
+                        ['#ec4899', '#f59e0b'],
+                    ];
+                    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+                    imageEl.style.background = `linear-gradient(135deg, ${randomColor[0]}33, ${randomColor[1]}22)`;
+                    imageEl.innerHTML = '📰';
+                    imageEl.classList.add('no-image');
                 }
+            }
 
-                if (titleEl) titleEl.textContent = art.title;
-                if (dateEl) dateEl.textContent = `Date : ${art.date}`;
-                if (linkEl) linkEl.setAttribute('href', art.link || '#');
-            });
-        };
+            if (titleEl) titleEl.textContent = art.title;
+            if (dateEl) dateEl.textContent = `Date : ${art.date}`;
+            if (linkEl) linkEl.setAttribute('href', art.link || '#');
+        });
+    };
+
+    const startRotation = () => {
+        if (!veilleArticles.length) return;
 
         renderVeille();
 
         const progressBar = document.getElementById('veilleProgress');
-        const rotationInterval = setInterval(() => {
+        setInterval(() => {
             // Slide out
             veilleCards.forEach(card => card.classList.add('slide-out'));
 
@@ -265,6 +243,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, 10);
             }
         }, 8000);
+    };
+
+    // Fetch articles from RSS API
+    if (veilleCards.length) {
+        fetch('/api/veille/articles')
+            .then(response => response.json())
+            .then(data => {
+                veilleArticles = data && data.length ? data : fallbackArticles;
+                startRotation();
+            })
+            .catch(error => {
+                console.warn('Failed to fetch RSS articles, using fallback:', error);
+                veilleArticles = fallbackArticles;
+                startRotation();
+            });
     }
 
     // ========== Mobile Nav Toggle ==========

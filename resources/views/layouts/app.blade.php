@@ -41,6 +41,7 @@
                 <a href="{{ route('portfolio.home') }}#accueil" class="nav a">Accueil</a>
                 <a href="{{ route('portfolio.home') }}#presentation" class="nav a">Présentation</a>
                 <a href="{{ route('portfolio.home') }}#parcours" class="nav a">Parcours</a>
+                <a href="{{ route('portfolio.home') }}#experience" class="nav a">Expériences</a>
                 <a href="{{ route('portfolio.home') }}#competences" class="nav a">Compétences</a>
                 <a href="{{ route('portfolio.home') }}#projets" class="nav a">Projets</a>
                 <a href="{{ route('portfolio.home') }}#veille" class="nav a">Veille Tech</a>

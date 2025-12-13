@@ -99,6 +99,39 @@
         </div>
     </section>
 
+    {{-- ========== EXPERIENCE SECTION ========== --}}
+    <section id="experience" class="section">
+        <div class="container">
+            <div class="section-head">
+                <p class="eyebrow">Expériences</p>
+                <h2>Expériences professionnelles</h2>
+                <p class="lede">Stages, projets et expériences qui ont façonné mon parcours</p>
+            </div>
+            <div class="cards-grid two">
+                <article class="card">
+                    <div class="card-icon">💼</div>
+                    <h3>Stage - Développeur Web</h3>
+                    <p class="eyebrow" style="margin-top: 0.5rem;">À venir • 2025</p>
+                    <ul class="list">
+                        <li>Recherche active d'un stage en développement web</li>
+                        <li>Focus sur Laravel, API REST et JavaScript</li>
+                        <li>Durée : 6 semaines minimum</li>
+                    </ul>
+                </article>
+                <article class="card">
+                    <div class="card-icon">🎓</div>
+                    <h3>Projets académiques</h3>
+                    <p class="eyebrow" style="margin-top: 0.5rem;">BTS SIO SLAM • 2024-2026</p>
+                    <ul class="list">
+                        <li>Développement d'applications web complètes</li>
+                        <li>Travail en équipe sur projets réels</li>
+                        <li>Méthodologies Agile et gestion de version Git</li>
+                    </ul>
+                </article>
+            </div>
+        </div>
+    </section>
+
     {{-- ========== COMPETENCES SECTION ========== --}}
     <section id="competences" class="section muted">
         <div class="container">
@@ -283,7 +316,13 @@
 
             <div class="veille-shell">
                 <div class="veille-header">
-                    <h3>Sujet : Les limites de l'IA générative dans les interactions UI complexes</h3>
+                    <h3>Qu'est-ce que la veille technologique ?</h3>
+                    <p>
+                        La veille technologique consiste à surveiller activement les évolutions techniques, les innovations
+                        et les tendances dans son domaine. C'est un processus continu de collecte, d'analyse et de partage
+                        d'informations pour rester à jour et anticiper les changements qui impacteront ma pratique professionnelle.
+                    </p>
+                    <h3 style="margin-top: 1.5rem;">Mon sujet : Les limites de l'IA générative dans les interactions UI complexes</h3>
                     <p>
                         L'IA accélère la génération de code mais a du mal avec les comportements réels : gestes, transitions,
                         accessibilité et performance. Le développeur reste l'expert validateur qui ajuste le rendu pour le navigateur.

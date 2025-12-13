@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\VeilleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,9 @@ Route::get('/', [HomeController::class, 'index'])->name('portfolio.home');
 
 // Formulaire de contact
 Route::post('/contact', [HomeController::class, 'sendContact'])->name('portfolio.contact.submit');
+
+// API Veille Technologique
+Route::get('/api/veille/articles', [VeilleController::class, 'getArticles'])->name('api.veille.articles');
 
 // Téléchargements de documents
 Route::get('/files/cv', function () {

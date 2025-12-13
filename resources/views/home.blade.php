@@ -110,76 +110,49 @@
                     dans mes projets professionnels et personnels.
                 </p>
             </div>
-            <div class="skills-columns">
-                {{-- Colonne 1: Langages --}}
-                <div class="skill-column">
-                    <h3 class="column-title">Langages</h3>
-                    <div class="skills-list">
-                        @foreach ([
-                            ['PHP', 'php-original.svg'],
-                            ['JavaScript', 'javascript-plain.svg'],
-                            ['Python', 'python-original.svg'],
-                            ['Java', 'java-original.svg'],
-                            ['C', 'c-original.svg'],
-                            ['HTML5', 'html5-plain.svg'],
-                            ['CSS3', 'css3-plain.svg'],
-                        ] as [$label, $icon])
-                            <div class="skill-item">
-                                <img src="{{ asset('icons/' . $icon) }}"
-                                     alt="{{ $label }}"
-                                     loading="lazy"
-                                     width="40"
-                                     height="40">
-                                <p>{{ $label }}</p>
-                            </div>
-                        @endforeach
-                    </div>
+            <div class="skills-tabs">
+                <div role="tablist" aria-label="Catégories de compétences" class="skills-nav">
+                    <button role="tab" class="skill-tab is-active" aria-selected="true" data-target="langages">Langages</button>
+                    <button role="tab" class="skill-tab" aria-selected="false" data-target="frameworks">Frameworks</button>
+                    <button role="tab" class="skill-tab" aria-selected="false" data-target="stack">Stack / Env.</button>
+                    <button role="tab" class="skill-tab" aria-selected="false" data-target="bdd">BDD</button>
+                    <button role="tab" class="skill-tab" aria-selected="false" data-target="outils">Outils</button>
                 </div>
 
-                {{-- Colonne 2: Frameworks & Infrastructure --}}
-                <div class="skill-column">
-                    <h3 class="column-title">Frameworks & Stack</h3>
-                    <div class="skills-list">
-                        @foreach ([
-                            ['Laravel', 'laravel-original.svg'],
-                            ['Docker', 'docker-plain-wordmark.svg'],
-                            ['Linux', 'linux-original.svg'],
-                            ['Git', 'git-plain.svg'],
-                            ['GitHub', 'github-original.svg'],
-                            ['Vite', 'vitejs-original.svg'],
-                            ['Composer', 'composer-original.svg'],
-                            ['NPM', 'npm-original.svg'],
-                        ] as [$label, $icon])
-                            <div class="skill-item">
-                                <img src="{{ asset('icons/' . $icon) }}"
-                                     alt="{{ $label }}"
-                                     loading="lazy"
-                                     width="40"
-                                     height="40">
-                                <p>{{ $label }}</p>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
+                <div class="skills-panel">
+                    <div class="panel-content">
+                        <div class="panel-group is-active" id="langages" role="tabpanel">
+                            <div class="skill-item"><img src="{{ asset('icons/php-original.svg') }}" alt="PHP" width="40" height="40"><p>PHP</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/javascript-plain.svg') }}" alt="JavaScript" width="40" height="40"><p>JavaScript</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/python-original.svg') }}" alt="Python" width="40" height="40"><p>Python</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/html5-plain.svg') }}" alt="HTML5" width="40" height="40"><p>HTML5</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/css3-plain.svg') }}" alt="CSS3" width="40" height="40"><p>CSS3</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/java-original.svg') }}" alt="SQL" width="40" height="40"><p>Java</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/c-original.svg') }}" alt="C" width="40" height="40"><p>C</p></div>
+                        </div>
 
-                {{-- Colonne 3: Outils & Bases de données --}}
-                <div class="skill-column">
-                    <h3 class="column-title">Outils & BD</h3>
-                    <div class="skills-list">
-                        @foreach ([
-                            ['MySQL', 'mysql-original.svg'],
-                            ['VS Code', 'vscode-original.svg'],
-                            ['IntelliJ IDEA', 'intellij-original.svg'],
-                        ] as [$label, $icon])
-                            <div class="skill-item">
-                                <img src="{{ asset('icons/' . $icon) }}"
-                                     alt="{{ $label }}"
-                                     loading="lazy"
-                                     width="40"
-                                     height="40">
-                                <p>{{ $label }}</p>
-                            </div>
-                        @endforeach
+                        <div class="panel-group" id="frameworks" role="tabpanel" aria-hidden>
+                            <div class="skill-item"><img src="{{ asset('icons/laravel-original.svg') }}" alt="Laravel" width="40" height="40"><p>Laravel</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/vitejs-original.svg') }}" alt="Vite" width="40" height="40"><p>Vite</p></div>
+                        </div>
+
+                        <div class="panel-group" id="stack" role="tabpanel" aria-hidden>
+                            <div class="skill-item"><img src="{{ asset('icons/docker-plain-wordmark.svg') }}" alt="Docker" width="40" height="40"><p>Docker</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/linux-original.svg') }}" alt="Linux" width="40" height="40"><p>Linux</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/composer-original.svg') }}" alt="Composer" width="40" height="40"><p>Composer</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/npm-original.svg') }}" alt="NPM" width="40" height="40"><p>NPM</p></div>
+                        </div>
+
+                        <div class="panel-group" id="bdd" role="tabpanel" aria-hidden>
+                            <div class="skill-item"><img src="{{ asset('icons/mysql-original.svg') }}" alt="MySQL" width="40" height="40"><p>MySQL</p></div>
+                        </div>
+
+                        <div class="panel-group" id="outils" role="tabpanel" aria-hidden>
+                            <div class="skill-item"><img src="{{ asset('icons/git-plain.svg') }}" alt="Git" width="40" height="40"><p>Git</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/github-original.svg') }}" alt="GitHub" width="40" height="40"><p>GitHub</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/intellij-original.svg') }}" alt="IntelliJ IDEA" width="40" height="40"><p>IntelliJ IDEA</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/vscode-original.svg') }}" alt="Visual Studio Code" width="40" height="40"><p>VS Code</p></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -324,10 +297,6 @@
                     <div class="info-card">
                         <p class="mini-label">Téléphone</p>
                         <p class="mini-value">+33 7 64 39 97 66</p>
-                    </div>
-                    <div class="info-card">
-                        <p class="mini-label">LinkedIn</p>
-                        <p class="mini-value">reda-mekaoui</p>
                     </div>
                     <div class="info-card">
                         <p class="mini-label">Disponibilité</p>

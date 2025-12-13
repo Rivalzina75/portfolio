@@ -131,6 +131,30 @@ if (canvas) {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    // ========== Skills Tabs ==========
+    const tabs = document.querySelectorAll('.skill-tab');
+    const groups = document.querySelectorAll('.panel-group');
+    if (tabs.length && groups.length) {
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetId = tab.getAttribute('data-target');
+                tabs.forEach(t => {
+                    t.classList.toggle('is-active', t === tab);
+                    t.setAttribute('aria-selected', String(t === tab));
+                });
+                groups.forEach(g => {
+                    const isTarget = g.id === targetId;
+                    g.classList.toggle('is-active', isTarget);
+                    if (isTarget) {
+                        g.removeAttribute('aria-hidden');
+                    } else {
+                        g.setAttribute('aria-hidden', 'true');
+                    }
+                });
+            });
+        });
+    }
+
     // ========== Mobile Nav Toggle ==========
     const navToggle = document.getElementById('navToggle');
     const navMenu = document.getElementById('navMenu');

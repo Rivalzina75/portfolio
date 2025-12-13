@@ -155,6 +155,118 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // ========== Veille Technologique (rotation locale) ==========
+    const veilleCards = document.querySelectorAll('#veilleCards .veille-card');
+    const veilleArticles = [
+        {
+            title: "ChatGPT et Copilot peinent sur les interactions UI complexes",
+            date: "12/12/2025",
+            image: null,
+            link: "#"
+        },
+        {
+            title: "Pourquoi les assistants IA surestiment le swipe mobile",
+            date: "10/12/2025",
+            image: null,
+            link: "#"
+        },
+        {
+            title: "Front-end low-code : limites sur les micro-interactions",
+            date: "08/12/2025",
+            image: null,
+            link: "#"
+        },
+        {
+            title: "Code qualité : valider le CSS animé proposé par l'IA",
+            date: "05/12/2025",
+            image: null,
+            link: "#"
+        },
+        {
+            title: "Debugging du code IA pour les gestures",
+            date: "03/12/2025",
+            image: null,
+            link: "#"
+        },
+        {
+            title: "Copilot UI : du rôle de rédacteur à validateur",
+            date: "30/11/2025",
+            image: null,
+            link: "#"
+        },
+        {
+            title: "Accessibilité : focus states oubliés par l'IA",
+            date: "28/11/2025",
+            image: null,
+            link: "#"
+        },
+        {
+            title: "Performance : animations générées et reflow",
+            date: "26/11/2025",
+            image: null,
+            link: "#"
+        }
+    ];
+
+    if (veilleCards.length && veilleArticles.length) {
+        let veilleIndex = 0;
+        const renderVeille = () => {
+            veilleCards.forEach((card, slot) => {
+                const art = veilleArticles[(veilleIndex + slot) % veilleArticles.length];
+                const imageEl = card.querySelector('.veille-image');
+                const titleEl = card.querySelector('.veille-title');
+                const dateEl = card.querySelector('.veille-date');
+                const linkEl = card.querySelector('.veille-link');
+
+                // Update image
+                if (imageEl) {
+                    if (art.image) {
+                        imageEl.innerHTML = `<img src="${art.image}" alt="${art.title}">`;
+                    } else {
+                        imageEl.innerHTML = '';
+                    }
+                }
+
+                if (titleEl) titleEl.textContent = art.title;
+                if (dateEl) dateEl.textContent = `Date : ${art.date}`;
+                if (linkEl) linkEl.setAttribute('href', art.link || '#');
+            });
+        };
+
+        renderVeille();
+
+        const progressBar = document.getElementById('veilleProgress');
+        const rotationInterval = setInterval(() => {
+            // Slide out
+            veilleCards.forEach(card => card.classList.add('slide-out'));
+
+            // Wait for slide out, then update content and slide in
+            setTimeout(() => {
+                veilleIndex = (veilleIndex + veilleCards.length) % veilleArticles.length;
+                renderVeille();
+
+                // Slide in
+                veilleCards.forEach(card => {
+                    card.classList.remove('slide-out');
+                    card.classList.add('slide-in');
+                });
+
+                // Remove slide-in class for next cycle
+                setTimeout(() => {
+                    veilleCards.forEach(card => card.classList.remove('slide-in'));
+                }, 400);
+            }, 400);
+
+            // Reset progress bar animation
+            if (progressBar) {
+                progressBar.style.animation = 'none';
+                setTimeout(() => {
+                    progressBar.style.animation = 'veilleCountdown 8s linear infinite';
+                }, 10);
+            }
+        }, 8000);
+    }
+
     // ========== Mobile Nav Toggle ==========
     const navToggle = document.getElementById('navToggle');
     const navMenu = document.getElementById('navMenu');

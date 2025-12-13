@@ -996,59 +996,211 @@ body {
 }
 
 /* ========== VEILLE ========== */
-.veille-articles {
-    margin-top: 40px;
+.veille-shell {
+    background: transparent;
+    border-radius: 0;
+    padding: 0;
+    border: none;
+    box-shadow: none;
+    display: grid;
+    gap: 22px;
 }
 
-.veille-card {
-    background: linear-gradient(135deg, rgba(0, 217, 255, 0.07), rgba(0, 255, 204, 0.03));
-    border: 1px solid var(--stroke);
+.veille-header {
+    border: 2px solid rgba(0, 217, 255, 0.3);
     border-radius: 14px;
     padding: 24px;
-    transition: var(--transition);
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.08), rgba(0, 255, 204, 0.04));
+    box-shadow: 0 14px 50px rgba(0, 217, 255, 0.1);
 }
 
-.veille-card:hover {
-    border-color: rgba(0, 217, 255, 0.3);
-    transform: translateY(-6px);
-    box-shadow: 0 12px 40px rgba(0, 217, 255, 0.15);
-}
-
-.veille-date {
-    font-size: 0.75rem;
-    color: var(--primary);
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    margin-bottom: 10px;
-}
-
-.veille-card h4 {
-    font-size: 1.15rem;
+.veille-header h3 {
+    font-size: clamp(1.4rem, 2.4vw, 1.8rem);
     margin-bottom: 12px;
     color: var(--text);
 }
 
-.veille-summary {
+.veille-header p {
     color: var(--text-secondary);
-    font-size: 0.9rem;
     line-height: 1.7;
-    margin-bottom: 14px;
+    font-size: 1rem;
 }
 
-.veille-tags {
+.veille-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    overflow: hidden;
+    position: relative;
+    padding-top: 10px;
+    margin-top: -10px;
+}
+
+.veille-card {
+    background: linear-gradient(160deg, rgba(5, 20, 40, 0.9), rgba(10, 25, 50, 0.95));
+    border: 2px solid rgba(0, 217, 255, 0.25);
+    border-radius: 14px;
+    overflow: hidden;
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    min-height: 380px;
+    opacity: 1;
 }
 
-.veille-tags span {
-    padding: 5px 10px;
-    border-radius: 6px;
-    background: rgba(0, 217, 255, 0.08);
-    color: var(--primary);
-    font-size: 0.75rem;
-    font-weight: 500;
+.veille-card.slide-out {
+    transform: translateY(100%) scaleY(0.95);
+    opacity: 0;
+    transition: transform 0.4s ease-in, opacity 0.4s ease-in;
+}
+
+.veille-card.slide-in {
+    animation: slideInFromBottom 0.4s ease-out forwards;
+}
+
+@keyframes slideInFromBottom {
+    0% {
+        transform: translateY(100%) scaleY(0.95);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0) scaleY(1);
+        opacity: 1;
+    }
+}
+
+.veille-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(0, 217, 255, 0.45);
+    box-shadow: 0 16px 50px rgba(0, 217, 255, 0.15);
+}
+
+.veille-image {
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.12), rgba(0, 255, 204, 0.08));
+    border-bottom: 1px solid rgba(0, 217, 255, 0.15);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-size: 0.9rem;
+    overflow: hidden;
+}
+
+.veille-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.veille-card>p,
+.veille-card>a {
+    padding: 0 18px;
+}
+
+.veille-card>p:first-of-type {
+    padding-top: 16px;
+}
+
+.veille-card>.veille-button {
+    margin-top: auto;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 2px solid rgba(0, 217, 255, 0.4);
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    font-size: 0.85rem;
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.12), rgba(0, 255, 204, 0.08));
+    transition: all 0.25s ease;
+    margin-bottom: 16px;
+    text-align: center;
+}
+
+.veille-title {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--text);
+    line-height: 1.5;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.veille-date {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    margin: 12px 0 0 0;
+}
+
+.veille-button {
+    display: block;
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: 2px solid rgba(0, 217, 255, 0.4);
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    font-size: 0.85rem;
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.12), rgba(0, 255, 204, 0.08));
+    transition: all 0.25s ease;
+    margin: 0 18px 16px 18px;
+    text-align: center;
+}
+
+.veille-button:hover {
+    border-color: var(--primary);
+    box-shadow: 0 0 25px rgba(0, 217, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+@media (max-width: 1024px) {
+    .veille-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 640px) {
+    .veille-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .veille-card {
+        min-height: 320px;
+    }
+}
+
+.veille-progress-container {
+    width: 100%;
+    height: 8px;
+    background: rgba(0, 217, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 24px;
+    border: 1px solid rgba(0, 217, 255, 0.2);
+}
+
+.veille-progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, rgba(0, 217, 255, 0.6), rgba(0, 255, 204, 0.6));
+    border-radius: 10px;
+    width: 0%;
+    animation: veilleCountdown 8s linear infinite;
+    box-shadow: 0 0 15px rgba(0, 217, 255, 0.5);
+}
+
+@keyframes veilleCountdown {
+    0% {
+        width: 0%;
+    }
+
+    100% {
+        width: 100%;
+    }
 }
 
 /* ========== CONTACT FORM & SECTION ========== */

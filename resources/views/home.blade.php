@@ -275,6 +275,63 @@
             <div class="section-head">
                 <p class="eyebrow">Innovation & Apprentissage</p>
                 <h2>Veille technologique</h2>
+                <p class="lede">
+                    Suivi continu des évolutions technologiques, des enjeux et des opportunités
+                    dans mon domaine de spécialisation.
+                </p>
+            </div>
+
+            <div class="veille-shell">
+                <div class="veille-header">
+                    <h3>Sujet : Les limites de l'IA générative dans les interactions UI complexes</h3>
+                    <p>
+                        L'IA accélère la génération de code mais a du mal avec les comportements réels : gestes, transitions,
+                        accessibilité et performance. Le développeur reste l'expert validateur qui ajuste le rendu pour le navigateur.
+                    </p>
+                </div>
+
+                <div class="veille-grid" id="veilleCards">
+                    <article class="veille-card" data-slot="0">
+                        <div class="veille-image"></div>
+                        <p class="veille-title">Titre de l'article...</p>
+                        <p class="veille-date">Date : --/--/----</p>
+                        <a class="veille-button veille-link" href="#" target="_blank" rel="noopener">En savoir plus</a>
+                    </article>
+                    <article class="veille-card" data-slot="1">
+                        <div class="veille-image"></div>
+                        <p class="veille-title">Titre de l'article...</p>
+                        <p class="veille-date">Date : --/--/----</p>
+                        <a class="veille-button veille-link" href="#" target="_blank" rel="noopener">En savoir plus</a>
+                    </article>
+                    <article class="veille-card" data-slot="2">
+                        <div class="veille-image"></div>
+                        <p class="veille-title">Titre de l'article...</p>
+                        <p class="veille-date">Date : --/--/----</p>
+                        <a class="veille-button veille-link" href="#" target="_blank" rel="noopener">En savoir plus</a>
+                    </article>
+                    <article class="veille-card" data-slot="3">
+                        <div class="veille-image"></div>
+                        <p class="veille-title">Titre de l'article...</p>
+                        <p class="veille-date">Date : --/--/----</p>
+                        <a class="veille-button veille-link" href="#" target="_blank" rel="noopener">En savoir plus</a>
+                    </article>
+                    <article class="veille-card" data-slot="4">
+                        <div class="veille-image"></div>
+                        <p class="veille-title">Titre de l'article...</p>
+                        <p class="veille-date">Date : --/--/----</p>
+                        <a class="veille-button veille-link" href="#" target="_blank" rel="noopener">En savoir plus</a>
+                    </article>
+                    <article class="veille-card" data-slot="5">
+                        <div class="veille-image"></div>
+                        <p class="veille-title">Titre de l'article...</p>
+                        <p class="veille-date">Date : --/--/----</p>
+                        <a class="veille-button veille-link" href="#" target="_blank" rel="noopener">En savoir plus</a>
+                    </article>
+                </div>
+
+                <div class="veille-progress-container">
+                    <div class="veille-progress-bar" id="veilleProgress"></div>
+                </div>
             </div>
         </div>
     </section>

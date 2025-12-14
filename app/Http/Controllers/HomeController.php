@@ -104,6 +104,10 @@ class HomeController extends Controller
         ]);
 
         if ($validator->fails()) {
+            if ($request->expectsJson()) {
+                return response()->json(["errors" => $validator->errors()], 422);
+            }
+
             return redirect()->back()
                 ->withErrors($validator)
                 ->withInput();
@@ -111,10 +115,14 @@ class HomeController extends Controller
 
         $data = $validator->validated();
 
-        // Envoi de l'email via la classe Mailable
-        Mail::send(new ContactMail($data));
+        // Envoi de l'email via la classe Mailable vers l'adresse configurée
+        $recipient = config('mail.contact_recipient');
+        Mail::to($recipient)->send(new ContactMail($data));
 
-        // Redirection avec message de succès
+        if ($request->expectsJson()) {
+            return response()->json(["success" => true, "message" => 'Votre message a été envoyé avec succès !']);
+        }
+
         return redirect()->back()->with('success', 'Votre message a été envoyé avec succès !');
     }
 }

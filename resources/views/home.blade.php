@@ -224,7 +224,7 @@
                                             <span class="mockup-dot"></span>
                                         </div>
                                         <div class="mockup-content">
-                                            <img src="{{ asset('images/project-1.png') }}" alt="Portfolio Personnel">
+                                            <img src="{{ asset('images/portfolio.png') }}" alt="Portfolio Personnel">
                                         </div>
                                     </div>
                                 </div>
@@ -254,7 +254,7 @@
                                             <span class="mockup-dot"></span>
                                         </div>
                                         <div class="mockup-content">
-                                            <img src="{{ asset('images/project-2.png') }}" alt="Assuroweb">
+                                            <img src="{{ asset('images/assuroweb.png') }}" alt="Assuroweb">
                                         </div>
                                     </div>
                                 </div>
@@ -284,7 +284,7 @@
                                             <span class="mockup-dot"></span>
                                         </div>
                                         <div class="mockup-content">
-                                            <img src="{{ asset('images/project-3.png') }}" alt="Next2You">
+                                            <img src="{{ asset('images/next2you.png') }}" alt="Next2You">
                                         </div>
                                     </div>
                                 </div>
@@ -314,7 +314,7 @@
                                             <span class="mockup-dot"></span>
                                         </div>
                                         <div class="mockup-content">
-                                            <img src="{{ asset('images/project-2.png') }}" alt="Machina">
+                                            <img src="{{ asset('images/machina.png') }}" alt="Machina">
                                         </div>
                                     </div>
                                 </div>
@@ -344,7 +344,7 @@
                                             <span class="mockup-dot"></span>
                                         </div>
                                         <div class="mockup-content">
-                                            <img src="{{ asset('images/project-3.png') }}" alt="Projet Parking">
+                                            {{-- <img src="{{ asset('images/projet_parking.png') }}" alt="Projet Parking"> --}}
                                         </div>
                                     </div>
                                 </div>

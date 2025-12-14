@@ -801,12 +801,13 @@ body {
     align-items: center;
     gap: 20px;
     position: relative;
+    justify-content: center;
 }
 
 .projects-swiper {
     flex: 1;
     overflow: hidden;
-    padding: 20px 0;
+    padding: 0;
 }
 
 .carousel-nav {
@@ -846,7 +847,7 @@ body {
     overflow: hidden;
     display: flex;
     flex-direction: row;
-    min-height: 320px;
+    min-height: 360px;
     transition: all 0.4s ease;
 }
 
@@ -861,8 +862,8 @@ body {
 }
 
 .project-preview {
-    width: 55%;
-    padding: 24px;
+    flex: 1;
+    padding: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -871,7 +872,7 @@ body {
 
 .project-mockup {
     width: 100%;
-    max-width: 400px;
+    max-width: 480px;
     background: #1a2540;
     border-radius: 12px;
     overflow: hidden;
@@ -906,7 +907,7 @@ body {
 }
 
 .mockup-content {
-    height: 200px;
+    height: 240px;
     background: linear-gradient(180deg, #0d1829, #0a1420);
     display: flex;
     align-items: center;
@@ -921,7 +922,7 @@ body {
 }
 
 .project-info {
-    width: 45%;
+    flex: 0 0 35%;
     padding: 32px;
     display: flex;
     flex-direction: column;

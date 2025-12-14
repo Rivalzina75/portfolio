@@ -35,3 +35,19 @@ Route::get('/files/cv', function () {
 Route::get('/files/tableau-synthese', function () {
     return response()->download(public_path('files/TableauSyntheseBtsSioMekaouiReda.pdf'), 'Tableau_Synthese_BTS_SIO_Mekaoui_Reda.pdf');
 })->name('portfolio.tableau_synthese');
+
+
+// Route temporaire pour vider le cache sur Render (à supprimer après usage)
+use Illuminate\Support\Facades\Artisan;
+
+Route::get('/nettoyage-render', function () {
+    try {
+        Artisan::call('config:clear');
+        Artisan::call('cache:clear');
+        Artisan::call('view:clear');
+        Artisan::call('route:clear');
+        return "✅ Cache vidé avec succès ! SESSION_DRIVER est maintenant : " . env('SESSION_DRIVER');
+    } catch (\Exception $e) {
+        return "❌ Erreur : " . $e->getMessage();
+    }
+});

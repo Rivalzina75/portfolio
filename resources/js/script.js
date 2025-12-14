@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (imageEl) {
                 if (art.image && /^https?:\/\//i.test(art.image)) {
                     imageEl.classList.remove('no-image');
-                    imageEl.innerHTML = `<img src="${art.image}" alt="${art.title}" loading="lazy" referrerpolicy="no-referrer">`;
+                    imageEl.innerHTML = `<img src="${art.image}" alt="${art.title}" loading="lazy">`;
                     const imgTag = imageEl.querySelector('img');
                     if (imgTag) {
                         imgTag.onerror = () => fallbackImage(imageEl);
@@ -253,27 +253,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 8000);
     };
 
-    // Fetch articles from RSS API
+    // Fetch articles from RSS API (Google Alerts)
     if (veilleCards.length) {
-        // Try to get articles from server data first, otherwise fetch from API
-        const serverArticles = window.__VEILLE_ARTICLES__ || null;
-
-        if (serverArticles && serverArticles.length) {
-            veilleArticles = serverArticles;
-            startRotation();
-        } else {
-            fetch('/api/veille/articles')
-                .then(response => response.json())
-                .then(data => {
-                    veilleArticles = data && data.length ? data : fallbackArticles;
-                    startRotation();
-                })
-                .catch(error => {
-                    console.warn('Failed to fetch RSS articles, using fallback:', error);
-                    veilleArticles = fallbackArticles;
-                    startRotation();
-                });
-        }
+        fetch('/api/veille/articles')
+            .then(response => response.json())
+            .then(data => {
+                veilleArticles = data && data.length ? data : fallbackArticles;
+                startRotation();
+            })
+            .catch(error => {
+                console.warn('Failed to fetch RSS articles, using fallback:', error);
+                veilleArticles = fallbackArticles;
+                startRotation();
+            });
     }
 
     // ========== Mobile Nav Toggle ==========

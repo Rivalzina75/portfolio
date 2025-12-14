@@ -433,42 +433,39 @@
                 </div>
 
                 <div class="veille-grid" id="veilleCards">
-                    <article class="veille-card" data-slot="0">
-                        <div class="veille-image"></div>
-                        <p class="veille-title">Titre de l'article...</p>
-                        <p class="veille-date">Date : --/--/----</p>
-                        <a class="veille-button veille-link" href="#" target="_blank" rel="noopener">En savoir plus</a>
-                    </article>
-                    <article class="veille-card" data-slot="1">
-                        <div class="veille-image"></div>
-                        <p class="veille-title">Titre de l'article...</p>
-                        <p class="veille-date">Date : --/--/----</p>
-                        <a class="veille-button veille-link" href="#" target="_blank" rel="noopener">En savoir plus</a>
-                    </article>
-                    <article class="veille-card" data-slot="2">
-                        <div class="veille-image"></div>
-                        <p class="veille-title">Titre de l'article...</p>
-                        <p class="veille-date">Date : --/--/----</p>
-                        <a class="veille-button veille-link" href="#" target="_blank" rel="noopener">En savoir plus</a>
-                    </article>
-                    <article class="veille-card" data-slot="3">
-                        <div class="veille-image"></div>
-                        <p class="veille-title">Titre de l'article...</p>
-                        <p class="veille-date">Date : --/--/----</p>
-                        <a class="veille-button veille-link" href="#" target="_blank" rel="noopener">En savoir plus</a>
-                    </article>
-                    <article class="veille-card" data-slot="4">
-                        <div class="veille-image"></div>
-                        <p class="veille-title">Titre de l'article...</p>
-                        <p class="veille-date">Date : --/--/----</p>
-                        <a class="veille-button veille-link" href="#" target="_blank" rel="noopener">En savoir plus</a>
-                    </article>
-                    <article class="veille-card" data-slot="5">
-                        <div class="veille-image"></div>
-                        <p class="veille-title">Titre de l'article...</p>
-                        <p class="veille-date">Date : --/--/----</p>
-                        <a class="veille-button veille-link" href="#" target="_blank" rel="noopener">En savoir plus</a>
-                    </article>
+                    {{-- On boucle exactement 6 fois pour créer les 6 slots fixes --}}
+                    @for ($i = 0; $i < 6; $i++)
+                        @php
+                            // On récupère l'article n° $i s'il existe, sinon null
+                            $article = $articles[$i] ?? null;
+                        @endphp
+
+                        <article class="veille-card" data-slot="{{ $i }}">
+                            <div class="veille-image no-image" style="@if($article) background: linear-gradient(135deg, {{ ['#00d9ff33', '#00ffcc22'][(($i) % 2)] }}, {{ ['#7f39fb22', '#ec489922'][(($i) % 2)] }}) @endif">
+                                @if($article)
+                                    <span style="font-weight:bold; color:var(--primary); font-size: 1.5rem;">
+                                        {{ $article['category'] }}
+                                    </span>
+                                @endif
+                            </div>
+                            
+                            {{-- Si l'article existe on met son titre, sinon un placeholder --}}
+                            <p class="veille-title">
+                                {{ $article ? \Illuminate\Support\Str::limit($article['title'], 60) : 'Chargement...' }}
+                            </p>
+                            
+                            <p class="veille-date">
+                                {{ $article ? 'Publié le : ' . $article['date'] : '' }}
+                            </p>
+                            
+                            <a class="veille-button veille-link" 
+                               href="{{ $article['link'] ?? '#' }}" 
+                               target="_blank" 
+                               rel="noopener">
+                               Lire l'article
+                            </a>
+                        </article>
+                    @endfor
                 </div>
 
                 <div class="veille-progress-container">

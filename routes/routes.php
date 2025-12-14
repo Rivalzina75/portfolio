@@ -13,6 +13,14 @@ use App\Http\Controllers\VeilleController;
 // Page d'accueil
 Route::get('/', [HomeController::class, 'index'])->name('portfolio.home');
 
+// Pages projets
+Route::view('/projects/portfolio', 'Projects.portfolio')->name('project.portfolio');
+Route::view('/projects/assuroweb', 'Projects.assuroweb')->name('project.assuroweb');
+Route::view('/projects/next2you', 'Projects.next2you')->name('project.next2you');
+Route::view('/projects/machina', 'Projects.machina')->name('project.machina');
+Route::view('/projects/parking', 'Projects.parking')->name('project.parking');
+Route::view('/projects/stage-2026', 'Projects.stage2026')->name('project.stage2026');
+
 // Formulaire de contact
 Route::post('/contact', [HomeController::class, 'sendContact'])->name('portfolio.contact.submit');
 

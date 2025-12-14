@@ -213,7 +213,7 @@
 
                 <div class="swiper projects-swiper">
                     <div class="swiper-wrapper">
-                        <!-- Projet 1 -->
+                        <!-- Portfolio -->
                         <div class="swiper-slide">
                             <div class="project-card">
                                 <div class="project-preview">
@@ -230,17 +230,20 @@
                                 </div>
                                 <div class="project-info">
                                     <h3>Portfolio Personnel</h3>
-                                    <p>Site web personnel développé avec Laravel et Vite. Design moderne avec animations SVG et particules interactives.</p>
+                                    <p>Site vitrine mono-page avec Vite, animations, veille RSS et pages projets détaillées.</p>
                                     <div class="project-tags">
                                         <span class="tag">Laravel</span>
-                                        <span class="tag">JavaScript</span>
+                                        <span class="tag">Vite</span>
                                         <span class="tag">CSS3</span>
                                     </div>
+                                    <div class="project-tags" style="margin-top:12px;">
+                                        <a class="btn btn-small ghost" href="{{ route('project.portfolio') }}">Voir le projet</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Projet 2 -->
+                        <!-- Assuroweb -->
                         <div class="swiper-slide">
                             <div class="project-card">
                                 <div class="project-preview">
@@ -251,44 +254,140 @@
                                             <span class="mockup-dot"></span>
                                         </div>
                                         <div class="mockup-content">
-                                            <img src="{{ asset('images/project-2.png') }}" alt="Application de Gestion">
+                                            <img src="{{ asset('images/project-2.png') }}" alt="Assuroweb">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="project-info">
-                                    <h3>Application de Gestion</h3>
-                                    <p>Application web de gestion avec système d'authentification, tableaux de bord et génération de rapports.</p>
-                                    <div class="project-tags">
-                                        <span class="tag">PHP</span>
-                                        <span class="tag">MySQL</span>
-                                        <span class="tag">Docker</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Projet 3 -->
-                        <div class="swiper-slide">
-                            <div class="project-card">
-                                <div class="project-preview">
-                                    <div class="project-mockup">
-                                        <div class="mockup-header">
-                                            <span class="mockup-dot"></span>
-                                            <span class="mockup-dot"></span>
-                                            <span class="mockup-dot"></span>
-                                        </div>
-                                        <div class="mockup-content">
-                                            <img src="{{ asset('images/project-3.png') }}" alt="API REST">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="project-info">
-                                    <h3>API REST</h3>
-                                    <p>API RESTful complète avec documentation Swagger, authentification JWT et tests automatisés.</p>
+                                    <h3>Assuroweb (Stage)</h3>
+                                    <p>Refonte de modules métiers assurance, conteneurisation Docker et intégration SQL.</p>
                                     <div class="project-tags">
                                         <span class="tag">Laravel</span>
-                                        <span class="tag">API</span>
-                                        <span class="tag">PHPUnit</span>
+                                        <span class="tag">Docker</span>
+                                        <span class="tag">SQL</span>
+                                    </div>
+                                    <div class="project-tags" style="margin-top:12px;">
+                                        <a class="btn btn-small ghost" href="{{ route('project.assuroweb') }}">Voir le projet</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Next2You -->
+                        <div class="swiper-slide">
+                            <div class="project-card">
+                                <div class="project-preview">
+                                    <div class="project-mockup">
+                                        <div class="mockup-header">
+                                            <span class="mockup-dot"></span>
+                                            <span class="mockup-dot"></span>
+                                            <span class="mockup-dot"></span>
+                                        </div>
+                                        <div class="mockup-content">
+                                            <img src="{{ asset('images/project-3.png') }}" alt="Next2You">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="project-info">
+                                    <h3>Next2You</h3>
+                                    <p>Plateforme collaborative avec workflows, dockerisation et gestion des rôles.</p>
+                                    <div class="project-tags">
+                                        <span class="tag">Laravel</span>
+                                        <span class="tag">Docker</span>
+                                        <span class="tag">JavaScript</span>
+                                    </div>
+                                    <div class="project-tags" style="margin-top:12px;">
+                                        <a class="btn btn-small ghost" href="{{ route('project.next2you') }}">Voir le projet</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Machina -->
+                        <div class="swiper-slide">
+                            <div class="project-card">
+                                <div class="project-preview">
+                                    <div class="project-mockup">
+                                        <div class="mockup-header">
+                                            <span class="mockup-dot"></span>
+                                            <span class="mockup-dot"></span>
+                                            <span class="mockup-dot"></span>
+                                        </div>
+                                        <div class="mockup-content">
+                                            <img src="{{ asset('images/project-2.png') }}" alt="Machina">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="project-info">
+                                    <h3>Machina</h3>
+                                    <p>Application de gestion industrielle : interfaces responsive et API sécurisée.</p>
+                                    <div class="project-tags">
+                                        <span class="tag">Laravel</span>
+                                        <span class="tag">PHP</span>
+                                        <span class="tag">Docker</span>
+                                    </div>
+                                    <div class="project-tags" style="margin-top:12px;">
+                                        <a class="btn btn-small ghost" href="{{ route('project.machina') }}">Voir le projet</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Projet Parking -->
+                        <div class="swiper-slide">
+                            <div class="project-card">
+                                <div class="project-preview">
+                                    <div class="project-mockup">
+                                        <div class="mockup-header">
+                                            <span class="mockup-dot"></span>
+                                            <span class="mockup-dot"></span>
+                                            <span class="mockup-dot"></span>
+                                        </div>
+                                        <div class="mockup-content">
+                                            <img src="{{ asset('images/project-3.png') }}" alt="Projet Parking">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="project-info">
+                                    <h3>Projet Parking</h3>
+                                    <p>Gestion des places, réservations et notifications, avec API et interface web.</p>
+                                    <div class="project-tags">
+                                        <span class="tag">Laravel</span>
+                                        <span class="tag">MySQL</span>
+                                        <span class="tag">JS</span>
+                                    </div>
+                                    <div class="project-tags" style="margin-top:12px;">
+                                        <a class="btn btn-small ghost" href="{{ route('project.parking') }}">Voir le projet</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stage 2026 (placeholder) -->
+                        <div class="swiper-slide">
+                            <div class="project-card">
+                                <div class="project-preview">
+                                    <div class="project-mockup">
+                                        <div class="mockup-header">
+                                            <span class="mockup-dot"></span>
+                                            <span class="mockup-dot"></span>
+                                            <span class="mockup-dot"></span>
+                                        </div>
+                                        <div class="mockup-content">
+                                            <img src="{{ asset('images/project-1.png') }}" alt="Stage 2026">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="project-info">
+                                    <h3>Stage 2026 (prévision)</h3>
+                                    <p>Place réservée pour le futur stage 2026 : objectifs et backlog à définir.</p>
+                                    <div class="project-tags">
+                                        <span class="tag">Laravel</span>
+                                        <span class="tag">Docker</span>
+                                        <span class="tag">Roadmap</span>
+                                    </div>
+                                    <div class="project-tags" style="margin-top:12px;">
+                                        <a class="btn btn-small ghost" href="{{ route('project.stage2026') }}">Voir le projet</a>
                                     </div>
                                 </div>
                             </div>

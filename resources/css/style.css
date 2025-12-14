@@ -432,8 +432,11 @@ body {
 }
 
 .btn.btn-small {
-    padding: 10px 18px;
-    font-size: 0.85rem;
+    padding: 14px 28px;
+    font-size: 0.9rem;
+    width: 100%;
+    text-align: center;
+    margin-top: 16px;
 }
 
 .btn-submit {
@@ -943,6 +946,7 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 10px;
+    margin-bottom: 24px;
 }
 
 .project-tags .tag {

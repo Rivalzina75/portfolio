@@ -436,7 +436,7 @@ body {
     font-size: 0.9rem;
     width: 100%;
     text-align: center;
-    margin-top: 16px;
+    margin-top: 90px;
 }
 
 .btn-submit {
@@ -516,6 +516,15 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 }
 
+.cards-grid.presentation-grid {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    align-items: start;
+}
+
+.card.wide {
+    grid-column: 1 / -1;
+}
+
 .card {
     background: linear-gradient(135deg, rgba(0, 217, 255, 0.07), rgba(0, 255, 204, 0.03));
     border: 1px solid var(--stroke);
@@ -577,6 +586,58 @@ body {
 .list li {
     position: relative;
     padding-left: 22px;
+}
+
+.profile-summary {
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+.skills-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.skill-tag {
+    font-size: 0.9rem;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: rgba(0, 217, 255, 0.1);
+    color: var(--primary);
+    border: 1px solid rgba(0, 217, 255, 0.35);
+}
+
+.status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: rgba(0, 217, 255, 0.12);
+    color: var(--primary);
+    border: 1px solid rgba(0, 217, 255, 0.35);
+}
+
+.option-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.option-box {
+    padding: 16px;
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    border-radius: 12px;
+    background: rgba(0, 217, 255, 0.05);
+    color: var(--text-secondary);
+}
+
+.option-box .tag {
+    margin-bottom: 8px;
+    display: inline-flex;
 }
 
 .list li::before {
@@ -644,7 +705,6 @@ body {
 
 .panel-content {
     display: grid;
-    overflow: hidden;
 }
 
 .panel-group {
@@ -863,16 +923,19 @@ body {
 
 .project-preview {
     flex: 1;
-    padding: 20px;
+    padding: 0 !important;
+    /* Force le padding à 0 pour coller aux bords */
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    /* Assure que ça remplit bien */
     background: linear-gradient(135deg, rgba(0, 217, 255, 0.05), transparent);
 }
 
 .project-mockup {
     width: 100%;
-    max-width: 480px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     background: #1a2540;
     border-radius: 12px;
     overflow: hidden;
@@ -906,27 +969,33 @@ body {
     background: #27ca40;
 }
 
-.mockup-content {
-    height: 240px;
+/* 1. On s'assure que le conteneur de l'image prend toute la place et n'a pas de marges */
+.project-mockup .mockup-content {
+    width: 100%;
+    height: 100%;
+    padding: 0;
     background: linear-gradient(180deg, #0d1829, #0a1420);
-    display: flex;
-    align-items: center;
-    justify-content: center;
     overflow: hidden;
+    /* Coupe ce qui dépasse pour garder les bords arrondis */
+    display: flex;
 }
 
-.mockup-content img {
+/* 2. On force l'image à prendre 100% de la largeur et hauteur */
+.project-mockup .mockup-content img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    /* L'image va zoomer pour tout remplir */
+    display: block;
 }
 
 .project-info {
     flex: 0 0 35%;
-    padding: 32px;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    padding: 30px;
+    box-sizing: border-box;
 }
 
 .project-info h3 {
@@ -964,6 +1033,11 @@ body {
 .project-tags .tag:hover {
     background: rgba(0, 217, 255, 0.2);
     border-color: var(--primary);
+}
+
+.project-info .project-tags:last-child {
+    margin-top: auto !important;
+    width: 100%;
 }
 
 .carousel-footer {
@@ -1604,5 +1678,195 @@ body {
 
     .main-content {
         padding-bottom: 40px;
+    }
+}
+
+/* ========== PRESENTATION SECTION (BENTO LAYOUT) ========== */
+/* --- 1. LA GRILLE BENTO (STRUCTURE) --- */
+.presentation-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* 2 colonnes égales */
+    gap: 2rem;
+    /* Espace entre les cartes */
+    text-align: left;
+}
+
+/* Le bloc "Cadre BTS" prend toute la largeur en haut */
+.cursus-frame {
+    grid-column: 1 / -1;
+}
+
+/* --- 2. STYLE DES CARTES (DESIGN) --- */
+.grid-block,
+.cursus-frame {
+    /* On remet de la transparence (0.5 au lieu de 0.85) */
+    background: rgba(15, 23, 42, 0.5);
+
+    /* Le flou reste pour que le texte soit lisible sur les étoiles */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    /* Bordure très fine et subtile */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+
+    /* Ombre plus douce */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+
+    border-radius: 16px;
+    padding: 2rem;
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+/* Petit effet au survol pour le dynamisme */
+.grid-block:hover {
+    border-color: var(--primary);
+    /* Ton Cyan */
+    transform: translateY(-5px);
+    background: rgba(15, 23, 42, 0.7);
+}
+
+/* En-têtes avec icônes */
+.block-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.block-header .icon {
+    font-size: 1.8rem;
+}
+
+.block-header h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #fff;
+}
+
+/* --- 3. BLOC DU HAUT (LES OPTIONS SISR/SLAM) --- */
+.block-intro {
+    color: #b0b0b0;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+.options-flex {
+    display: flex;
+    /* Met SISR et SLAM côte à côte */
+    gap: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.option-item {
+    flex: 1;
+    padding: 1.5rem;
+
+    /* Fond transparent pour un design épuré */
+    background: transparent;
+
+    /* Juste une bordure gauche pour séparer visuellement */
+    border-left: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0;
+}
+
+/* Mise en avant de SLAM */
+.slam-highlight {
+    background: linear-gradient(90deg, rgba(0, 255, 255, 0.05) 0%, transparent 100%);
+    border-left: 2px solid var(--primary);
+}
+
+.slam-highlight strong {
+    color: var(--primary);
+    /* Ton Cyan */
+    font-size: 1.1rem;
+}
+
+/* --- 4. BLOC "MON CHOIX" (LISTE) --- */
+.clean-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.clean-list li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+    color: #d1d5db;
+    line-height: 1.6;
+}
+
+/* Petite barre verticale cyan devant chaque point */
+.clean-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    height: 8px;
+    width: 8px;
+    border-radius: 50%;
+    background-color: var(--primary);
+}
+
+/* Badge "2ème année" */
+.status-tag {
+    display: inline-block;
+    margin-top: 1rem;
+    font-weight: 600;
+    color: var(--primary);
+    background: rgba(0, 255, 255, 0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    border: 1px solid var(--primary);
+}
+
+/* On enlève le point devant le badge */
+.clean-list li.status-tag::before {
+    content: none;
+}
+
+.clean-list li.status-tag {
+    padding-left: 1rem;
+}
+
+/* --- 5. BLOC "SOFT SKILLS" (TAGS) --- */
+.skills-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+}
+
+.skill-tag {
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    /* Forme de pilule */
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e5e7eb;
+    transition: all 0.3s;
+}
+
+.skill-tag:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-2px);
+}
+
+/* --- 6. RESPONSIVE (MOBILE) --- */
+@media (max-width: 900px) {
+    .presentation-grid {
+        grid-template-columns: 1fr;
+        /* Tout en une colonne */
+    }
+
+    .options-flex {
+        flex-direction: column;
+        /* SISR sous SLAM sur mobile */
+        gap: 1rem;
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class VeilleController extends Controller
 {
@@ -43,7 +44,7 @@ class VeilleController extends Controller
                 $articles = $this->parseFeed($feedUrl);
                 $allArticles = array_merge($allArticles, $articles);
             } catch (\Exception $e) {
-                \Log::warning("Failed to fetch RSS from {$feedUrl}: " . $e->getMessage());
+                Log::warning("Failed to fetch RSS from {$feedUrl}: " . $e->getMessage());
             }
         }
 
@@ -311,9 +312,9 @@ class VeilleController extends Controller
         // Return latest 6 articles
         $allFiltered = array_slice($relevantArticles, 0, 6);
 
-        \Log::info("Total articles after filter: " . count($allFiltered));
+        Log::info("Total articles after filter: " . count($allFiltered));
         foreach ($allFiltered as $art) {
-            \Log::info("- " . $art['title']);
+            Log::info("- " . $art['title']);
         }
 
         return $allFiltered;
@@ -332,11 +333,11 @@ class VeilleController extends Controller
                 ->get($feedUrl);
 
             if (!$response->successful()) {
-                \Log::warning("Feed {$feedUrl} returned status {$response->status()}");
+                Log::warning("Feed {$feedUrl} returned status {$response->status()}");
                 return [];
             }
 
-            \Log::info("Successfully fetched feed {$feedUrl}, body length: " . strlen($response->body()));
+            Log::info("Successfully fetched feed {$feedUrl}, body length: " . strlen($response->body()));
 
             // Register Atom namespace
             $xml = simplexml_load_string($response->body());
@@ -413,7 +414,7 @@ class VeilleController extends Controller
 
             return $articles;
         } catch (\Exception $e) {
-            \Log::error("Error parsing RSS: " . $e->getMessage());
+            Log::error("Error parsing RSS: " . $e->getMessage());
             return [];
         }
     }

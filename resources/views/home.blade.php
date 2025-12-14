@@ -18,10 +18,6 @@
                 </g>
             </svg>
             <p class="hero-subtitle">Développeur full-stack en devenir</p>
-            <p class="lede">
-                Je conçois des applications web modernes avec Laravel et JavaScript,
-                en privilégiant la maintenabilité, la performance et l'expérience utilisateur.
-            </p>
             <div class="hero-cta">
                 <a class="btn primary" href="#presentation">En savoir plus</a>
             </div>
@@ -29,52 +25,63 @@
     </section>
 
     {{-- ========== PRESENTATION SECTION ========== --}}
-    <section id="presentation" class="section">
-        <div class="container">
-            <div class="section-head">
-                <p class="eyebrow">Qui suis-je ?</p>
-                <h2>Présentation & méthode</h2>
-                <p class="lede">
-                    Une approche méthodique centrée sur la valeur livrée,
-                    la maintenabilité du code et l'expérience utilisateur.
-                </p>
-            </div>
-            <div class="cards-grid three">
-                <article class="card">
-                    <div class="card-icon">👤</div>
-                    <h3>Qui je suis</h3>
-                    <ul class="list">
-                        <li>Étudiant passionné par le développement web</li>
-                        <li>Focus Laravel, API REST et front soigné</li>
-                        <li>Recherche alternance / stage dès 2025</li>
-                        <li>Bac général spé. Maths & Physique-Chimie</li>
-                    </ul>
-                </article>
-                <article class="card">
-                    <div class="card-icon">🛠️</div>
-                    <h3>Ce que je fais</h3>
-                    <ul class="list">
-                        <li>Applications web Laravel (API, dashboards, sites)</li>
-                        <li>Frontend réactif avec Vite, JS et CSS</li>
-                        <li>Git, bonnes pratiques, revues de code</li>
-                        <li>Tests & validation (fonctionnel, intégration)</li>
-                        <li>Performance, accessibilité et UX</li>
-                    </ul>
-                </article>
-                <article class="card">
-                    <div class="card-icon">🎓</div>
-                    <h3>BTS SIO & option SLAM</h3>
-                    <ul class="list">
-                        <li>BTS SIO : support et solutions informatiques</li>
-                        <li>Option SLAM : conception, dev et tests d'applications</li>
-                        <li>Bases solides : UML, bases de données, sécurité</li>
-                        <li>Projets : API REST, dashboards, sites vitrines</li>
-                        <li>Objectif : livrer des solutions fiables et maintenables</li>
-                    </ul>
-                </article>
-            </div>
+  <section id="presentation" class="section">
+    <div class="container">
+        <div class="section-head">
+            <p class="eyebrow">Mon parcours</p>
+            <h2>Présentation & Cursus</h2>
         </div>
-    </section>
+
+        <div class="presentation-grid">
+            
+            <div class="grid-block cursus-frame">
+                <div class="block-header">
+                    <span class="icon">🏛️</span>
+                    <h3>Le cadre : Le BTS SIO</h3>
+                </div>
+                <p class="block-intro">Le Brevet de Technicien Supérieur "Services Informatiques aux Organisations" forme les experts qui répondent aux besoins numériques des entreprises. Il se divise en deux spécialités distinctes :</p>
+                <div class="options-flex">
+                    <div class="option-item sisr">
+                        <strong>SISR :</strong> Solutions d'Infrastructure, Systèmes et Réseaux (Administration & Sécurité).
+                    </div>
+                    <div class="option-item slam-highlight">
+                        <strong>SLAM :</strong> Solutions Logicielles et Applications Métiers (Conception & Développement).
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid-block my-choice">
+                 <div class="block-header">
+                    <span class="icon">🎯</span>
+                    <h3>Mon choix de spécialisation</h3>
+                </div>
+                <ul class="clean-list highlight-list">
+                     <li><strong>Option SLAM :</strong> J'ai choisi la voie du développement pour créer des solutions, de la base de données à l'interface utilisateur.</li>
+                     <li><strong>Option Mathématiques Approfondies :</strong> Un choix stratégique pour renforcer ma logique algorithmique et ma capacité d'abstraction.</li>
+                     <li class="status-tag">Actuellement en 2ème année</li>
+                </ul>
+            </div>
+
+            <div class="grid-block profile-skills">
+                 <div class="block-header">
+                    <span class="icon">🧠</span>
+                    <h3>Qui je suis & Mes atouts</h3>
+                </div>
+                <p class="profile-summary">
+                    Étudiant autonome et rigoureux, je consolide mes compétences techniques en vue d'une <strong>alternance pour la rentrée 2026</strong>.
+                </p>
+                <div class="skills-tags">
+                    <span class="skill-tag">Autonomie & Recherche</span>
+                    <span class="skill-tag">Logique algorithmique</span>
+                    <span class="skill-tag">Travail d'équipe</span>
+                    <span class="skill-tag">Rigueur (Clean Code)</span>
+                    <span class="skill-tag">Curiosité tech</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
 
     {{-- ========== PARCOURS TIMELINE SECTION ========== --}}
     <section id="parcours" class="section">
@@ -103,38 +110,40 @@
         </div>
     </section>
 
-    {{-- ========== EXPERIENCE SECTION ========== --}}
-    <section id="experience" class="section">
-        <div class="container">
-            <div class="section-head">
-                <p class="eyebrow">Expériences</p>
-                <h2>Expériences professionnelles</h2>
-                <p class="lede">Stages, projets et expériences qui ont façonné mon parcours</p>
-            </div>
-            <div class="cards-grid two">
-                <article class="card">
-                    <div class="card-icon">💼</div>
-                    <h3>Stage - Développeur Web</h3>
-                    <p class="eyebrow" style="margin-top: 0.5rem;">À venir • 2025</p>
-                    <ul class="list">
-                        <li>Recherche active d'un stage en développement web</li>
-                        <li>Focus sur Laravel, API REST et JavaScript</li>
-                        <li>Durée : 6 semaines minimum</li>
-                    </ul>
-                </article>
-                <article class="card">
-                    <div class="card-icon">🎓</div>
-                    <h3>Projets académiques</h3>
-                    <p class="eyebrow" style="margin-top: 0.5rem;">BTS SIO SLAM • 2024-2026</p>
-                    <ul class="list">
-                        <li>Développement d'applications web complètes</li>
-                        <li>Travail en équipe sur projets réels</li>
-                        <li>Méthodologies Agile et gestion de version Git</li>
-                    </ul>
-                </article>
-            </div>
+   {{-- ========== EXPERIENCE SECTION ========== --}}
+<section id="experience" class="section">
+    <div class="container">
+        <div class="section-head">
+            <p class="eyebrow">Parcours Pro</p>
+            <h2>Expériences professionnelles</h2>
+            <p class="lede">Mise en pratique de mes compétences en entreprise.</p>
         </div>
-    </section>
+
+        <div class="cards-grid two">
+            
+            <article class="card grid-block">
+                <h3>Stage : ??????</h3>
+                <p class="eyebrow" style="margin-top: 0.5rem; color: var(--primary);">5 Janvier – 6 Février 2026</p>
+                
+                <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(0, 255, 255, 0.05); border-radius: 8px; border: 1px dashed rgba(255, 255, 255, 0.2); text-align: center;">
+                    <p style="margin: 0; color: #a0aec0; font-style: italic;">Stage à venir</p>
+                </div>
+            </article>
+
+            <article class="card grid-block">
+                <h3>Stage : Assuroweb</h3>
+                <p class="eyebrow" style="margin-top: 0.5rem; color: var(--primary);">5 Mai – 6 Juin 2025</p>
+                <ul class="list">
+                    <li>Développement Fullstack d'un module de blog/actualités sous <strong>Laravel</strong> (PHP).</li>
+                    <li>Création d'une interface d'administration pour la gestion de contenu (Bases de données, formulaires, QuillJS).</li>
+                    <li>Travail en environnement conteneurisé (<strong>Docker</strong>) et versionné (<strong>Git</strong>).</li>
+                    <li>Intégration web et Responsive Design.</li>
+                </ul>
+            </article>
+
+        </div>
+    </div>
+</section>
 
     {{-- ========== COMPETENCES SECTION ========== --}}
     <section id="competences" class="section muted">
@@ -164,20 +173,21 @@
                             <div class="skill-item"><img src="{{ asset('icons/python-original.svg') }}" alt="Python" width="40" height="40"><p>Python</p></div>
                             <div class="skill-item"><img src="{{ asset('icons/html5-plain.svg') }}" alt="HTML5" width="40" height="40"><p>HTML5</p></div>
                             <div class="skill-item"><img src="{{ asset('icons/css3-plain.svg') }}" alt="CSS3" width="40" height="40"><p>CSS3</p></div>
-                            <div class="skill-item"><img src="{{ asset('icons/java-original.svg') }}" alt="SQL" width="40" height="40"><p>Java</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/java-original.svg') }}" alt="Java" width="40" height="40"><p>Java</p></div>
                             <div class="skill-item"><img src="{{ asset('icons/c-original.svg') }}" alt="C" width="40" height="40"><p>C</p></div>
                         </div>
 
                         <div class="panel-group" id="frameworks" role="tabpanel" aria-hidden>
                             <div class="skill-item"><img src="{{ asset('icons/laravel-original.svg') }}" alt="Laravel" width="40" height="40"><p>Laravel</p></div>
-                            <div class="skill-item"><img src="{{ asset('icons/vitejs-original.svg') }}" alt="Vite" width="40" height="40"><p>Vite</p></div>
                         </div>
 
                         <div class="panel-group" id="stack" role="tabpanel" aria-hidden>
-                            <div class="skill-item"><img src="{{ asset('icons/docker-plain-wordmark.svg') }}" alt="Docker" width="40" height="40"><p>Docker</p></div>
-                            <div class="skill-item"><img src="{{ asset('icons/linux-original.svg') }}" alt="Linux" width="40" height="40"><p>Linux</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/vitejs-original.svg') }}" alt="Vite" width="40" height="40"><p>Vite</p></div>
                             <div class="skill-item"><img src="{{ asset('icons/composer-original.svg') }}" alt="Composer" width="40" height="40"><p>Composer</p></div>
                             <div class="skill-item"><img src="{{ asset('icons/npm-original.svg') }}" alt="NPM" width="40" height="40"><p>NPM</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/docker-plain-wordmark.svg') }}" alt="Docker" width="40" height="40"><p>Docker</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/linux-original.svg') }}" alt="Linux" width="40" height="40"><p>Linux</p></div>
+
                         </div>
 
                         <div class="panel-group" id="bdd" role="tabpanel" aria-hidden>
@@ -236,7 +246,7 @@
                                         <span class="tag">Vite</span>
                                         <span class="tag">CSS3</span>
                                     </div>
-                                    <div class="project-tags" style="margin-top:12px;">
+                                    <div class="project-tags">
                                         <a class="btn btn-small ghost" href="{{ route('project.portfolio') }}">Voir le projet</a>
                                     </div>
                                 </div>
@@ -266,7 +276,7 @@
                                         <span class="tag">Docker</span>
                                         <span class="tag">SQL</span>
                                     </div>
-                                    <div class="project-tags" style="margin-top:12px;">
+                                    <div class="project-tags">
                                         <a class="btn btn-small ghost" href="{{ route('project.assuroweb') }}">Voir le projet</a>
                                     </div>
                                 </div>
@@ -296,7 +306,7 @@
                                         <span class="tag">Docker</span>
                                         <span class="tag">JavaScript</span>
                                     </div>
-                                    <div class="project-tags" style="margin-top:12px;">
+                                    <div class="project-tags">
                                         <a class="btn btn-small ghost" href="{{ route('project.next2you') }}">Voir le projet</a>
                                     </div>
                                 </div>
@@ -326,7 +336,7 @@
                                         <span class="tag">PHP</span>
                                         <span class="tag">Docker</span>
                                     </div>
-                                    <div class="project-tags" style="margin-top:12px;">
+                                    <div class="project-tags">
                                         <a class="btn btn-small ghost" href="{{ route('project.machina') }}">Voir le projet</a>
                                     </div>
                                 </div>
@@ -356,7 +366,7 @@
                                         <span class="tag">MySQL</span>
                                         <span class="tag">JS</span>
                                     </div>
-                                    <div class="project-tags" style="margin-top:12px;">
+                                    <div class="project-tags">
                                         <a class="btn btn-small ghost" href="{{ route('project.parking') }}">Voir le projet</a>
                                     </div>
                                 </div>
@@ -386,7 +396,7 @@
                                         <span class="tag">Docker</span>
                                         <span class="tag">Roadmap</span>
                                     </div>
-                                    <div class="project-tags" style="margin-top:12px;">
+                                    <div class="project-tags">
                                         <a class="btn btn-small ghost" href="{{ route('project.stage2026') }}">Voir le projet</a>
                                     </div>
                                 </div>

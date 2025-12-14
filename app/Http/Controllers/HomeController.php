@@ -81,7 +81,7 @@ class HomeController extends Controller
             }
         } catch (\Exception $e) {
             // Si erreur, on garde un tableau vide pour ne pas faire planter le site
-            \Log::error("Erreur RSS : " . $e->getMessage());
+            Log::error("Erreur RSS : " . $e->getMessage());
         }
 
         // On envoie 12 articles pour la rotation en JS

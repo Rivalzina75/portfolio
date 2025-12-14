@@ -159,6 +159,10 @@ body {
     scroll-snap-align: none;
 }
 
+#experience {
+    padding: 60px 0 60px;
+}
+
 .section-head {
     margin-bottom: 56px;
     text-align: center;

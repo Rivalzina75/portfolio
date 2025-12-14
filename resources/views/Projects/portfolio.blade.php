@@ -1,44 +1,117 @@
-@extends('layouts.app') 
+@extends('layouts.app')
 
-@section('title', 'BTS SIO SLAM - Projet portfolio') 
+@section('title', 'Étude de cas – Portfolio BTS SIO SLAM')
 
 @section('content')
-
     <section id="portfolio-project-details" class="section">
         <div class="container">
-            
-            <h2 class="section-title">Analyse du Projet : Mon Portfolio (Étude de Cas)</h2>
-            
-            <div class="modal-body">
-                
-                <h3>Description et Contexte du Projet</h3>
-                <p>Ce projet consiste en la conception et la réalisation de mon portfolio numérique pour la soutenance du BTS SIO SLAM (Épreuve E4). L'objectif est de présenter de manière structurée et professionnelle mes compétences techniques, mes projets réalisés, et ma veille technologique.</p>
-                <p>L'approche adoptée a été de créer un site <span class="highlight">mono-page</span> pour une consultation rapide, tout en prévoyant une extension <span class="highlight">multi-pages</span> pour les études de cas détaillées comme celle-ci.</p>
+            <div class="section-head">
+                <p class="eyebrow">Étude de cas</p>
+                <h2>Portfolio BTS SIO SLAM</h2>
+                <p class="lede">Site vitrine mono-page avec sections animées, veille technologique connectée (RSS), et pages détaillées pour chaque projet.</p>
+            </div>
 
-                <hr style="margin: 2rem 0; border-color: var(--text-secondary); opacity: 0.3;">
-                
-                <h3>Choix Techniques et Stack</h3>
-                <div class="about-details">
-                    <p>La stack a été choisie pour démontrer la maîtrise des technologies modernes :</p>
-                    <ul>
-                        <li><span class="highlight">Framework</span> : Laravel 10 (Blade) pour la structure du projet, les routes et l'héritage du layout.</li>
-                        <li><span class="highlight">Front-end/Design</span> : HTML5 et CSS pur (avec usage de variables CSS) pour le thème sombre, le responsive design et les animations.</li>
-                        <li><span class="highlight">Interactivité</span> : JavaScript pour les interactions utilisateur (navigation, modals, animations de barres de compétences).</li>
-                        <li><span class="highlight">Gestion de Version</span> : Git/GitHub pour le suivi des évolutions et la collaboration.</li>
+            <div class="cards-grid three">
+                <article class="card">
+                    <div class="card-icon">🎯</div>
+                    <h3>Objectif</h3>
+                    <ul class="list">
+                        <li>Présenter les compétences et projets pour l'épreuve E4</li>
+                        <li>Mettre en avant la veille technologique en temps réel</li>
+                        <li>Offrir une navigation fluide (scroll + animations)</li>
                     </ul>
-                </div>
-                
-                <h3>Compétences Techniques & Méthodologiques</h3>
-                <p>La réalisation du portfolio a permis de valider les compétences suivantes :</p>
-                <ul class="missions-list">
-                    <li><span class="highlight">Conception</span> : Définition des besoins, maquettage (Wireframing) de l'interface utilisateur (UI).</li>
-                    <li><span class="highlight">Intégration</span> : Maîtrise du Responsive Design pour une expérience utilisateur optimale sur tous les appareils.</li>
-                    <li><span class="highlight">Développement Back-end</span>: Utilisation de la structure MVC de Laravel pour les vues (Blade) et la gestion des routes.</li>
-                    <li><span class="highlight">Qualité Logicielle</span> : Optimisation du code CSS (modularité et variables) et du code HTML (sémantique).</li>
-                </ul>
+                </article>
 
+                <article class="card">
+                    <div class="card-icon">🛠️</div>
+                    <h3>Stack & choix</h3>
+                    <ul class="list">
+                        <li>Laravel 11 + Blade, routes dédiées (projets, veille)</li>
+                        <li>Vite + JS vanilla pour les interactions et carrousels</li>
+                        <li>CSS custom (thème dark, gradients, animations)</li>
+                    </ul>
+                </article>
+
+                <article class="card">
+                    <div class="card-icon">🚀</div>
+                    <h3>Livrables clés</h3>
+                    <ul class="list">
+                        <li>Page d'accueil animée (hero, parcours, compétences)</li>
+                        <li>Section veille connectée aux flux Google Alerts</li>
+                        <li>Pages projets détaillées, dont cette étude de cas</li>
+                    </ul>
+                </article>
+            </div>
+
+            <div class="cards-grid two" style="margin-top: 32px;">
+                <article class="card">
+                    <div class="card-icon">📐</div>
+                    <h3>Architecture & données</h3>
+                    <ul class="list">
+                        <li>Routes Laravel dédiées : accueil, projets, veille (API)</li>
+                        <li>Contrôleur `VeilleController` : fetch RSS + dédup + images (og:image)</li>
+                        <li>Injection des articles côté Blade → consommation JS pour la rotation</li>
+                    </ul>
+                </article>
+
+                <article class="card">
+                    <div class="card-icon">✅</div>
+                    <h3>Résultats & qualité</h3>
+                    <ul class="list">
+                        <li>UI cohérente (dark, néon, cartes, progress bar)</li>
+                        <li>Accessibilité : contraste, focus states, navigation clavier</li>
+                        <li>Performance : Vite bundling, lazy images, fallback robuste</li>
+                    </ul>
+                </article>
+            </div>
+
+            <div class="cards-grid two" style="margin-top: 32px;">
+                <article class="card">
+                    <div class="card-icon">👤</div>
+                    <h3>Rôle et responsabilités</h3>
+                    <ul class="list">
+                        <li>Conception UI/UX et prototypage des sections</li>
+                        <li>Intégration front (hero, timelines, carrousel projets)</li>
+                        <li>Backend Laravel (routes, contrôleurs, API veille)</li>
+                        <li>Qualité : revues, optimisation, correctifs responsive</li>
+                    </ul>
+                </article>
+
+                <article class="card">
+                    <div class="card-icon">🔭</div>
+                    <h3>Prochaines étapes</h3>
+                    <ul class="list">
+                        <li>Ajout de tests de contrôleur pour l'API veille</li>
+                        <li>Internationalisation FR/EN</li>
+                        <li>Mode offline pour le carrousel de veille</li>
+                    </ul>
+                </article>
+            </div>
+
+            <div class="skills-panel" style="margin-top: 40px;">
+                <div class="panel-content" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px;">
+                    <div class="skill-item" style="justify-content: center;">
+                        <p style="margin: 0;">Laravel 11 • Blade • Vite</p>
+                    </div>
+                    <div class="skill-item" style="justify-content: center;">
+                        <p style="margin: 0;">CSS custom • Animations</p>
+                    </div>
+                    <div class="skill-item" style="justify-content: center;">
+                        <p style="margin: 0;">JavaScript (carrousel, veille)</p>
+                    </div>
+                    <div class="skill-item" style="justify-content: center;">
+                        <p style="margin: 0;">RSS/HTTP • Cache</p>
+                    </div>
+                    <div class="skill-item" style="justify-content: center;">
+                        <p style="margin: 0;">Accessibilité & responsive</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-cta" style="margin-top: 32px; justify-content: flex-start;">
+                <a class="btn primary" href="{{ route('portfolio.home') }}#projets">↩ Retour aux projets</a>
+                <a class="btn ghost" href="{{ route('portfolio.home') }}#veille">Voir la veille</a>
             </div>
         </div>
     </section>
-
 @endsection

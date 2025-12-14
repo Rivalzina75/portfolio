@@ -4,6 +4,10 @@
 @section('description', 'Portfolio professionnel de Mekaoui Reda, étudiant en BTS SIO option SLAM. Développeur full-stack junior.')
 
 @section('content')
+    {{-- Pass articles data to JavaScript --}}
+    <script>
+        window.__VEILLE_ARTICLES__ = @json($articles ?? []);
+    </script>
     {{-- ========== HERO SECTION ========== --}}
     <section id="accueil" class="section hero">
         <div class="container hero-simple">

@@ -20,7 +20,16 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        // Fetch veille articles via API endpoint
+        try {
+            $response = \Illuminate\Support\Facades\Http::timeout(5)->get(route('api.veille.articles'));
+            $articles = $response->successful() ? $response->json() : [];
+        } catch (\Exception $e) {
+            \Log::warning('Failed to fetch veille articles: ' . $e->getMessage());
+            $articles = [];
+        }
+
+        return view('home', ['articles' => $articles]);
     }
 
     /**

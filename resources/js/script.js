@@ -172,6 +172,22 @@ document.addEventListener('DOMContentLoaded', () => {
         { title: "Performance : animations générées et reflow", date: "26/11/2025", image: null, link: "#" }
     ];
 
+    const fallbackImage = (imageEl) => {
+        if (!imageEl) return;
+        const colors = [
+            ['#00d9ff', '#00ffcc'],
+            ['#ff0080', '#ff8c00'],
+            ['#7f39fb', '#ec4899'],
+            ['#06b6d4', '#0891b2'],
+            ['#3b82f6', '#8b5cf6'],
+            ['#ec4899', '#f59e0b'],
+        ];
+        const randomColor = colors[Math.floor(Math.random() * colors.length)];
+        imageEl.style.background = `linear-gradient(135deg, ${randomColor[0]}33, ${randomColor[1]}22)`;
+        imageEl.innerHTML = '📰';
+        imageEl.classList.add('no-image');
+    };
+
     const renderVeille = () => {
         veilleCards.forEach((card, slot) => {
             const art = veilleArticles[(veilleIndex + slot) % veilleArticles.length];
@@ -180,25 +196,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const dateEl = card.querySelector('.veille-date');
             const linkEl = card.querySelector('.veille-link');
 
-            // Update image
+            // Update image with validation + onerror fallback
             if (imageEl) {
-                if (art.image) {
-                    imageEl.innerHTML = `<img src="${art.image}" alt="${art.title}" loading="lazy">`;
+                if (art.image && /^https?:\/\//i.test(art.image)) {
                     imageEl.classList.remove('no-image');
+                    imageEl.innerHTML = `<img src="${art.image}" alt="${art.title}" loading="lazy" referrerpolicy="no-referrer">`;
+                    const imgTag = imageEl.querySelector('img');
+                    if (imgTag) {
+                        imgTag.onerror = () => fallbackImage(imageEl);
+                    }
                 } else {
-                    // Generate a random gradient color
-                    const colors = [
-                        ['#00d9ff', '#00ffcc'],
-                        ['#ff0080', '#ff8c00'],
-                        ['#7f39fb', '#ec4899'],
-                        ['#06b6d4', '#0891b2'],
-                        ['#3b82f6', '#8b5cf6'],
-                        ['#ec4899', '#f59e0b'],
-                    ];
-                    const randomColor = colors[Math.floor(Math.random() * colors.length)];
-                    imageEl.style.background = `linear-gradient(135deg, ${randomColor[0]}33, ${randomColor[1]}22)`;
-                    imageEl.innerHTML = '📰';
-                    imageEl.classList.add('no-image');
+                    fallbackImage(imageEl);
                 }
             }
 
@@ -247,17 +255,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Fetch articles from RSS API
     if (veilleCards.length) {
-        fetch('/api/veille/articles')
-            .then(response => response.json())
-            .then(data => {
-                veilleArticles = data && data.length ? data : fallbackArticles;
-                startRotation();
-            })
-            .catch(error => {
-                console.warn('Failed to fetch RSS articles, using fallback:', error);
-                veilleArticles = fallbackArticles;
-                startRotation();
-            });
+        // Try to get articles from server data first, otherwise fetch from API
+        const serverArticles = window.__VEILLE_ARTICLES__ || null;
+
+        if (serverArticles && serverArticles.length) {
+            veilleArticles = serverArticles;
+            startRotation();
+        } else {
+            fetch('/api/veille/articles')
+                .then(response => response.json())
+                .then(data => {
+                    veilleArticles = data && data.length ? data : fallbackArticles;
+                    startRotation();
+                })
+                .catch(error => {
+                    console.warn('Failed to fetch RSS articles, using fallback:', error);
+                    veilleArticles = fallbackArticles;
+                    startRotation();
+                });
+        }
     }
 
     // ========== Mobile Nav Toggle ==========

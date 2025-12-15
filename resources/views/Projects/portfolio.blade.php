@@ -294,7 +294,7 @@
                     Architecture technique, diagrammes UML, cas d'usage et documentation API complète.
                 </p>
                 <a href="{{ route('portfolio.documentation') }}" download class="btn primary">
-                    📥 Télécharger (25 pages)
+                    📥 Télécharger (23 pages)
                 </a>
             </div>
 

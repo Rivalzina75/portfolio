@@ -1,79 +1,237 @@
 @extends('layouts.app')
 
-@section('title', 'Étude de cas – Assuroweb')
+@section('title', 'AssuROWeb - Stage BTS SIO SLAM')
+@section('description', 'Étude de cas du stage AssuROWeb - Développement full-stack Laravel, Docker et déploiement en production')
 
 @section('content')
-    <section id="assuroweb-project" class="section">
-        <div class="container">
-            <div class="section-head">
-                <p class="eyebrow">Étude de cas</p>
-                <h2>Assuroweb (Stage)</h2>
-                <p class="lede">Refonte de modules métiers assurance, dockerisation, intégration SQL et amélioration des parcours utilisateurs.</p>
+<!-- Hero Section -->
+<section id="assuroweb-hero" class="section hero">
+    <div class="container">
+        <div class="hero-simple">
+            <p class="eyebrow">STAGE BTS SIO SLAM • 5 MAI - 6 JUIN 2025</p>
+            <h1 style="font-size: clamp(2.5rem, 5vw, 4rem); color: var(--primary); margin-bottom: 16px; line-height: 1.1;">
+                AssuROWeb
+            </h1>
+            <p class="hero-subtitle">Plateforme web d'assurance moderne</p>
+            <p class="lede">
+                Développement full-stack d'un système de gestion d'articles pour une plateforme d'assurance.
+                Stage de 30 jours axé sur Laravel, Docker et les bonnes pratiques professionnelles.
+            </p>
+            
+            <div class="hero-badges">
+                <span class="badge">Laravel</span>
+                <span class="badge">Docker</span>
+                <span class="badge">PHP 8</span>
+                <span class="badge">MySQL</span>
+                <span class="badge accent">Stage 1ère année</span>
             </div>
 
-            <div class="cards-grid three">
-                <article class="card">
-                    <div class="card-icon">🎯</div>
-                    <h3>Objectifs</h3>
-                    <ul class="list">
-                        <li>Stabiliser et conteneuriser les environnements</li>
-                        <li>Moderniser des écrans métier assurance</li>
-                        <li>Optimiser les requêtes SQL critiques</li>
-                    </ul>
-                </article>
-                <article class="card">
-                    <div class="card-icon">🛠️</div>
-                    <h3>Stack clé</h3>
-                    <ul class="list">
-                        <li>Laravel • PHP</li>
-                        <li>Docker • Docker Compose</li>
-                        <li>MySQL / MariaDB</li>
-                    </ul>
-                </article>
-                <article class="card">
-                    <div class="card-icon">🚀</div>
-                    <h3>Livrables</h3>
-                    <ul class="list">
-                        <li>Images Docker prêtes pour CI/CD</li>
-                        <li>Écrans refactorés et responsive</li>
-                        <li>Requêtes et index optimisés</li>
-                    </ul>
-                </article>
-            </div>
-
-            <div class="cards-grid two" style="margin-top:32px;">
-                <article class="card">
-                    <div class="card-icon">📐</div>
-                    <h3>Architecture</h3>
-                    <ul class="list">
-                        <li>Services dockerisés (app, db, cache)</li>
-                        <li>Config .env unifiée pour les envs</li>
-                        <li>Migrations/seeders pour données de test</li>
-                    </ul>
-                </article>
-                <article class="card">
-                    <div class="card-icon">✅</div>
-                    <h3>Qualité</h3>
-                    <ul class="list">
-                        <li>Revue de code et guidelines</li>
-                        <li>Tests basiques de flux critiques</li>
-                        <li>Monitoring simple des erreurs</li>
-                    </ul>
-                </article>
-            </div>
-
-            <div class="skills-panel" style="margin-top:32px;">
-                <div class="panel-content" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px;">
-                    <div class="skill-item" style="justify-content:center;"><p style="margin:0;">Laravel</p></div>
-                    <div class="skill-item" style="justify-content:center;"><p style="margin:0;">Docker</p></div>
-                    <div class="skill-item" style="justify-content:center;"><p style="margin:0;">MySQL</p></div>
-                    <div class="skill-item" style="justify-content:center;"><p style="margin:0;">Git / GitHub</p></div>
-                </div>
-            </div>
-
-            <div class="hero-cta" style="margin-top:32px;">
-                <a class="btn primary" href="{{ route('portfolio.home') }}#projets">↩ Retour aux projets</a>
+            <div class="hero-cta">
+                <a href="#contexte" class="btn primary">📖 Découvrir le projet</a>
+                <a href="/files/RAPPORT DE STAGE 5 Mai-6 Juin _ MEKAOUI MOHAMED, BTS SIO1.pdf" download class="btn ghost">📄 Télécharger le rapport</a>
             </div>
         </div>
-    </section>
+    </div>
+</section>
+
+<!-- Chiffres Clés -->
+<section class="section muted">
+    <div class="container">
+        <div class="cards-grid four">
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 2.5rem; color: var(--primary); font-weight: bold; margin-bottom: 8px;" 30</div>
+                <p style="color: var(--muted);">Jours de stage</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 2.5rem; color: var(--primary); font-weight: bold; margin-bottom: 8px;">6</div>
+                <p style="color: var(--muted);">Fonctionnalités livrées</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 2.5rem; color: var(--primary); font-weight: bold; margin-bottom: 8px;">100%</div>
+                <p style="color: var(--muted);">En production</p>
+            </div>
+            <div class="card" style="text-align: center;">
+                <div style="font-size: 2.5rem; color: var(--primary); font-weight: bold; margin-bottom: 8px;">1</div>
+                <p style="color: var(--muted);">Système CRUD complet</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contexte -->
+<section id="contexte" class="section">
+    <div class="container">
+        <div class="section-head">
+            <p class="eyebrow">CONTEXTE</p>
+            <h2>Objectifs du stage</h2>
+            <p class="lede">Stage de première année BTS SIO SLAM chez AssuROWeb, entreprise spécialisée dans les solutions digitales pour l'assurance.</p>
+        </div>
+
+        <div class="cards-grid three">
+            <article class="card">
+                <div class="card-icon">🎯</div>
+                <h3>Mission principale</h3>
+                <p>Développer un système complet de gestion d'articles (blog/actualités) avec interface d'administration et affichage public.</p>
+            </article>
+            <article class="card">
+                <div class="card-icon">🏢</div>
+                <h3>Environnement</h3>
+                <p>Travail à distance avec Docker, suivi via Trello/GitHub, code reviews régulières par le tuteur technique.</p>
+            </article>
+            <article class="card">
+                <div class="card-icon">🚀</div>
+                <h3>Livrable</h3>
+                <p>Application déployée en production via WinSCP/SSH, avec documentation et rapport de stage complet.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- Réalisations -->
+<section class="section muted">
+    <div class="container">
+        <div class="section-head">
+            <p class="eyebrow">RÉALISATIONS</p>
+            <h2>Fonctionnalités développées</h2>
+        </div>
+
+        <div class="cards-grid two">
+            <article class="card">
+                <div class="card-icon">⚙️</div>
+                <h3>Backend Laravel</h3>
+                <ul class="list">
+                    <li>Architecture MVC avec Controllers dédiés</li>
+                    <li>Routes dynamiques avec paramètres et slugs</li>
+                    <li>Connexion MySQL avec Eloquent ORM</li>
+                    <li>CRUD complet pour les articles</li>
+                    <li>Gestion des erreurs 404 personnalisées</li>
+                </ul>
+            </article>
+
+            <article class="card">
+                <div class="card-icon">🎨</div>
+                <h3>Frontend & UX</h3>
+                <ul class="list">
+                    <li>Intégration QuillJS (éditeur WYSIWYG)</li>
+                    <li>Responsive design (desktop 1024p, mobile 425p)</li>
+                    <li>Slider d'articles sur la page d'accueil</li>
+                    <li>Messages de succès/erreur dynamiques (JS)</li>
+                    <li>Dégradés et CSS personnalisés</li>
+                </ul>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- Stack Technique -->
+<section class="section">
+    <div class="container">
+        <div class="section-head">
+            <p class="eyebrow">STACK TECHNIQUE</p>
+            <h2>Technologies utilisées</h2>
+        </div>
+
+        <div class="cards-grid three">
+            <article class="card">
+                <div class="card-icon">🔧</div>
+                <h3>Backend</h3>
+                <div class="skills-tags">
+                    <span class="skill-tag">Laravel</span>
+                    <span class="skill-tag">PHP 8</span>
+                    <span class="skill-tag">Eloquent ORM</span>
+                    <span class="skill-tag">Blade</span>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="card-icon">🗄️</div>
+                <h3>Base de données</h3>
+                <div class="skills-tags">
+                    <span class="skill-tag">MySQL</span>
+                    <span class="skill-tag">MariaDB</span>
+                    <span class="skill-tag">Migrations</span>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="card-icon">🐳</div>
+                <h3>DevOps</h3>
+                <div class="skills-tags">
+                    <span class="skill-tag">Docker</span>
+                    <span class="skill-tag">Git/GitHub</span>
+                    <span class="skill-tag">WinSCP</span>
+                    <span class="skill-tag">SSH</span>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- Apprentissages -->
+<section class="section muted">
+    <div class="container">
+        <div class="section-head">
+            <p class="eyebrow">BILAN</p>
+            <h2>Apprentissages clés</h2>
+        </div>
+
+        <div class="cards-grid two">
+            <article class="card">
+                <div class="card-icon">💻</div>
+                <h3>Compétences techniques</h3>
+                <ul class="list">
+                    <li><strong>Laravel :</strong> Maîtrise du framework MVC et de l'écosystème Artisan</li>
+                    <li><strong>Docker :</strong> Conteneurisation et environnement de dev isolé</li>
+                    <li><strong>Git :</strong> Workflow professionnel (branches, commits descriptifs, PR)</li>
+                    <li><strong>Déploiement :</strong> Mise en production via SSH</li>
+                </ul>
+            </article>
+
+            <article class="card">
+                <div class="card-icon">🎓</div>
+                <h3>Compétences professionnelles</h3>
+                <ul class="list">
+                    <li><strong>Autonomie :</strong> Résolution de problèmes en solo (7h de debug formatrices)</li>
+                    <li><strong>Méthodologie :</strong> Gestion de projet avec Trello et GitHub</li>
+                    <li><strong>Communication :</strong> Échanges réguliers avec le tuteur technique</li>
+                    <li><strong>Documentation :</strong> Commits structurés et rapport de stage</li>
+                </ul>
+            </article>
+        </div>
+    </div>
+</section>
+
+<!-- Documentation -->
+<section class="section">
+    <div class="container">
+        <div class="section-head">
+            <p class="eyebrow">DOCUMENTATION</p>
+            <h2>Rapport de stage</h2>
+        </div>
+
+        <div class="cards-grid two">
+            <div class="card" style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 40px 32px;">
+                <div class="card-icon">📄</div>
+                <h3 style="margin-top: 16px;">Rapport complet</h3>
+                <p style="flex-grow: 1; margin: 12px 0 24px;">
+                    Journal quotidien de 30 jours, captures d'écran des réalisations et bilan des apprentissages.
+                </p>
+                <a href="/files/RAPPORT DE STAGE 5 Mai-6 Juin _ MEKAOUI MOHAMED, BTS SIO1.pdf" download class="btn primary">
+                    📥 Télécharger le PDF
+                </a>
+            </div>
+
+            <div class="card" style="display: flex; flex-direction: column; align-items: center; text-align: center; padding: 40px 32px;">
+                <div class="card-icon">🏠</div>
+                <h3 style="margin-top: 16px;">Retour au Portfolio</h3>
+                <p style="flex-grow: 1; margin: 12px 0 24px;">
+                    Découvrez tous mes projets et ma veille technologique.
+                </p>
+                <a href="{{ route('portfolio.home') }}#projets" class="btn ghost">
+                    ← Tous les projets
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
 @endsection

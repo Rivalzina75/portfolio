@@ -20,7 +20,7 @@
             <p class="hero-subtitle">Développeur full-stack en devenir</p>
             <div class="hero-cta">
                 <a class="btn primary" href="#presentation">En savoir plus</a>
-                <a class="btn primary" href="{{ route('portfolio.cv') }}" download aria-label="Télécharger le CV">Télécharger mon CV</a>
+                <a class="btn ghost" href="{{ route('portfolio.cv') }}" download aria-label="Télécharger le CV">Télécharger mon CV</a>
             </div>
         </div>
     </section>

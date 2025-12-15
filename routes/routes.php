@@ -41,3 +41,8 @@ Route::get('/files/cv', function () {
 Route::get('/files/tableau-synthese', function () {
     return response()->download(public_path('files/TableauSyntheseBtsSioMekaouiReda.pdf'), 'Tableau_Synthese_BTS_SIO_Mekaoui_Reda.pdf');
 })->name('portfolio.tableau_synthese');
+
+// Route for documentation-portfolio.pdf
+Route::get('/documents/documentation-portfolio.pdf', function () {
+    return response()->file(public_path('files/documentation-portfolio.pdf'));
+})->name('portfolio.documentation');

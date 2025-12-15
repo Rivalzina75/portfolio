@@ -391,3 +391,13 @@ if (scrollToTopBtn) {
         });
     });
 }
+
+// Ensure the page scrolls to the #veille section on reload if the user was there
+window.addEventListener('DOMContentLoaded', () => {
+    if (window.location.hash === '#veille') {
+        const veilleSection = document.querySelector('#veille');
+        if (veilleSection) {
+            veilleSection.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
+});

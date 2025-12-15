@@ -20,6 +20,7 @@
             <p class="hero-subtitle">Développeur full-stack en devenir</p>
             <div class="hero-cta">
                 <a class="btn primary" href="#presentation">En savoir plus</a>
+                <a class="btn primary" href="{{ route('portfolio.cv') }}" download aria-label="Télécharger le CV">Télécharger mon CV</a>
             </div>
         </div>
     </section>
@@ -89,7 +90,7 @@
             <div class="section-head">
                 <p class="eyebrow">Chronologie</p>
                 <h2>Mon parcours</h2>
-                <p class="lede">Parcours académique et professionnel</p>
+                <p class="lede">Parcours académique</p>
             </div>
             <div class="timeline">
                 <div class="timeline-item">
@@ -435,7 +436,7 @@
                         et les tendances dans son domaine. C'est un processus continu de collecte, d'analyse et de partage
                         d'informations pour rester à jour et anticiper les changements qui impacteront ma pratique professionnelle.
                     </p>
-                    <h3 style="margin-top: 1.5rem;">Mon sujet : Les limites de l'IA générative dans les interactions UI complexes</h3>
+                    <h3 style="margin-top: 1.5rem;">Mon sujet : L'IA générative dans les interactions UI complexes</h3>
                     <p>
                         L'IA accélère la génération de code mais a du mal avec les comportements réels : gestes, transitions,
                         accessibilité et performance. Le développeur reste l'expert validateur qui ajuste le rendu pour le navigateur.

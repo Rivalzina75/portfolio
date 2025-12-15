@@ -21,71 +21,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // URL du flux RSS (UX Collective)
-        $rssUrl = 'https://uxdesign.cc/feed';
-        $articles = [];
+        // Utiliser le VeilleController pour récupérer les articles filtrés
+        $veilleController = new VeilleController();
+        $articlesData = $veilleController->getArticles();
 
-        try {
-            // On récupère le flux directement depuis l'extérieur
-            $response = Http::timeout(3)->get($rssUrl);
-
-            if ($response->successful()) {
-                $rss = simplexml_load_string($response->body());
-
-                if ($rss) {
-                    foreach ($rss->channel->item as $item) {
-                        $publishedAt = strtotime((string) $item->pubDate);
-
-                        // Récupération d'une image
-                        $image = null;
-
-                        // Essayer d'abord enclosure
-                        if (isset($item->enclosure)) {
-                            $attrs = $item->enclosure->attributes();
-                            if ($attrs && isset($attrs['url'])) {
-                                $image = (string) $attrs['url'];
-                            }
-                        }
-
-                        // Sinon, extraire du contenu HTML
-                        if (!$image && isset($item->description)) {
-                            $description = (string) $item->description;
-                            if (preg_match('/<img[^>]+src="([^">]+)"/', $description, $matches)) {
-                                $image = $matches[1];
-                            }
-                        }
-
-                        // Sinon, essayer le contenu encodé
-                        if (!$image && isset($item->children('http://purl.org/rss/1.0/modules/content/')->encoded)) {
-                            $content = (string) $item->children('http://purl.org/rss/1.0/modules/content/')->encoded;
-                            if (preg_match('/<img[^>]+src="([^">]+)"/', $content, $matches)) {
-                                $image = $matches[1];
-                            }
-                        }
-
-                        $articles[] = [
-                            'title'      => (string) $item->title,
-                            'link'       => (string) $item->link,
-                            'date'       => date('d/m/Y', $publishedAt), // utilisé par le JS
-                            'timestamp'  => $publishedAt,                // utilisé pour le tri
-                            'category'   => isset($item->category) ? (string) $item->category : 'Tech',
-                            'image'      => $image,
-                        ];
-                    }
-
-                    // Tri du plus récent au plus ancien
-                    usort($articles, function ($a, $b) {
-                        return ($b['timestamp'] ?? 0) - ($a['timestamp'] ?? 0);
-                    });
-                }
-            }
-        } catch (\Exception $e) {
-            // Si erreur, on garde un tableau vide pour ne pas faire planter le site
-            Log::error("Erreur RSS : " . $e->getMessage());
-        }
-
-        // On envoie 12 articles pour la rotation en JS
-        $articles = array_slice($articles, 0, 12);
+        // Convertir la réponse JSON en tableau
+        $articles = json_decode($articlesData->getContent(), true) ?? [];
 
         return view('home', compact('articles'));
     }

@@ -27,6 +27,12 @@ Route::post('/contact', [HomeController::class, 'sendContact'])->name('portfolio
 // API Veille Technologique
 Route::get('/api/veille/articles', [VeilleController::class, 'getArticles'])->name('api.veille.articles');
 
+// Clear veille cache
+Route::get('/api/veille/clear-cache', function () {
+    \Illuminate\Support\Facades\Cache::forget('veille_articles');
+    return response()->json(['status' => 'Cache cleared', 'time' => now()]);
+})->name('api.veille.clear-cache');
+
 // Téléchargements de documents
 Route::get('/files/cv', function () {
     return response()->download(public_path('files/CV-Mekaoui-Reda.pdf'), 'CV_Mekaoui_Reda.pdf');

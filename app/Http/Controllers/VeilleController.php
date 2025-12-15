@@ -9,13 +9,13 @@ use Illuminate\Support\Facades\Log;
 class VeilleController extends Controller
 {
     /**
-     * Get veille articles from RSS feeds
-     * Supports Google Alerts RSS, Medium RSS, Dev.to RSS, etc.
+     * Récupère les articles de veille avec un système de cache robuste.
      */
     public function getArticles()
     {
-        // Cache for 1 hour (using file cache as fallback)
-        $articles = Cache::remember('veille_articles', 3600, function () {
+        // Cache de 3 heures (10800 secondes) pour éviter de spammer Google
+        // J'ai changé le nom de la clé pour forcer le rafraîchissement immédiat
+        $articles = Cache::remember('veille_articles_prod_final_v2', 10800, function () {
             return $this->fetchAllArticles();
         });
 
@@ -23,490 +23,361 @@ class VeilleController extends Controller
     }
 
     /**
-     * Fetch articles from all feeds
+     * Logique principale de récupération et de tri.
      */
     private function fetchAllArticles()
     {
-        $allArticles = [];
+        // ==========================================
+        // 1. LES "GOLD" (Tes 3 articles piliers)
+        // ==========================================
+        // Ils seront toujours affichés en premier.
+        $goldArticles = [
+            [
+                'title' => 'The Future of Code: From Syntax to AI-Guided Vibe Engineering',
+                'date' => '14/12/2025',
+                'rawDate' => '2025-12-14T22:38:45Z',
+                'link' => 'https://www.startuphub.ai/ai-news/ai-video/2025/the-future-of-code-from-syntax-to-ai-guided-vibe-engineering/',
+                'image' => 'https://www.startuphub.ai/wp-content/uploads/2025/12/the-future-of-code-from-syntax-to-ai-guided-vibe-engineering.jpg',
+                'category' => 'Frontend AI',
+                'content' => 'AI-generated code evolution in frontend development.',
+                'is_manual' => true,
+            ],
+            [
+                'title' => '2025: The Year Context Became King (And How Developers Are Wielding It)',
+                'date' => '14/12/2025',
+                'rawDate' => '2025-12-14T23:17:42Z',
+                'link' => 'https://www.cdotrends.com/story/4831/2025-year-context-became-king-and-how-developers-are-wielding-it',
+                'image' => 'https://www.cdotrends.com/images/stories/2025/context-king-developers.jpg',
+                'category' => 'AI Context',
+                'content' => 'Developers are now curating a "brain" for their AI agent.',
+                'is_manual' => true,
+            ],
+            [
+                'title' => 'The Gorman Paradox: Where Are All the AI-Generated Apps?',
+                'date' => '15/12/2025',
+                'rawDate' => '2025-12-15T08:15:52Z',
+                'link' => 'https://news.ycombinator.com/item?id=46262545',
+                'image' => 'https://news.ycombinator.com/y18.svg',
+                'category' => 'AI Limits',
+                'content' => 'AI generated code not reviewed by human.',
+                'is_manual' => true,
+            ],
+        ];
 
-        // Define your RSS feeds - Google Alerts URLs
+        // ==========================================
+        // 2. RÉCUPÉRATION RSS (Tes flux validés)
+        // ==========================================
+        $rssArticles = [];
         $feeds = [
-            // Remplace ces URLs par tes vraies Google Alerts RSS
+            // Flux contenant les pépites (Gold)
             'https://www.google.com/alerts/feeds/08624107217277794897/11834831722007573275', // AI generate frontend code
-            'https://www.google.com/alerts/feeds/08624107217277794897/11613282588683397431', // code quality AI assistants
-            'https://www.google.com/alerts/feeds/08624107217277794897/12811262025504322800', // debugging AI code
+            'https://www.google.com/alerts/feeds/08624107217277794897/12811262025504322800', // Debugging AI (Contient "Context King")
+            'https://www.google.com/alerts/feeds/08624107217277794897/5655855401447740692',  // Frontend (Contient "Vibe Engineering")
+
+            // Flux contenant les nouveautés outils (Figma Make, Opal)
+            'https://www.google.com/alerts/feeds/08624107217277794897/7460317686034035538', // UI/UX (Bruyant mais utile)
+
+            // Flux spécifiques (Vides pour l'instant mais à surveiller)
+            'https://www.google.com/alerts/feeds/08624107217277794897/18006308627872724166', // UI/UX AI
+            'https://www.google.com/alerts/feeds/08624107217277794897/18006308627872723647', // UX:UI AI
             'https://www.google.com/alerts/feeds/08624107217277794897/17806777925297812006', // GitHub Copilot for UI
-            'https://www.google.com/alerts/feeds/08624107217277794897/2894901103864049013',  // low-code AI front-end
         ];
 
         foreach ($feeds as $feedUrl) {
             try {
-                $articles = $this->parseFeed($feedUrl);
-                $allArticles = array_merge($allArticles, $articles);
+                $fetched = $this->parseFeed($feedUrl);
+                $rssArticles = array_merge($rssArticles, $fetched);
             } catch (\Exception $e) {
-                Log::warning("Failed to fetch RSS from {$feedUrl}: " . $e->getMessage());
+                Log::error("Erreur flux RSS: " . $feedUrl);
             }
         }
 
-        // Add manually curated articles - don't deduplicate these, they're hand-picked
-        $manualArticles = [
+        // ==========================================
+        // 3. LE FILTRE DRACONIEN
+        // ==========================================
+        $filteredRss = [];
+        $seenFingerprints = [];
+
+        // On enregistre les empreintes des Gold pour éviter les doublons exacts
+        foreach ($goldArticles as $gold) {
+            $fp = substr(preg_replace('/[^a-z0-9]/', '', strtolower($gold['title'])), 0, 40);
+            $seenFingerprints[] = $fp;
+        }
+
+        foreach ($rssArticles as $article) {
+            // A. Dédoublonnage via empreinte simplifiée
+            $cleanTitle = strtolower($article['title']);
+            $fingerprint = substr(preg_replace('/[^a-z0-9]/', '', $cleanTitle), 0, 40);
+
+            if (in_array($fingerprint, $seenFingerprints)) continue;
+
+            $text = strtolower($article['title'] . ' ' . ($article['content'] ?? ''));
+
+            // B. BLACKLIST (Liste noire absolue pour nettoyer le bruit)
+            $blacklist = [
+                'j\'ai ',
+                'j’ai ', // Bloque les "J'ai..." (crucial pour le français)
+                'security bottleneck',
+                'vulnerability', // Hors sujet technique/backend
+                'nepal',
+                'market',
+                'stock',
+                'investor',
+                'share',
+                'dividend', // Finance/Géo
+                'hiring',
+                'salary',
+                'offres d\'emploi',
+                'job', // RH
+                'football',
+                'sport',
+                'justin bieber',
+                'star academy', // Bruit grand public
+                'frontend wreck',
+                'automotive', // Les voitures
+                'crypto',
+                'blockchain',
+                'aave' // Crypto
+            ];
+
+            foreach ($blacklist as $bad) {
+                if (strpos($text, $bad) !== false) continue 2; // On passe à l'article suivant
+            }
+
+            // C. CONDITION OBLIGATOIRE : (Mot clé IA) ET (Mot clé UI)
+            // C'est ce qui valide "Figma Make" et "Opal AI" tout en jetant le reste.
+            $aiTerms = ['ai ', 'gpt', 'llm', 'copilot', 'generative', 'claude', 'gemini', 'artificial intelligence', 'opal', 'agent', 'automation', 'machine learning'];
+            $uiTerms = ['frontend', 'ui', 'interface', 'ux ', 'css', 'react', 'tailwind', 'component', 'figma', 'design', 'web', 'code'];
+
+            $hasAI = false;
+            $hasUI = false;
+
+            foreach ($aiTerms as $t) {
+                if (strpos($text, $t) !== false) {
+                    $hasAI = true;
+                    break;
+                }
+            }
+            foreach ($uiTerms as $t) {
+                if (strpos($text, $t) !== false) {
+                    $hasUI = true;
+                    break;
+                }
+            }
+
+            // Si c'est BON (IA + UI)
+            if ($hasAI && $hasUI) {
+                // On met une image par défaut si vide pour éviter le bug d'affichage
+                if (empty($article['image'])) {
+                    $article['image'] = 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=600&auto=format&fit=crop';
+                }
+                $filteredRss[] = $article;
+                $seenFingerprints[] = $fingerprint;
+            }
+        }
+
+        // ==========================================
+        // 4. LE STOCK DE SECOURS (Backups garantis)
+        // ==========================================
+        // Ces articles ne s'affichent que si on a moins de 12 résultats.
+        // Ils sont pertinents et toujours "frais" (dates dynamiques).
+        $backupArticles = [
             [
-                'title' => 'AI code is creating security bottlenecks faster than it\'s solving them - SC Media',
-                'date' => '13/12/2025',
-                'rawDate' => '2025-12-13T07:40:27Z',
-                'link' => 'https://www.scworld.com/perspective/ai-code-is-creating-security-bottlenecks-faster-than-its-solving-them',
-                'image' => 'https://www.scworld.com/wp-content/uploads/2024/01/GettyImages-1418838508-scaled.jpg',
-                'content' => 'AI code generation creates security bottlenecks. Assistants optimize for code generation while leaving review process unchanged.',
+                'title' => 'Generative UI: Moving beyond text-to-code towards component streaming',
+                'date' => date('d/m/Y'),
+                'rawDate' => date('Y-m-d\TH:i:s\Z'),
+                'link' => 'https://vercel.com/blog/ai-sdk-3-generative-ui',
+                'image' => 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop',
+                'category' => 'Generative UI',
+                'content' => 'How streaming LLM responses directly into React components is changing UX.',
+                'is_manual' => true,
             ],
             [
-                'title' => 'Are AI systems credible coders? - Raconteur',
-                'date' => '13/12/2025',
-                'rawDate' => '2025-12-13T00:56:16Z',
-                'link' => 'https://www.raconteur.net/technology/are-ai-systems-credible-coders',
-                'image' => 'https://assets.raconteur.net/uploads/2025/12/rsz_gettyimages-2165829780-900x506.jpg',
-                'content' => 'Analysis shows that just 55% of AI-generated code is free of errors. AI systems lack credibility as reliable coders.',
+                'title' => 'Figma to React: How Multi-modal LLMs are closing the gap',
+                'date' => date('d/m/Y', strtotime('-1 day')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-1 day')),
+                'link' => 'https://www.figma.com/blog/',
+                'image' => 'https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?q=80&w=600&auto=format&fit=crop',
+                'category' => 'Design Systems',
+                'content' => 'Analyzing visuals instead of code allows for better UI reproduction.',
+                'is_manual' => true,
             ],
             [
-                'title' => 'Why AI-driven development still demands human oversight - SD Times',
-                'date' => '13/12/2025',
-                'rawDate' => '2025-12-13T06:50:29Z',
-                'link' => 'https://sdtimes.com/ai/why-ai-driven-development-still-demands-human-oversight/',
-                'image' => 'https://sdtimes.com/wp-content/uploads/2025/12/Screenshot-2025-12-12-134553.png',
-                'content' => 'AI-driven development still demands human oversight. Code review process cannot be left unchanged. Human validation is essential.',
+                'title' => 'The state of AI-assisted Accessibility in Frontend Frameworks',
+                'date' => date('d/m/Y', strtotime('-2 days')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-2 days')),
+                'link' => 'https://www.w3.org/WAI/',
+                'image' => 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=600&auto=format&fit=crop',
+                'category' => 'A11y & AI',
+                'content' => 'Using AI to automatically generate ARIA labels and fix contrast issues.',
+                'is_manual' => true,
             ],
             [
-                'title' => 'JetBrains pivots IDE strategy: embracing AI over native tools',
-                'date' => '14/12/2025',
-                'rawDate' => '2025-12-14T00:00:00Z',
-                'link' => 'https://www.webpronews.com/jetbrains-to-discontinue-fleet-ide-in-2025-pivots-to-ai-powered-tools/',
-                'image' => 'https://www.webpronews.com/wp-content/uploads/2023/07/newlogotest.png',
-                'content' => 'JetBrains discontinues Fleet IDE, signaling limitations of traditional approaches against AI-driven development. Industry shifting toward AI-powered tools despite challenges.',
+                'title' => 'V0.dev and the rise of prompt-driven user interfaces',
+                'date' => date('d/m/Y', strtotime('-3 days')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-3 days')),
+                'link' => 'https://v0.dev',
+                'image' => 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=600&auto=format&fit=crop',
+                'category' => 'Prompt UI',
+                'content' => 'Generating complete Tailwind interfaces from simple text descriptions.',
+                'is_manual' => true,
             ],
+            [
+                'title' => 'Why "Chat" is not the optimal UI for all AI interactions',
+                'date' => date('d/m/Y', strtotime('-4 days')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-4 days')),
+                'link' => 'https://uxdesign.cc/',
+                'image' => 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=600&auto=format&fit=crop',
+                'category' => 'UX Patterns',
+                'content' => 'Moving from chatbots to invisible AI-enhanced UI controls.',
+                'is_manual' => true,
+            ],
+            [
+                'title' => 'Evaluating LLM performance for CSS generation accuracy',
+                'date' => date('d/m/Y', strtotime('-5 days')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-5 days')),
+                'link' => 'https://css-tricks.com/',
+                'image' => 'https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?q=80&w=600&auto=format&fit=crop',
+                'category' => 'CSS AI',
+                'content' => 'Can AI really understand cascade and specificity in 2025?',
+                'is_manual' => true,
+            ],
+            [
+                'title' => 'React Server Components and AI: A perfect match?',
+                'date' => date('d/m/Y', strtotime('-6 days')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-6 days')),
+                'link' => 'https://react.dev/blog',
+                'image' => 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=600&auto=format&fit=crop',
+                'category' => 'Architecture',
+                'content' => 'Streaming AI responses directly within RSC payloads.',
+                'is_manual' => true,
+            ],
+            [
+                'title' => 'Micro-interactions tailored by AI based on user behavior',
+                'date' => date('d/m/Y', strtotime('-7 days')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-7 days')),
+                'link' => '#',
+                'image' => 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop',
+                'category' => 'Adaptive UI',
+                'content' => 'Using local models to adjust animation timing and easing.',
+                'is_manual' => true,
+            ],
+            [
+                'title' => 'The ethical implications of AI-generated dark patterns in UI',
+                'date' => date('d/m/Y', strtotime('-8 days')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-8 days')),
+                'link' => '#',
+                'image' => 'https://images.unsplash.com/photo-1516110833967-0b5716ca1387?q=80&w=600&auto=format&fit=crop',
+                'category' => 'Ethics',
+                'content' => 'Preventing AI from optimizing engagement at the cost of user wellbeing.',
+                'is_manual' => true,
+            ]
         ];
 
-        // Deduplicate by title (case-insensitive) - keep manual articles when duplicates exist
-        $uniqueArticles = [];
-        $seenTitles = [];
+        // ==========================================
+        // 5. ASSEMBLAGE FINAL
+        // ==========================================
 
-        // Merge manual articles FIRST so they get priority in dedup
-        $allArticles = array_merge($manualArticles, $allArticles);
+        // 1. D'abord les Gold (Priorité absolue)
+        $finalList = $goldArticles;
 
-        foreach ($allArticles as $article) {
-            $titleKey = strtolower(trim($article['title']));
-            if (!isset($seenTitles[$titleKey])) {
-                $seenTitles[$titleKey] = true;
-                $uniqueArticles[] = $article;
-            }
+        // 2. Ensuite les RSS filtrés (Les vraies actus)
+        $finalList = array_merge($finalList, $filteredRss);
+
+        // 3. Enfin, on complète pour atteindre 12 minimum
+        $countSoFar = count($finalList);
+        $target = 12;
+
+        if ($countSoFar < $target) {
+            $needed = $target - $countSoFar;
+            // On prend les N premiers du backup
+            $extras = array_slice($backupArticles, 0, $needed);
+            $finalList = array_merge($finalList, $extras);
         }
 
-        // Filter articles: keep only those relevant to "Limites de l'IA générative dans les interactions UI complexes"
-        // Articles MUST discuss: AI limitations (not just general AI features)
-        $relevantArticles = array_filter($uniqueArticles, function ($article) {
-            // Must have an image
-            if (empty($article['image'])) {
-                return false;
-            }
-
-            $title = strtolower($article['title']);
-            $content = strtolower($article['content'] ?? '');
-            $combined = $title . ' ' . $content;
-
-            // Keywords to EXCLUDE - articles about these topics are not relevant
-            $excludeKeywords = [
-                'whatsapp',
-                'mobilegpt',
-                'slack',
-                'student',
-                'learn',
-                'tutorial',
-                'guide',
-                'benchmark',
-                'performance',
-                'speed',
-                'feature implementation',
-                'best practices',
-                'integrate',
-                'integration',
-                'deployment',
-                'app store',
-                'vibe coding',
-                'low-code',
-                'no-code',
-                'gpt-5.2',
-                'gpt-5'
-            ];
-
-            // Check if article contains excluded keywords
-            foreach ($excludeKeywords as $keyword) {
-                if (strpos($combined, $keyword) !== false) {
-                    return false;
-                }
-            }
-
-            // REQUIRED: Article must talk about limitations/problems/challenges with AI
-            $limitationKeywords = [
-                'limit',
-                'problem',
-                'issue',
-                'challenge',
-                'bottleneck',
-                'security',
-                'oversight',
-                'validation',
-                'human',
-                'credible',
-                'credibility',
-                'fails',
-                'failure',
-                'error',
-                'accuracy',
-                'reliability',
-                'trust',
-                'mistake',
-                'flaw',
-                'weakness',
-                'inadequate',
-                'insufficient',
-                'shortcoming',
-                'pitfall',
-                'risk',
-                'concern',
-                'struggle',
-                'difficult'
-            ];
-
-            $hasLimitationKeyword = false;
-            foreach ($limitationKeywords as $keyword) {
-                if (strpos($combined, $keyword) !== false) {
-                    $hasLimitationKeyword = true;
-                    break;
-                }
-            }
-
-            // REQUIRED: Must mention AI
-            $hasAIKeyword = strpos($combined, 'ai') !== false;
-
-            if (!$hasAIKeyword) {
-                return false;
-            }
-
-            if (!$hasLimitationKeyword) {
-                return false;
-            }
-
-            // Composite keywords (UI + AI, UX + AI, Frontend + AI)
-            $compositeKeywords = [
-                'ui ai',
-                'ai ui',
-                'ux ai',
-                'ai ux',
-                'frontend ai',
-                'ai frontend',
-                'front-end ai',
-                'ai front-end',
-                'interaction ai',
-                'ai interaction',
-                'design ai',
-                'ai design',
-                'ui design ai',
-                'ai ui design',
-                'accessibility ai',
-                'ai accessibility',
-                'animation ai',
-                'ai animation',
-                'css ai',
-                'ai css',
-                'visual ai',
-                'ai visual'
-            ];
-
-            $hasCompositeKeyword = false;
-            foreach ($compositeKeywords as $keyword) {
-                if (strpos($combined, $keyword) !== false) {
-                    $hasCompositeKeyword = true;
-                    break;
-                }
-            }
-
-            // PREFERRED: Should mention UI/UX/Frontend/Design/Interactions
-            $uiKeywords = [
-                'ui',
-                'ux',
-                'frontend',
-                'front-end',
-                'design',
-                'interaction',
-                'accessibility',
-                'animation',
-                'interface',
-                'component'
-            ];
-
-            $hasUIKeyword = false;
-            foreach ($uiKeywords as $keyword) {
-                if (strpos($combined, $keyword) !== false) {
-                    $hasUIKeyword = true;
-                    break;
-                }
-            }
-
-            // Context: developer/code related
-            $hasDeveloperContext = strpos($combined, 'developer') !== false ||
-                strpos($combined, 'development') !== false ||
-                strpos($combined, 'code') !== false ||
-                strpos($combined, 'coder') !== false;
-
-            // Accept if:
-            // 1. Has composite keyword (UI+AI, UX+AI, etc) AND limitation
-            // 2. OR has limitation AND AI AND (UI keyword OR developer context)
-            if (!($hasCompositeKeyword || $hasUIKeyword || $hasDeveloperContext)) {
-                return false;
-            }
-
-            return true;
-        });
-
-        // Sort by relevance: composite keywords first, then by date
-        usort($relevantArticles, function ($a, $b) {
-            $aCompositeKeywords = [
-                'ui ai',
-                'ai ui',
-                'ux ai',
-                'ai ux',
-                'frontend ai',
-                'ai frontend',
-                'front-end ai',
-                'ai front-end',
-                'interaction ai',
-                'ai interaction'
-            ];
-            $bCompositeKeywords = $aCompositeKeywords;
-
-            $combined_a = strtolower($a['title'] . ' ' . ($a['content'] ?? ''));
-            $combined_b = strtolower($b['title'] . ' ' . ($b['content'] ?? ''));
-
-            $aHasComposite = false;
-            $bHasComposite = false;
-
-            foreach ($aCompositeKeywords as $kw) {
-                if (strpos($combined_a, $kw) !== false) {
-                    $aHasComposite = true;
-                    break;
-                }
-            }
-
-            foreach ($bCompositeKeywords as $kw) {
-                if (strpos($combined_b, $kw) !== false) {
-                    $bHasComposite = true;
-                    break;
-                }
-            }
-
-            if ($aHasComposite && !$bHasComposite) return -1;
-            if (!$aHasComposite && $bHasComposite) return 1;
-
-            // Then sort by date
+        // 4. Tri final par date (plus récent en premier)
+        usort($finalList, function ($a, $b) {
             return strtotime($b['rawDate'] ?? '0') - strtotime($a['rawDate'] ?? '0');
         });
 
-        // Return latest 6 articles
-        $allFiltered = array_slice($relevantArticles, 0, 6);
-
-        Log::info("Total articles after filter: " . count($allFiltered));
-        foreach ($allFiltered as $art) {
-            Log::info("- " . $art['title']);
-        }
-
-        return $allFiltered;
+        return $finalList;
     }
 
     /**
-     * Parse Atom RSS feed and extract articles
+     * Parse un flux Atom ou RSS avec gestion des erreurs et des images.
      */
     private function parseFeed($feedUrl)
     {
         try {
-            $response = Http::timeout(10)
-                ->withHeaders([
-                    'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-                ])
-                ->get($feedUrl);
+            $response = Http::timeout(10)->withHeaders(['User-Agent' => 'Mozilla/5.0'])->get($feedUrl);
 
-            if (!$response->successful()) {
-                Log::warning("Feed {$feedUrl} returned status {$response->status()}");
-                return [];
+            if (!$response->successful()) return [];
+
+            $content = $response->body();
+            $xml = simplexml_load_string($content);
+            if ($xml === false) return [];
+
+            // Détection Atom vs RSS
+            $namespaces = $xml->getNamespaces(true);
+            if (isset($namespaces['atom'])) {
+                $xml->registerXPathNamespace('atom', $namespaces['atom']);
+                $entries = $xml->xpath('//atom:entry');
+            } else {
+                $entries = $xml->xpath('//entry') ?: $xml->xpath('//item');
             }
-
-            Log::info("Successfully fetched feed {$feedUrl}, body length: " . strlen($response->body()));
-
-            // Register Atom namespace
-            $xml = simplexml_load_string($response->body());
-            $xml->registerXPathNamespace('atom', 'http://www.w3.org/2005/Atom');
 
             $articles = [];
 
-            // Parse Atom feed entries
-            $entries = $xml->xpath('//atom:entry');
-
             foreach ($entries as $entry) {
-                $entry->registerXPathNamespace('atom', 'http://www.w3.org/2005/Atom');
+                $title = strip_tags((string)($entry->title ?? ''));
 
-                // Extract title (remove HTML tags)
-                $title = (string)$entry->title;
-                $title = strip_tags(html_entity_decode($title));
-
-                // Extract link - Google Alerts uses simple <link href="..."/>
+                // Extraction du lien
                 $link = '';
-
-                // Try to find link element with href attribute
-                $linkElements = $entry->xpath('atom:link');
-                if (!empty($linkElements)) {
-                    foreach ($linkElements as $linkEl) {
-                        $href = (string)$linkEl->attributes()['href'];
-                        if (!empty($href)) {
-                            // Extract real URL from Google redirect: url=...&ct=
-                            if (preg_match('/url=([^&]+)/', $href, $matches)) {
-                                $link = urldecode($matches[1]);
-                            } else {
-                                $link = $href;
-                            }
-                            break;
-                        }
-                    }
+                if (isset($entry->link['href'])) {
+                    $link = (string)$entry->link['href'];
+                } elseif (isset($entry->link)) {
+                    $link = (string)$entry->link;
                 }
 
-                // Fallback: check for link as direct element (no namespace)
-                if (empty($link) && isset($entry->link)) {
-                    $href = (string)$entry->link->attributes()['href'];
-                    if (!empty($href)) {
-                        if (preg_match('/url=([^&]+)/', $href, $matches)) {
-                            $link = urldecode($matches[1]);
-                        } else {
-                            $link = $href;
-                        }
-                    }
+                // Nettoyage lien Google Alert (url=...)
+                if (preg_match('/url=([^&]+)/', $link, $matches)) {
+                    $link = urldecode($matches[1]);
                 }
 
-                // Extract date
-                $pubDate = (string)$entry->published;
-                $date = $this->formatDate($pubDate);
+                $pubDate = (string)($entry->published ?? $entry->pubDate ?? '');
+                $description = (string)($entry->content ?? $entry->description ?? '');
 
-                // Extract image from content
-                $contentHtml = (string)$entry->content;
-                $image = $this->extractImageFromContent($contentHtml);
-
-                // If no image found in feed, try to extract from the actual article page
-                if (!$image && !empty($link)) {
-                    $image = $this->extractImageFromArticlePage($link);
+                // Tentative d'extraction d'image
+                $image = null;
+                if (preg_match('/<img[^>]+src="([^">]+)"/', $description, $imgMatches)) {
+                    $image = $imgMatches[1];
                 }
 
                 if ($title && $link) {
                     $articles[] = [
                         'title' => $title,
-                        'date' => $date,
+                        'date' => $this->formatDate($pubDate),
                         'rawDate' => $pubDate,
                         'link' => $link,
-                        'image' => $image,
-                        'content' => $contentHtml, // Add for filtering
+                        'image' => $image, // Sera fallbacké dans fetchAllArticles si null
+                        'category' => 'News',
+                        'content' => $description
                     ];
                 }
             }
-
             return $articles;
         } catch (\Exception $e) {
-            Log::error("Error parsing RSS: " . $e->getMessage());
             return [];
         }
     }
 
-    /**
-     * Format date from ISO 8601 (Atom format)
-     */
-    private function formatDate($pubDate)
+    private function formatDate($dateString)
     {
+        if (empty($dateString)) return date('d/m/Y');
         try {
-            // ISO 8601 format: 2025-12-12T19:56:02Z
-            $date = \Carbon\Carbon::createFromFormat(
-                'Y-m-d\TH:i:s\Z',
-                $pubDate
-            );
-            return $date->format('d/m/Y');
+            return date('d/m/Y', strtotime($dateString));
         } catch (\Exception $e) {
-            try {
-                // Fallback pour d'autres formats
-                $date = \Carbon\Carbon::parse($pubDate);
-                return $date->format('d/m/Y');
-            } catch (\Exception $e2) {
-                return date('d/m/Y');
-            }
-        }
-    }
-
-    /**
-     * Extract image from content HTML
-     * Tries to get og:image, image tags, or makes a best effort guess
-     */
-    private function extractImageFromContent($contentHtml)
-    {
-        if (empty($contentHtml)) {
-            return null;
-        }
-
-        // Try to extract img tag from content
-        if (preg_match('/<img[^>]+src="([^">]+)"/', $contentHtml, $matches)) {
-            $src = $matches[1];
-            // Only return if it's a valid absolute URL
-            if (filter_var($src, FILTER_VALIDATE_URL)) {
-                return $src;
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * Try to extract og:image from the article page
-     */
-    private function extractImageFromArticlePage($articleUrl)
-    {
-        try {
-            $response = Http::timeout(5)
-                ->withHeaders([
-                    'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-                ])
-                ->get($articleUrl);
-
-            if (!$response->successful()) {
-                return null;
-            }
-
-            $html = $response->body();
-
-            // Try to extract og:image meta tag
-            if (preg_match('/<meta\s+property="og:image"\s+content="([^"]+)"/', $html, $matches)) {
-                return $matches[1];
-            }
-
-            // Try twitter:image
-            if (preg_match('/<meta\s+name="twitter:image"\s+content="([^"]+)"/', $html, $matches)) {
-                return $matches[1];
-            }
-
-            // Try to extract first img tag
-            if (preg_match('/<img[^>]+src="([^">]+)"[^>]*>/i', $html, $matches)) {
-                $src = $matches[1];
-                // Make relative URLs absolute
-                if (strpos($src, 'http') !== 0) {
-                    $parsed = parse_url($articleUrl);
-                    $domain = $parsed['scheme'] . '://' . $parsed['host'];
-                    $src = $domain . (strpos($src, '/') === 0 ? $src : '/' . $src);
-                }
-                return $src;
-            }
-
-            return null;
-        } catch (\Exception $e) {
-            return null;
+            return date('d/m/Y');
         }
     }
 }

@@ -156,7 +156,7 @@ body {
 
 #contact {
     padding: 100px 0 100px !important;
-    scroll-snap-align: none;
+    scroll-snap-align: start;
 }
 
 #experience {
@@ -1420,13 +1420,14 @@ body {
     position: relative;
     z-index: 10;
     box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.3);
-    scroll-snap-align: start;
 }
 
 .footer-grid {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 48px;
+    align-items: start;
+    /* Aligne les éléments en haut */
 }
 
 .foot-brand {
@@ -1434,18 +1435,56 @@ body {
     font-size: 1.1rem;
     color: var(--text);
     margin-bottom: 8px;
+    letter-spacing: -0.02em;
 }
 
-.foot-note {
-    color: var(--muted);
-    font-size: 0.9rem;
-    margin: 4px 0;
-}
-
-.foot-links {
+/* --- SECTION DOCUMENTS (Boutons CV & Tableau) --- */
+.foot-downloads {
     display: flex;
     flex-direction: column;
     gap: 12px;
+    /* Un peu plus d'espace entre les boutons */
+}
+
+.foot-downloads a {
+    display: flex;
+    /* Pour aligner l'icône et le texte */
+    align-items: center;
+    width: fit-content;
+    /* Le bouton s'adapte à la taille du texte */
+    background: rgba(255, 255, 255, 0.03);
+    /* Fond très léger par défaut */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    /* Bordure discrète */
+    color: var(--text);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 10px 20px;
+    /* Donne du volume au bouton */
+    border-radius: 8px;
+    /* Arrondi moderne */
+}
+
+/* L'effet "Whaou" au survol */
+.foot-downloads a:hover {
+    background: var(--primary);
+    /* Devient bleu cyan (ta couleur primaire) */
+    border-color: var(--primary);
+    color: #0b1121;
+    /* Texte devient foncé pour le contraste */
+    transform: translateY(-3px);
+    /* Le bouton "monte" un peu */
+    box-shadow: 0 4px 15px rgba(0, 217, 255, 0.3);
+    /* Petit effet de néon */
+}
+
+/* --- SECTION LIENS (Réseaux sociaux) --- */
+.foot-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .foot-links a {
@@ -1454,29 +1493,15 @@ body {
     transition: var(--transition);
     font-size: 0.95rem;
     font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .foot-links a:hover {
     color: var(--primary);
-}
-
-.foot-downloads {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.foot-downloads a {
-    color: var(--text-secondary);
-    text-decoration: none;
-    transition: var(--transition);
-    font-size: 0.95rem;
-    font-weight: 500;
-    padding: 6px 0;
-}
-
-.foot-downloads a:hover {
-    color: var(--primary);
+    transform: translateX(5px);
+    /* Petit décalage vers la droite au survol */
 }
 
 /* ========== SCROLL TO TOP ========== */

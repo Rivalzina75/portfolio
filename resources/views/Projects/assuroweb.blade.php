@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
-@section('title', 'AssuROWeb - Stage BTS SIO SLAM')
-@section('description', 'Étude de cas du stage AssuROWeb - Développement full-stack Laravel, Docker et déploiement en production')
+@section('title', 'Assuroweb - Stage BTS SIO SLAM')
+@section('description', 'Étude de cas du stage Assuroweb - Développement full-stack Laravel, Docker et déploiement en production')
 
 @section('content')
 <!-- Hero Section -->
-<section id="assuroweb-hero" class="section hero">
+<section id="Assuroweb-hero" class="section hero">
     <div class="container">
         <div class="hero-simple">
             <p class="eyebrow">STAGE BTS SIO SLAM • 5 MAI - 6 JUIN 2025</p>
             <h1 style="font-size: clamp(2.5rem, 5vw, 4rem); color: var(--primary); margin-bottom: 16px; line-height: 1.1;">
-                AssuROWeb
+                Assuroweb
             </h1>
             <p class="hero-subtitle">Plateforme web d'assurance moderne</p>
             <p class="lede">
@@ -37,22 +37,25 @@
 <!-- Chiffres Clés -->
 <section class="section muted">
     <div class="container">
-        <div class="cards-grid four">
-            <div class="card" style="text-align: center;">
-                <div style="font-size: 2.5rem; color: var(--primary); font-weight: bold; margin-bottom: 8px;" 30</div>
-                <p style="color: var(--muted);">Jours de stage</p>
-            </div>
-            <div class="card" style="text-align: center;">
-                <div style="font-size: 2.5rem; color: var(--primary); font-weight: bold; margin-bottom: 8px;">6</div>
-                <p style="color: var(--muted);">Fonctionnalités livrées</p>
-            </div>
-            <div class="card" style="text-align: center;">
-                <div style="font-size: 2.5rem; color: var(--primary); font-weight: bold; margin-bottom: 8px;">100%</div>
-                <p style="color: var(--muted);">En production</p>
-            </div>
-            <div class="card" style="text-align: center;">
-                <div style="font-size: 2.5rem; color: var(--primary); font-weight: bold; margin-bottom: 8px;">1</div>
-                <p style="color: var(--muted);">Système CRUD complet</p>
+        <div class="stats-hero">
+            <h2 style="text-align: center; margin-bottom: 48px; font-size: clamp(1.8rem, 4vw, 2.8rem);">Jours de stage</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">22</div>
+                    <p class="stat-label">Jours de stage</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">6</div>
+                    <p class="stat-label">Fonctionnalités livrées</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100%</div>
+                    <p class="stat-label">En production</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">1</div>
+                    <p class="stat-label">Système CRUD complet</p>
+                </div>
             </div>
         </div>
     </div>
@@ -64,7 +67,7 @@
         <div class="section-head">
             <p class="eyebrow">CONTEXTE</p>
             <h2>Objectifs du stage</h2>
-            <p class="lede">Stage de première année BTS SIO SLAM chez AssuROWeb, entreprise spécialisée dans les solutions digitales pour l'assurance.</p>
+            <p class="lede">Stage de première année BTS SIO SLAM chez Assuroweb, entreprise spécialisée dans les solutions digitales pour l'assurance.</p>
         </div>
 
         <div class="cards-grid three">

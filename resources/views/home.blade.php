@@ -164,6 +164,8 @@
                     <button role="tab" class="skill-tab" aria-selected="false" data-target="stack">Stack / Env.</button>
                     <button role="tab" class="skill-tab" aria-selected="false" data-target="bdd">BDD</button>
                     <button role="tab" class="skill-tab" aria-selected="false" data-target="outils">Outils</button>
+                    <button role="tab" class="skill-tab" aria-selected="false" data-target="réseau/cybersécurité">Réseau / Cybersécurité</button>
+                    <button role="tab" class="skill-tab" aria-selected="false" data-target="autre">Autre</button>
                 </div>
 
                 <div class="skills-panel">
@@ -193,6 +195,7 @@
 
                         <div class="panel-group" id="bdd" role="tabpanel" aria-hidden>
                             <div class="skill-item"><img src="{{ asset('icons/mysql-original.svg') }}" alt="MySQL" width="40" height="40"><p>MySQL</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/MCD-icon.png')}}" alt="MCD" width="40" height="40"><p>MCD</p></div>
                         </div>
 
                         <div class="panel-group" id="outils" role="tabpanel" aria-hidden>
@@ -201,6 +204,18 @@
                             <div class="skill-item"><img src="{{ asset('icons/intellij-original.svg') }}" alt="IntelliJ IDEA" width="40" height="40"><p>IntelliJ IDEA</p></div>
                             <div class="skill-item"><img src="{{ asset('icons/vscode-original.svg') }}" alt="Visual Studio Code" width="40" height="40"><p>VS Code</p></div>
                         </div>
+
+                        <div class="panel-group" id="réseau/cybersécurité" role="tabpanel" aria-hidden>
+                            <div class="skill-item"><img src="{{ asset('icons/icon-tcp-ip.jpg') }}" alt="TCP" width="40" height="40"><p>TCP</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/HTTP_logo.svg.png')}}" alt="HTTP" width="40" height="40"><p>HTTP</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/icon-mod-osi.jpg')}}" alt="modèle-osi" width="40" height="40"><p>Modèle OSI</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/dhcp.png')}}" alt="DHCP" width="40" height="40"><p>DHCP</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/DNS.png')}}" alt="DNS" width="40" height="40"><p>DNS</p></div>
+                        </div>
+
+                        <div class="panel-group" id="autre" role="tabpanel" aria-hidden>
+                            <div class="skill-item"><img src="{{ asset('icons/RGPD.png') }}" alt="RGPD" width="40" height="40"><p>RGPD</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/CNIL-icon.webp') }}" alt="CNIL" width="40" height="40"><p>CNIL</p></div>
                     </div>
                 </div>
             </div>

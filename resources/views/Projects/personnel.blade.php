@@ -156,9 +156,14 @@
                 <div class="card-icon">🌐</div>
                 <h3>URL à reporter dans la fiche</h3>
                 <p style="margin-bottom: 16px; color: var(--text-secondary);">https://portfolio-1hg9.onrender.com/projects/personnel</p>
-                <a href="https://portfolio-1hg9.onrender.com/projects/personnel" class="btn primary" target="_blank" rel="noopener noreferrer">
-                    Ouvrir la page déployée
-                </a>
+                <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
+                    <a href="https://portfolio-1hg9.onrender.com/projects/personnel" class="btn primary" target="_blank" rel="noopener noreferrer">
+                        Ouvrir la page déployée
+                    </a>
+                    <a href="/files/Fiche_situation_professionnelle_Personnel_M2L.docx" class="btn ghost" download>
+                        Télécharger la fiche (.docx)
+                    </a>
+                </div>
             </article>
         </div>
     </div>

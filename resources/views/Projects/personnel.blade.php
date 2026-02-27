@@ -27,6 +27,7 @@
 
             <div class="hero-cta">
                 <a href="#contexte-personnel" class="btn primary">📖 Voir la situation</a>
+                <a href="/files/Fiche_situation_professionnelle_Personnel_M2L.docx" class="btn ghost" download>📄 Télécharger la fiche</a>
                 <a href="{{ route('portfolio.home') }}#projets" class="btn ghost">← Retour aux projets</a>
             </div>
         </div>
@@ -128,7 +129,7 @@
                 <h3>Entités</h3>
                 <ul class="list">
                     <li><strong>LIGUE</strong> (id_ligue, nom)</li>
-                    <li><strong>EMPLOYE</strong> (id_employe, nom, prenom, mail, password, date_arrivee, date_depart)</li>
+                    <li><strong>EMPLOYE</strong> (id_employe, prenom_employe, mail_employe, password_employe, nom_employe, rôle_employe, date_arrivee_employe, date_départ_employe)</li>
                 </ul>
             </article>
 
@@ -136,8 +137,7 @@
                 <div class="card-icon">🔗</div>
                 <h3>Associations</h3>
                 <ul class="list">
-                    <li><strong>Appartenir</strong> : LIGUE (1,N) ↔ EMPLOYE (1,1)</li>
-                    <li><strong>Administrer</strong> : LIGUE (1,1) ↔ EMPLOYE (0,1)</li>
+                    <li><strong>Appartient</strong> : LIGUE (0,n) ↔ EMPLOYE (0,1)</li>
                 </ul>
             </article>
         </div>
@@ -147,23 +147,31 @@
 <section class="section muted">
     <div class="container">
         <div class="section-head">
-            <p class="eyebrow">LIEN DE LA SITUATION</p>
-            <h2>Adresse de la page dans le portfolio déployé</h2>
+            <p class="eyebrow">DOCUMENTS</p>
+            <h2>Fiche de situation professionnelle</h2>
         </div>
 
-        <div class="cards-grid one" style="max-width: 900px; margin: 0 auto;">
-            <article class="card" style="text-align: center;">
-                <div class="card-icon">🌐</div>
-                <h3>URL à reporter dans la fiche</h3>
-                <p style="margin-bottom: 16px; color: var(--text-secondary);">https://portfolio-1hg9.onrender.com/projects/personnel</p>
-                <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap;">
-                    <a href="https://portfolio-1hg9.onrender.com/projects/personnel" class="btn primary" target="_blank" rel="noopener noreferrer">
-                        Ouvrir la page déployée
-                    </a>
-                    <a href="/files/Fiche_situation_professionnelle_Personnel_M2L.docx" class="btn ghost" download>
-                        Télécharger la fiche (.docx)
-                    </a>
-                </div>
+        <div class="cards-grid two">
+            <article class="card" style="display:flex; flex-direction:column; align-items:center; text-align:center;">
+                <div class="card-icon">📄</div>
+                <h3>Télécharger la fiche</h3>
+                <p style="margin: 12px 0 20px; color: var(--text-secondary);">
+                    Version au format PDF de la fiche E6 n°2.
+                </p>
+                <a href="/files/fiche-situation-2.pdf" class="btn primary" download>
+                    Télécharger (.pdf)
+                </a>
+            </article>
+
+            <article class="card" style="display:flex; flex-direction:column; align-items:center; text-align:center;">
+                <div class="card-icon">🏠</div>
+                <h3>Retour</h3>
+                <p style="margin: 12px 0 20px; color: var(--text-secondary);">
+                    Revenir à la section projets du portfolio.
+                </p>
+                <a href="{{ route('portfolio.home') }}#projets" class="btn ghost">
+                    ← Tous les projets
+                </a>
             </article>
         </div>
     </div>

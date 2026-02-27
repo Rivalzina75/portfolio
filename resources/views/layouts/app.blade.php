@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="@yield('description', 'Portfolio professionnel de Mekaoui Reda - BTS SIO SLAM. Développeur full-stack Laravel, PHP, JavaScript.')">
+    <meta name="description" content="@yield('description', __('Portfolio Description'))">
     <meta name="keywords" content="BTS SIO, SLAM, Laravel, PHP, Portfolio, Développeur Web, Full Stack">
     <meta name="author" content="Mekaoui Reda">
 
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="@yield('title', 'Portfolio BTS SIO SLAM – Mekaoui Reda')">
-    <meta property="og:description" content="@yield('description', 'Portfolio professionnel - Développeur full-stack en formation BTS SIO')">
+    <meta property="og:title" content="@yield('title', __('Portfolio Title'))">
+    <meta property="og:description" content="@yield('description', __('Portfolio Description'))">
 
-    <title>@yield('title', 'Portfolio BTS SIO SLAM – Mekaoui Reda')</title>
+    <title>@yield('title', __('Portfolio Title'))</title>
 
     <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,15 +38,21 @@
             </button>
 
             <nav class="nav" id="navMenu" role="navigation">
-                <a href="{{ route('portfolio.home') }}#accueil" class="nav a">Accueil</a>
-                <a href="{{ route('portfolio.home') }}#presentation" class="nav a">Présentation</a>
-                <a href="{{ route('portfolio.home') }}#parcours" class="nav a">Parcours</a>
-                <a href="{{ route('portfolio.home') }}#experience" class="nav a">Expériences</a>
-                <a href="{{ route('portfolio.home') }}#competences" class="nav a">Compétences</a>
-                <a href="{{ route('portfolio.home') }}#projets" class="nav a">Projets</a>
-                <a href="{{ route('portfolio.home') }}#veille" class="nav a">Veille Tech</a>
-                <a href="{{ route('portfolio.home') }}#contact" class="nav a">Contact</a>
+                <a href="{{ route('portfolio.home') }}#accueil" class="nav a">{{ __('Home') }}</a>
+                <a href="{{ route('portfolio.home') }}#presentation" class="nav a">{{ __('About') }}</a>
+                <a href="{{ route('portfolio.home') }}#parcours" class="nav a">{{ __('Journey') }}</a>
+                <a href="{{ route('portfolio.home') }}#experience" class="nav a">{{ __('Experience') }}</a>
+                <a href="{{ route('portfolio.home') }}#competences" class="nav a">{{ __('Skills') }}</a>
+                <a href="{{ route('portfolio.home') }}#projets" class="nav a">{{ __('Projects') }}</a>
+                <a href="{{ route('portfolio.home') }}#veille" class="nav a">{{ __('Tech Watch') }}</a>
+                <a href="{{ route('portfolio.home') }}#contact" class="nav a">{{ __('Contact') }}</a>
             </nav>
+
+            <div class="lang-switcher">
+                <a href="{{ route('language.switch', 'fr') }}" class="lang-btn {{ app()->getLocale() == 'fr' ? 'active' : '' }}" aria-label="Français">FR</a>
+                <span class="lang-separator">/</span>
+                <a href="{{ route('language.switch', 'en') }}" class="lang-btn {{ app()->getLocale() == 'en' ? 'active' : '' }}" aria-label="English">EN</a>
+            </div>
         </div>
     </header>
 
@@ -61,19 +67,19 @@
             <div>
                 <p class="foot-brand">Mekaoui Reda — BTS SIO SLAM</p>
                 <p style="font-size: 0.75rem; opacity: 0.7;">
-                    copyright © {{ date('Y') }} Mekaoui Reda. Tous droits réservés.
+                    {{ __('copyright') }} © {{ date('Y') }} Mekaoui Reda. {{ __('All rights reserved') }}.
                 </p>
             </div>
             <div class="foot-downloads">
-                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">Documents</p>
-                <a href="{{ route('portfolio.cv') }}" download aria-label="Télécharger le CV">📄 CV</a>
-                <a href="{{ route('portfolio.tableau_synthese') }}" download aria-label="Télécharger le tableau de synthèse">📊 Tableau synthèse</a>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">{{ __('Documents') }}</p>
+                <a href="{{ route('portfolio.cv') }}" download aria-label="{{ __('Download CV') }}">📄 {{ __('CV') }}</a>
+                <a href="{{ route('portfolio.tableau_synthese') }}" download aria-label="{{ __('Download Synthesis Table') }}">📊 {{ __('Synthesis Table') }}</a>
             </div>
             <div class="foot-links">
-                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">Informations</p>
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">{{ __('Information') }}</p>
                 <a href="https://github.com/Rivalzina75" target="_blank" rel="noopener noreferrer" aria-label="Voir mon GitHub">GitHub</a>
                 <a href="https://linkedin.com/in/reda-mekaoui" target="_blank" rel="noopener noreferrer" aria-label="Voir mon LinkedIn">LinkedIn</a>
-                <a href="{{ route('portfolio.home') }}#contact">Contact</a>
+                <a href="{{ route('portfolio.home') }}#contact">{{ __('Contact') }}</a>
             </div>
         </div>
     </footer>

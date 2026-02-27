@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Portfolio BTS SIO SLAM – Mekaoui Reda')
-@section('description', 'Portfolio professionnel de Mekaoui Reda, étudiant en BTS SIO option SLAM. Développeur full-stack junior.')
+@section('title', __('Portfolio Title'))
+@section('description', __('Portfolio Description'))
 
 @section('content')
     {{-- Pass articles data to JavaScript --}}
@@ -11,16 +11,16 @@
     {{-- ========== HERO SECTION ========== --}}
     <section id="accueil" class="section hero">
         <div class="container hero-simple">
-            <p class="eyebrow">BTS SIO SLAM • 2024-2026</p>
+            <p class="eyebrow">{{ __('BTS SIO SLAM') }} • 2024-2026</p>
             <svg class="hero-title" viewBox="0 0 800 100" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg">
                 <g fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
                     <text class="line" x="50%" y="75" text-anchor="middle" font-size="70" font-weight="bold" font-family="'Poppins', sans-serif">Reda Mekaoui</text>
                 </g>
             </svg>
-            <p class="hero-subtitle">Développeur full-stack en devenir</p>
+            <p class="hero-subtitle">{{ __('Full-stack developer in the making') }}</p>
             <div class="hero-cta">
-                <a class="btn primary" href="#presentation">En savoir plus</a>
-                <a class="btn ghost" href="{{ route('portfolio.cv') }}" download aria-label="Télécharger le CV">Télécharger mon CV</a>
+                <a class="btn primary" href="#presentation">{{ __('Learn more') }}</a>
+                <a class="btn ghost" href="{{ route('portfolio.cv') }}" download aria-label="{{ __('Download CV') }}">{{ __('Download my CV') }}</a>
             </div>
         </div>
     </section>
@@ -29,8 +29,8 @@
   <section id="presentation" class="section">
     <div class="container">
         <div class="section-head">
-            <p class="eyebrow">Mon parcours</p>
-            <h2>Présentation & Cursus</h2>
+            <p class="eyebrow">{{ __('My journey') }}</p>
+            <h2>{{ __('Presentation & Curriculum') }}</h2>
         </div>
 
         <div class="presentation-grid">
@@ -38,15 +38,15 @@
             <div class="grid-block cursus-frame">
                 <div class="block-header">
                     <span class="icon">🏛️</span>
-                    <h3>Le cadre : Le BTS SIO</h3>
+                    <h3>{{ __('The framework: BTS SIO') }}</h3>
                 </div>
-                <p class="block-intro">Le Brevet de Technicien Supérieur "Services Informatiques aux Organisations" forme les experts qui répondent aux besoins numériques des entreprises. Il se divise en deux spécialités distinctes :</p>
+                <p class="block-intro">{{ __('BTS SIO Description') }}</p>
                 <div class="options-flex">
                     <div class="option-item sisr">
-                        <strong>SISR :</strong> Solutions d'Infrastructure, Systèmes et Réseaux (Administration & Sécurité).
+                        <strong>{{ __('SISR') }} :</strong> {{ __('SISR Description') }}
                     </div>
                     <div class="option-item slam-highlight">
-                        <strong>SLAM :</strong> Solutions Logicielles et Applications Métiers (Conception & Développement).
+                        <strong>{{ __('SLAM') }} :</strong> {{ __('SLAM Description') }}
                     </div>
                 </div>
             </div>
@@ -54,29 +54,29 @@
             <div class="grid-block my-choice">
                  <div class="block-header">
                     <span class="icon">🎯</span>
-                    <h3>Mon choix de spécialisation</h3>
+                    <h3>{{ __('My specialization choice') }}</h3>
                 </div>
                 <ul class="clean-list highlight-list">
-                     <li><strong>Option SLAM :</strong> J'ai choisi la voie du développement pour créer des solutions, de la base de données à l'interface utilisateur.</li>
-                     <li><strong>Option Mathématiques Approfondies :</strong> Un choix stratégique pour renforcer ma logique algorithmique et ma capacité d'abstraction.</li>
-                     <li class="status-tag">Actuellement en 2ème année</li>
+                     <li><strong>{{ __('SLAM Option') }} :</strong> {{ __('SLAM Option Description') }}</li>
+                     <li><strong>{{ __('Advanced Mathematics Option') }} :</strong> {{ __('Advanced Mathematics Description') }}</li>
+                     <li class="status-tag">{{ __('Currently in 2nd year') }}</li>
                 </ul>
             </div>
 
             <div class="grid-block profile-skills">
                  <div class="block-header">
                     <span class="icon">🧠</span>
-                    <h3>Qui je suis & Mes atouts</h3>
+                    <h3>{{ __('Who I am & My strengths') }}</h3>
                 </div>
                 <p class="profile-summary">
-                    Étudiant autonome et rigoureux, je consolide mes compétences techniques en vue d'une <strong>alternance pour la rentrée 2026</strong>.
+                    {!! __('Profile Summary') !!}
                 </p>
                 <div class="skills-tags">
-                    <span class="skill-tag">Autonomie & Recherche</span>
-                    <span class="skill-tag">Logique algorithmique</span>
-                    <span class="skill-tag">Travail d'équipe</span>
-                    <span class="skill-tag">Rigueur (Clean Code)</span>
-                    <span class="skill-tag">Curiosité tech</span>
+                    <span class="skill-tag">{{ __('Autonomy & Research') }}</span>
+                    <span class="skill-tag">{{ __('Algorithmic logic') }}</span>
+                    <span class="skill-tag">{{ __('Teamwork') }}</span>
+                    <span class="skill-tag">{{ __('Rigor (Clean Code)') }}</span>
+                    <span class="skill-tag">{{ __('Tech curiosity') }}</span>
                 </div>
             </div>
 
@@ -88,23 +88,23 @@
     <section id="parcours" class="section">
         <div class="container">
             <div class="section-head">
-                <p class="eyebrow">Chronologie</p>
-                <h2>Mon parcours</h2>
-                <p class="lede">Parcours académique</p>
+                <p class="eyebrow">{{ __('Timeline') }}</p>
+                <h2>{{ __('My path') }}</h2>
+                <p class="lede">{{ __('Academic path') }}</p>
             </div>
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
-                        <h3>2024-2026 - BTS SIO SLAM</h3>
-                        <p>BTS Services Informatiques aux Organisations, option Solutions Logicielles et Applications Métiers</p>
+                        <h3>{{ __('2024-2026 - BTS SIO SLAM') }}</h3>
+                        <p>{{ __('BTS SIO SLAM Description') }}</p>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
-                        <h3>2024 - Baccalauréat Général</h3>
-                        <p>Obtention du Baccalauréat général spécialités Mathématiques et Physique-Chimie</p>
+                        <h3>{{ __('2024 - General Baccalaureate') }}</h3>
+                        <p>{{ __('Baccalaureate Description') }}</p>
                     </div>
                 </div>
             </div>
@@ -115,30 +115,30 @@
 <section id="experience" class="section">
     <div class="container">
         <div class="section-head">
-            <p class="eyebrow">Parcours Pro</p>
-            <h2>Expériences professionnelles</h2>
-            <p class="lede">Mise en pratique de mes compétences en entreprise.</p>
+            <p class="eyebrow">{{ __('Professional Path') }}</p>
+            <h2>{{ __('Professional experiences') }}</h2>
+            <p class="lede">{{ __('Practical application') }}</p>
         </div>
 
         <div class="cards-grid two">
             
             <article class="card grid-block">
-                <h3>Stage : ??????</h3>
-                <p class="eyebrow" style="margin-top: 0.5rem; color: var(--primary);">5 Janvier – 6 Février 2026</p>
+                <h3>{{ __('Internship') }} : ??????</h3>
+                <p class="eyebrow" style="margin-top: 0.5rem; color: var(--primary);">5 {{ app()->getLocale() == 'fr' ? 'Janvier' : 'January' }} – 6 {{ app()->getLocale() == 'fr' ? 'Février' : 'February' }} 2026</p>
                 
                 <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(0, 255, 255, 0.05); border-radius: 8px; border: 1px dashed rgba(255, 255, 255, 0.2); text-align: center;">
-                    <p style="margin: 0; color: #a0aec0; font-style: italic;">Stage à venir</p>
+                    <p style="margin: 0; color: #a0aec0; font-style: italic;">{{ __('Upcoming internship') }}</p>
                 </div>
             </article>
 
             <article class="card grid-block">
-                <h3>Stage : Assuroweb</h3>
-                <p class="eyebrow" style="margin-top: 0.5rem; color: var(--primary);">5 Mai – 6 Juin 2025</p>
+                <h3>{{ __('Internship') }} : Assuroweb</h3>
+                <p class="eyebrow" style="margin-top: 0.5rem; color: var(--primary);">5 {{ app()->getLocale() == 'fr' ? 'Mai' : 'May' }} – 6 {{ app()->getLocale() == 'fr' ? 'Juin' : 'June' }} 2025</p>
                 <ul class="list">
-                    <li>Développement Fullstack d'un module de blog/actualités sous <strong>Laravel</strong> (PHP).</li>
-                    <li>Création d'une interface d'administration pour la gestion de contenu (Bases de données, formulaires, QuillJS).</li>
-                    <li>Travail en environnement conteneurisé (<strong>Docker</strong>) et versionné (<strong>Git</strong>).</li>
-                    <li>Intégration web et Responsive Design.</li>
+                    <li>{!! __('Stage Assuroweb Line 1') !!}</li>
+                    <li>{!! __('Stage Assuroweb Line 2') !!}</li>
+                    <li>{!! __('Stage Assuroweb Line 3') !!}</li>
+                    <li>{!! __('Stage Assuroweb Line 4') !!}</li>
                 </ul>
             </article>
 
@@ -150,22 +150,21 @@
     <section id="competences" class="section muted">
         <div class="container">
             <div class="section-head">
-                <p class="eyebrow">Stack technique</p>
-                <h2>Technologies & outils maîtrisés</h2>
+                <p class="eyebrow">{{ __('Technical stack') }}</p>
+                <h2>{{ __('Technologies & tools mastered') }}</h2>
                 <p class="lede">
-                    Langages, frameworks et outils utilisés quotidiennement
-                    dans mes projets professionnels et personnels.
+                    {{ __('Skills Subtitle') }}
                 </p>
             </div>
             <div class="skills-tabs">
                 <div role="tablist" aria-label="Catégories de compétences" class="skills-nav">
-                    <button role="tab" class="skill-tab is-active" aria-selected="true" data-target="langages">Langages</button>
-                    <button role="tab" class="skill-tab" aria-selected="false" data-target="frameworks">Frameworks</button>
-                    <button role="tab" class="skill-tab" aria-selected="false" data-target="stack">Stack / Env.</button>
-                    <button role="tab" class="skill-tab" aria-selected="false" data-target="bdd">BDD</button>
-                    <button role="tab" class="skill-tab" aria-selected="false" data-target="outils">Outils</button>
-                    <button role="tab" class="skill-tab" aria-selected="false" data-target="réseau/cybersécurité">Réseau / Cybersécurité</button>
-                    <button role="tab" class="skill-tab" aria-selected="false" data-target="autre">Autre</button>
+                    <button role="tab" class="skill-tab is-active" aria-selected="true" data-target="langages">{{ __('Languages') }}</button>
+                    <button role="tab" class="skill-tab" aria-selected="false" data-target="frameworks">{{ __('Frameworks') }}</button>
+                    <button role="tab" class="skill-tab" aria-selected="false" data-target="stack">{{ __('Stack / Env.') }}</button>
+                    <button role="tab" class="skill-tab" aria-selected="false" data-target="bdd">{{ __('Database') }}</button>
+                    <button role="tab" class="skill-tab" aria-selected="false" data-target="outils">{{ __('Tools') }}</button>
+                    <button role="tab" class="skill-tab" aria-selected="false" data-target="réseau/cybersécurité">{{ __('Network / Cybersecurity') }}</button>
+                    <button role="tab" class="skill-tab" aria-selected="false" data-target="autre">{{ __('Other') }}</button>
                 </div>
 
                 <div class="skills-panel">
@@ -208,7 +207,7 @@
                         <div class="panel-group" id="réseau/cybersécurité" role="tabpanel" aria-hidden>
                             <div class="skill-item"><img src="{{ asset('icons/icon-tcp-ip.jpg') }}" alt="TCP" width="40" height="40"><p>TCP</p></div>
                             <div class="skill-item"><img src="{{ asset('icons/HTTP_logo.svg.png')}}" alt="HTTP" width="40" height="40"><p>HTTP</p></div>
-                            <div class="skill-item"><img src="{{ asset('icons/icon-mod-osi.jpg')}}" alt="modèle-osi" width="40" height="40"><p>Modèle OSI</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/icon-mod-osi.jpg')}}" alt="modèle-osi" width="40" height="40"><p>{{ __('OSI Model') }}</p></div>
                             <div class="skill-item"><img src="{{ asset('icons/dhcp.png')}}" alt="DHCP" width="40" height="40"><p>DHCP</p></div>
                             <div class="skill-item"><img src="{{ asset('icons/DNS.png')}}" alt="DNS" width="40" height="40"><p>DNS</p></div>
                         </div>
@@ -226,12 +225,12 @@
     <section id="projets" class="section">
         <div class="container">
             <div class="section-head">
-                <p class="eyebrow">Réalisations</p>
-                <h2>Projets & études de cas</h2>
+                <p class="eyebrow">{{ __('Achievements') }}</p>
+                <h2>{{ __('Projects & case studies') }}</h2>
             </div>
 
             <div class="projects-carousel">
-                <button class="carousel-nav carousel-prev" aria-label="Précédent">
+                <button class="carousel-nav carousel-prev" aria-label="{{ __('Previous') }}">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <polyline points="15 18 9 12 15 6"></polyline>
                     </svg>
@@ -250,20 +249,20 @@
                                             <span class="mockup-dot"></span>
                                         </div>
                                         <div class="mockup-content">
-                                            <img src="{{ asset('images/portfolio.png') }}" alt="Portfolio Personnel">
+                                            <img src="{{ asset('images/portfolio.png') }}" alt="{{ __('Personal Portfolio') }}">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="project-info">
-                                    <h3>Portfolio Personnel</h3>
-                                    <p>Site vitrine mono-page avec Vite, animations, veille RSS et pages projets détaillées.</p>
+                                    <h3>{{ __('Personal Portfolio') }}</h3>
+                                    <p>{{ __('Portfolio Description') }}</p>
                                     <div class="project-tags">
                                         <span class="tag">Laravel</span>
                                         <span class="tag">Vite</span>
                                         <span class="tag">CSS3</span>
                                     </div>
                                     <div class="project-tags">
-                                        <a class="btn btn-small ghost" href="{{ route('project.portfolio') }}">Voir le projet</a>
+                                        <a class="btn btn-small ghost" href="{{ route('project.portfolio') }}">{{ __('View project') }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -285,15 +284,15 @@
                                     </div>
                                 </div>
                                 <div class="project-info">
-                                    <h3>Assuroweb (Stage)</h3>
-                                    <p>Refonte de modules métiers assurance, conteneurisation Docker et intégration SQL.</p>
+                                    <h3>{{ __('Assuroweb (Internship)') }}</h3>
+                                    <p>{{ __('Assuroweb Description') }}</p>
                                     <div class="project-tags">
                                         <span class="tag">Laravel</span>
                                         <span class="tag">Docker</span>
                                         <span class="tag">SQL</span>
                                     </div>
                                     <div class="project-tags">
-                                        <a class="btn btn-small ghost" href="{{ route('project.assuroweb') }}">Voir le projet</a>
+                                        <a class="btn btn-small ghost" href="{{ route('project.assuroweb') }}">{{ __('View project') }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -315,15 +314,15 @@
                                     </div>
                                 </div>
                                 <div class="project-info">
-                                    <h3>Next2You</h3>
-                                    <p>Plateforme collaborative avec workflows, dockerisation et gestion des rôles.</p>
+                                    <h3>{{ __('Next2You') }}</h3>
+                                    <p>{{ __('Next2You Description') }}</p>
                                     <div class="project-tags">
                                         <span class="tag">Laravel</span>
                                         <span class="tag">Docker</span>
                                         <span class="tag">JavaScript</span>
                                     </div>
                                     <div class="project-tags">
-                                        <a class="btn btn-small ghost" href="{{ route('project.next2you') }}">Voir le projet</a>
+                                        <a class="btn btn-small ghost" href="{{ route('project.next2you') }}">{{ __('View project') }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -345,15 +344,15 @@
                                     </div>
                                 </div>
                                 <div class="project-info">
-                                    <h3>Machina</h3>
-                                    <p>Application de gestion industrielle : interfaces responsive et API sécurisée.</p>
+                                    <h3>{{ __('Machina') }}</h3>
+                                    <p>{{ __('Machina Description') }}</p>
                                     <div class="project-tags">
                                         <span class="tag">Laravel</span>
                                         <span class="tag">PHP</span>
                                         <span class="tag">Docker</span>
                                     </div>
                                     <div class="project-tags">
-                                        <a class="btn btn-small ghost" href="{{ route('project.machina') }}">Voir le projet</a>
+                                        <a class="btn btn-small ghost" href="{{ route('project.machina') }}">{{ __('View project') }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -370,20 +369,50 @@
                                             <span class="mockup-dot"></span>
                                         </div>
                                         <div class="mockup-content">
-                                            {{-- <img src="{{ asset('images/projet_parking.png') }}" alt="Projet Parking"> --}}
+                                            {{-- <img src="{{ asset('images/projet_parking.png') }}" alt="{{ __('Parking Project') }}"> --}}
                                         </div>
                                     </div>
                                 </div>
                                 <div class="project-info">
-                                    <h3>Projet Parking</h3>
-                                    <p>Gestion des places, réservations et notifications, avec API et interface web.</p>
+                                    <h3>{{ __('Parking Project') }}</h3>
+                                    <p>{{ __('Parking Description') }}</p>
                                     <div class="project-tags">
                                         <span class="tag">Laravel</span>
                                         <span class="tag">MySQL</span>
                                         <span class="tag">JS</span>
                                     </div>
                                     <div class="project-tags">
-                                        <a class="btn btn-small ghost" href="{{ route('project.parking') }}">Voir le projet</a>
+                                        <a class="btn btn-small ghost" href="{{ route('project.parking') }}">{{ __('View project') }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Projet Personnel -->
+                        <div class="swiper-slide">
+                            <div class="project-card">
+                                <div class="project-preview">
+                                    <div class="project-mockup">
+                                        <div class="mockup-header">
+                                            <span class="mockup-dot"></span>
+                                            <span class="mockup-dot"></span>
+                                            <span class="mockup-dot"></span>
+                                        </div>
+                                        <div class="mockup-content">
+                                            <img src="{{ asset('images/portfolio.png') }}" alt="Projet Personnel M2L">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="project-info">
+                                    <h3>{{ __('Personnel Project') }}</h3>
+                                    <p>{{ __('Personnel Description') }}</p>
+                                    <div class="project-tags">
+                                        <span class="tag">Java</span>
+                                        <span class="tag">JDBC</span>
+                                        <span class="tag">JUnit 5</span>
+                                    </div>
+                                    <div class="project-tags">
+                                        <a class="btn btn-small ghost" href="{{ route('project.personnel') }}">{{ __('View project') }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -400,20 +429,20 @@
                                             <span class="mockup-dot"></span>
                                         </div>
                                         <div class="mockup-content">
-                                            <img src="{{ asset('images/project-1.png') }}" alt="Stage 2026">
+                                            <img src="{{ asset('images/project-1.png') }}" alt="{{ __('Stage 2026 (forecast)') }}">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="project-info">
-                                    <h3>Stage 2026 (prévision)</h3>
-                                    <p>Place réservée pour le futur stage 2026 : objectifs et backlog à définir.</p>
+                                    <h3>{{ __('Stage 2026 (forecast)') }}</h3>
+                                    <p>{{ __('Stage 2026 Description') }}</p>
                                     <div class="project-tags">
                                         <span class="tag">Laravel</span>
                                         <span class="tag">Docker</span>
                                         <span class="tag">Roadmap</span>
                                     </div>
                                     <div class="project-tags">
-                                        <a class="btn btn-small ghost" href="{{ route('project.stage2026') }}">Voir le projet</a>
+                                        <a class="btn btn-small ghost" href="{{ route('project.stage2026') }}">{{ __('View project') }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -422,7 +451,7 @@
                     <div class="swiper-pagination"></div>
                 </div>
 
-                <button class="carousel-nav carousel-next" aria-label="Suivant">
+                <button class="carousel-nav carousel-next" aria-label="{{ __('Next') }}">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <polyline points="9 18 15 12 9 6"></polyline>
                     </svg>
@@ -435,26 +464,22 @@
     <section id="veille" class="section muted">
         <div class="container">
             <div class="section-head">
-                <p class="eyebrow">Innovation & Apprentissage</p>
-                <h2>Veille technologique</h2>
+                <p class="eyebrow">{{ __('Innovation & Learning') }}</p>
+                <h2>{{ __('Tech watch') }}</h2>
                 <p class="lede">
-                    Suivi continu des évolutions technologiques, des enjeux et des opportunités
-                    dans mon domaine de spécialisation.
+                    {{ __('Veille Subtitle') }}
                 </p>
             </div>
 
             <div class="veille-shell">
                 <div class="veille-header">
-                    <h3>Qu'est-ce que la veille technologique ?</h3>
+                    <h3>{{ __('What is tech watch?') }}</h3>
                     <p>
-                        La veille technologique consiste à surveiller activement les évolutions techniques, les innovations
-                        et les tendances dans son domaine. C'est un processus continu de collecte, d'analyse et de partage
-                        d'informations pour rester à jour et anticiper les changements qui impacteront ma pratique professionnelle.
+                        {{ __('Veille Definition') }}
                     </p>
-                    <h3 style="margin-top: 1.5rem;">Mon sujet : L'IA générative dans les interactions UI complexes</h3>
+                    <h3 style="margin-top: 1.5rem;">{{ __('My topic: Generative AI in complex UI interactions') }}</h3>
                     <p>
-                        L'IA accélère la génération de code mais a du mal avec les comportements réels : gestes, transitions,
-                        accessibilité et performance. Le développeur reste l'expert validateur qui ajuste le rendu pour le navigateur.
+                        {{ __('Veille Topic Description') }}
                     </p>
                 </div>
 
@@ -477,18 +502,18 @@
                             
                             {{-- Si l'article existe on met son titre, sinon un placeholder --}}
                             <p class="veille-title">
-                                {{ $article ? \Illuminate\Support\Str::limit($article['title'], 60) : 'Chargement...' }}
+                                {{ $article ? \Illuminate\Support\Str::limit($article['title'], 60) : __('Loading...') }}
                             </p>
                             
                             <p class="veille-date">
-                                {{ $article ? 'Publié le : ' . $article['date'] : '' }}
+                                {{ $article ? __('Published on') . ' : ' . $article['date'] : '' }}
                             </p>
                             
                             <a class="veille-button veille-link" 
                                href="{{ $article['link'] ?? '#' }}" 
                                target="_blank" 
                                rel="noopener">
-                               Lire l'article
+                               {{ __('Read article') }}
                             </a>
                         </article>
                     @endfor
@@ -505,24 +530,23 @@
     <section id="contact" class="section">
         <div class="container contact-shell">
             <div class="contact-intro">
-                <p class="eyebrow">Parlons ensemble</p>
-                <h2>Envoyez-moi un message</h2>
+                <p class="eyebrow">{{ __('Let\'s talk') }}</p>
+                <h2>{{ __('Send me a message') }}</h2>
                 <p class="lede">
-                    Alternance, collaboration, projet ou simple question :
-                    je réponds généralement sous 24h.
+                    {{ __('Contact Subtitle') }}
                 </p>
                 <div class="contact-cards">
                     <div class="info-card">
-                        <p class="mini-label">Email</p>
+                        <p class="mini-label">{{ __('Email') }}</p>
                         <p class="mini-value">reda.dev75@gmail.com</p>
                     </div>
                     <div class="info-card">
-                        <p class="mini-label">Téléphone</p>
+                        <p class="mini-label">{{ __('Phone') }}</p>
                         <p class="mini-value">+33 7 64 39 97 66</p>
                     </div>
                     <div class="info-card">
-                        <p class="mini-label">Disponibilité</p>
-                        <p class="mini-value">Immédiate</p>
+                        <p class="mini-label">{{ __('Availability') }}</p>
+                        <p class="mini-value">{{ __('Immediate') }}</p>
                     </div>
                 </div>
             </div>
@@ -531,16 +555,16 @@
                 @csrf
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="name">Nom complet</label>
+                        <label for="name">{{ __('Full name') }}</label>
                         <input type="text"
                                id="name"
                                name="name"
-                               placeholder="Votre nom"
+                               placeholder="{{ __('Your name') }}"
                                required
                                autocomplete="name">
                     </div>
                     <div class="form-group">
-                        <label for="email">Adresse email</label>
+                        <label for="email">{{ __('Email address') }}</label>
                         <input type="email"
                                id="email"
                                name="email"
@@ -550,24 +574,24 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="subject">Sujet</label>
+                    <label for="subject">{{ __('Subject') }}</label>
                     <input type="text"
                            id="subject"
                            name="subject"
-                           placeholder="Alternance, projet, question..."
+                           placeholder="{{ __('Subject placeholder') }}"
                            required>
                 </div>
                 <div class="form-group">
-                    <label for="message">Message</label>
+                    <label for="message">{{ __('Message') }}</label>
                     <textarea id="message"
                               name="message"
                               rows="5"
-                              placeholder="Décrivez votre demande en quelques lignes..."
+                              placeholder="{{ __('Message placeholder') }}"
                               required></textarea>
                 </div>
                 <div class="form-actions">
                     <button type="submit" class="btn primary btn-submit">
-                        Envoyer le message
+                        {{ __('Send message') }}
                     </button>
                     <p class="form-hint" id="formStatus" role="status" aria-live="polite"></p>
                 </div>

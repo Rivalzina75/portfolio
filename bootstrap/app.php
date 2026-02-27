@@ -13,6 +13,11 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         // 👇 AJOUTE CETTE LIGNE ICI 👇
         $middleware->trustProxies(at: '*');
+
+        // Middleware pour la gestion des langues
+        $middleware->web(append: [
+            \App\Http\Middleware\SetLocale::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

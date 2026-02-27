@@ -216,6 +216,44 @@ body {
     height: 60px;
 }
 
+/* ========== LANGUAGE SWITCHER ========== */
+.lang-switcher {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+    position: absolute;
+    right: 0;
+}
+
+.lang-btn {
+    color: var(--muted);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 6px 10px;
+    border-radius: 6px;
+    transition: var(--transition);
+    letter-spacing: 0.05em;
+}
+
+.lang-btn:hover {
+    color: var(--text);
+    background: rgba(0, 217, 255, 0.1);
+}
+
+.lang-btn.active {
+    color: var(--primary);
+    background: rgba(0, 217, 255, 0.15);
+    box-shadow: 0 0 10px rgba(0, 217, 255, 0.2);
+}
+
+.lang-separator {
+    color: var(--muted);
+    font-size: 0.85rem;
+    opacity: 0.5;
+}
+
 .brand {
     font-weight: 700;
     letter-spacing: 2px;
@@ -1420,9 +1458,11 @@ body {
     background: linear-gradient(180deg, rgba(10, 15, 31, 0.8), rgba(0, 5, 15, 0.95));
     border-top: 1px solid rgba(0, 217, 255, 0.12);
     padding: 56px 0 40px;
-    margin-top: 60px;
+    margin-top: 0;
     position: relative;
     z-index: 10;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
     box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.3);
 }
 
@@ -1624,6 +1664,17 @@ body {
     .nav a {
         font-size: 1.2rem;
         padding: 12px 24px;
+    }
+
+    .lang-switcher {
+        position: relative;
+        margin-left: 0;
+        margin-right: 8px;
+    }
+
+    .lang-btn {
+        padding: 4px 8px;
+        font-size: 0.8rem;
     }
 
     @keyframes fadeIn {

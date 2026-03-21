@@ -10,29 +10,32 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class ContactMail extends Mailable
+class ContactMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    // Déclaration des variables publiques qui seront 
+    // Déclaration des variables publiques qui seront
     // automatiquement disponibles dans votre template Blade
     public $name;
+
     public $email;
+
     public $subject;
+
     public $messageContent; // <-- Correspond à votre template
 
     /**
      * Create a new message instance.
      * $data vient du HomeController (les données validées)
      */
-    public function __construct($data)
+    public function __construct(array $data)
     {
         // On assigne les données du contrôleur aux variables publiques
         $this->name = $data['name'];
         $this->email = $data['email'];
         $this->subject = $data['subject'];
 
-        // CORRECTION : On mappe 'message' (du contrôleur) 
+        // CORRECTION : On mappe 'message' (du contrôleur)
         // à 'messageContent' (du template)
         $this->messageContent = $data['message'];
     }
@@ -45,7 +48,7 @@ class ContactMail extends Mailable
         return new Envelope(
             from: new Address(config('mail.from.address'), config('mail.from.name')),
             replyTo: [new Address($this->email, $this->name)],
-            subject: '📧 Portfolio - ' . $this->subject,
+            subject: '📧 Portfolio - '.$this->subject,
         );
     }
 

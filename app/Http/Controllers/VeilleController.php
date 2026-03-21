@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class VeilleController extends Controller
 {
     // ——— Config ————————————————————————————————————————————
-    private const TARGET    = 30;
+    private const TARGET = 30;
+
     private const CACHE_TTL = 10800;        // 3h
+
     private const CACHE_KEY = 'veille_articles_v5';
 
     /**
@@ -18,37 +21,37 @@ class VeilleController extends Controller
      * Toujours une image, jamais de vide.
      */
     private const FALLBACK_IMAGES = [
-        'Frontend AI'    => 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=600&auto=format&fit=crop',
-        'AI Context'     => 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=600&auto=format&fit=crop',
-        'AI Limits'      => 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=600&auto=format&fit=crop',
-        'Vibe Coding'    => 'https://images.unsplash.com/photo-1607799279861-4dd421887fb3?q=80&w=600&auto=format&fit=crop',
-        'Generative UI'  => 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop',
-        'AI Tools'       => 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=600&auto=format&fit=crop',
-        'AI IDE'         => 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=600&auto=format&fit=crop',
-        'Prompt UI'      => 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=600&auto=format&fit=crop',
+        'Frontend AI' => 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=600&auto=format&fit=crop',
+        'AI Context' => 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=600&auto=format&fit=crop',
+        'AI Limits' => 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=600&auto=format&fit=crop',
+        'Vibe Coding' => 'https://images.unsplash.com/photo-1607799279861-4dd421887fb3?q=80&w=600&auto=format&fit=crop',
+        'Generative UI' => 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop',
+        'AI Tools' => 'https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=600&auto=format&fit=crop',
+        'AI IDE' => 'https://images.unsplash.com/photo-1461749280684-dccba630e2f6?q=80&w=600&auto=format&fit=crop',
+        'Prompt UI' => 'https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=600&auto=format&fit=crop',
         'App Builder AI' => 'https://images.unsplash.com/photo-1531297484001-80022131f5a1?q=80&w=600&auto=format&fit=crop',
-        'Copilot'        => 'https://images.unsplash.com/photo-1556075798-4825dfaaf498?q=80&w=600&auto=format&fit=crop',
+        'Copilot' => 'https://images.unsplash.com/photo-1556075798-4825dfaaf498?q=80&w=600&auto=format&fit=crop',
         'Design Systems' => 'https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?q=80&w=600&auto=format&fit=crop',
-        'Components'     => 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=600&auto=format&fit=crop',
-        'Architecture'   => 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop',
-        'CSS AI'         => 'https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?q=80&w=600&auto=format&fit=crop',
-        'CSS Tooling'    => 'https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?q=80&w=600&auto=format&fit=crop',
-        'UX Patterns'    => 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=600&auto=format&fit=crop',
-        'A11y & AI'      => 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=600&auto=format&fit=crop',
-        'TypeScript AI'  => 'https://images.unsplash.com/photo-1516216628859-9bccecab13ca?q=80&w=600&auto=format&fit=crop',
-        'Next.js AI'     => 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop',
-        'Animation AI'   => 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop',
-        'Adaptive UI'    => 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop',
-        'AI Ethics'      => 'https://images.unsplash.com/photo-1516110833967-0b5716ca1387?q=80&w=600&auto=format&fit=crop',
-        'Svelte AI'      => 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop',
-        'Design Tokens'  => 'https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=600&auto=format&fit=crop',
-        'Testing AI'     => 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=600&auto=format&fit=crop',
+        'Components' => 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=600&auto=format&fit=crop',
+        'Architecture' => 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop',
+        'CSS AI' => 'https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?q=80&w=600&auto=format&fit=crop',
+        'CSS Tooling' => 'https://images.unsplash.com/photo-1507721999472-8ed4421c4af2?q=80&w=600&auto=format&fit=crop',
+        'UX Patterns' => 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=600&auto=format&fit=crop',
+        'A11y & AI' => 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=600&auto=format&fit=crop',
+        'TypeScript AI' => 'https://images.unsplash.com/photo-1516216628859-9bccecab13ca?q=80&w=600&auto=format&fit=crop',
+        'Next.js AI' => 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600&auto=format&fit=crop',
+        'Animation AI' => 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop',
+        'Adaptive UI' => 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop',
+        'AI Ethics' => 'https://images.unsplash.com/photo-1516110833967-0b5716ca1387?q=80&w=600&auto=format&fit=crop',
+        'Svelte AI' => 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop',
+        'Design Tokens' => 'https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=600&auto=format&fit=crop',
+        'Testing AI' => 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=600&auto=format&fit=crop',
         'Design to Code' => 'https://images.unsplash.com/photo-1559028012-481c04fa702d?q=80&w=600&auto=format&fit=crop',
-        'Replit AI'      => 'https://images.unsplash.com/photo-1504639725590-34d0984388bd?q=80&w=600&auto=format&fit=crop',
-        '3D & AI'        => 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=600&auto=format&fit=crop',
-        'AI Art'         => 'https://images.unsplash.com/photo-1509343256512-d77a5cb3791b?q=80&w=600&auto=format&fit=crop',
-        'News'           => 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=600&auto=format&fit=crop',
-        'default'        => 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=600&auto=format&fit=crop',
+        'Replit AI' => 'https://images.unsplash.com/photo-1504639725590-34d0984388bd?q=80&w=600&auto=format&fit=crop',
+        '3D & AI' => 'https://images.unsplash.com/photo-1485827404703-89b55fcc595e?q=80&w=600&auto=format&fit=crop',
+        'AI Art' => 'https://images.unsplash.com/photo-1509343256512-d77a5cb3791b?q=80&w=600&auto=format&fit=crop',
+        'News' => 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=600&auto=format&fit=crop',
+        'default' => 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?q=80&w=600&auto=format&fit=crop',
     ];
 
     /**
@@ -99,6 +102,19 @@ class VeilleController extends Controller
         'https://images.unsplash.com/photo-1675557009875-436f7a014c37?q=80&w=600&auto=format&fit=crop', // AI robot code
     ];
 
+    /**
+     * Variantes d'images "News" pour rotation quand une entrée RSS n'a pas d'image valide.
+     */
+    private const NEWS_VARIANTS = [
+        'https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=600&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?q=80&w=600&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1498050108023-c5249f4df085?q=80&w=600&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1515879218367-8466d910aaa4?q=80&w=600&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=600&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1526374870839-e155464bb9b2?q=80&w=600&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1535378917042-10a22c95931a?q=80&w=600&auto=format&fit=crop',
+    ];
+
     // ——— Public ————————————————————————————————————————————
 
     public function getArticles()
@@ -108,6 +124,22 @@ class VeilleController extends Controller
         });
 
         return response()->json($articles);
+    }
+
+    public function clearCache(Request $request)
+    {
+        $isLocal = app()->isLocal();
+        $hasValidSignature = $request->hasValidSignature();
+
+        abort_unless($isLocal || $hasValidSignature, 403);
+
+        Cache::forget(self::CACHE_KEY);
+
+        return response()->json([
+            'status' => 'Cache cleared',
+            'key' => self::CACHE_KEY,
+            'time' => now()->toIso8601String(),
+        ]);
     }
 
     // ——— Logique principale ————————————————————————————————
@@ -121,79 +153,79 @@ class VeilleController extends Controller
         $goldArticles = [
             [
                 // Andrej Karpathy invente le terme "vibe coding" — moment fondateur absolu
-                'title'     => '"Vibe coding": Andrej Karpathy on fully giving in to AI and forgetting the code exists',
-                'date'      => '02/02/2025',
-                'rawDate'   => '2025-02-02T18:00:00Z',
-                'link'      => 'https://x.com/karpathy/status/1886192184808149022',
-                'image'     => self::FALLBACK_IMAGES['Vibe Coding'],
-                'category'  => 'Vibe Coding',
-                'content'   => 'Karpathy coins "vibe coding": describing intent, letting AI handle implementation entirely.',
+                'title' => '"Vibe coding": Andrej Karpathy on fully giving in to AI and forgetting the code exists',
+                'date' => '02/02/2025',
+                'rawDate' => '2025-02-02T18:00:00Z',
+                'link' => 'https://x.com/karpathy/status/1886192184808149022',
+                'image' => self::FALLBACK_IMAGES['Vibe Coding'],
+                'category' => 'Vibe Coding',
+                'content' => 'Karpathy coins "vibe coding": describing intent, letting AI handle implementation entirely.',
                 'is_manual' => true,
             ],
             [
                 // Vercel AI SDK 3.0 — référence technique du Generative UI
-                'title'     => 'Vercel AI SDK 3.0: Generative UI and streaming React components from LLMs',
-                'date'      => '08/03/2024',
-                'rawDate'   => '2024-03-08T10:00:00Z',
-                'link'      => 'https://vercel.com/blog/ai-sdk-3-generative-ui',
-                'image'     => self::FALLBACK_IMAGES['Generative UI'],
-                'category'  => 'Generative UI',
-                'content'   => 'Vercel ships the paradigm shift: LLM responses rendered as live React components.',
+                'title' => 'Vercel AI SDK 3.0: Generative UI and streaming React components from LLMs',
+                'date' => '08/03/2024',
+                'rawDate' => '2024-03-08T10:00:00Z',
+                'link' => 'https://vercel.com/blog/ai-sdk-3-generative-ui',
+                'image' => self::FALLBACK_IMAGES['Generative UI'],
+                'category' => 'Generative UI',
+                'content' => 'Vercel ships the paradigm shift: LLM responses rendered as live React components.',
                 'is_manual' => true,
             ],
             [
                 // GitHub Copilot Workspace — agentic multi-file editing, annonce majeure
-                'title'     => 'GitHub Copilot Workspace: the agentic developer environment',
-                'date'      => '29/04/2024',
-                'rawDate'   => '2024-04-29T14:00:00Z',
-                'link'      => 'https://githubnext.com/projects/copilot-workspace',
-                'image'     => self::FALLBACK_IMAGES['Copilot'],
-                'category'  => 'Copilot',
-                'content'   => 'GitHub Next introduces task-driven, multi-file AI coding that rewrites how features ship.',
+                'title' => 'GitHub Copilot Workspace: the agentic developer environment',
+                'date' => '29/04/2024',
+                'rawDate' => '2024-04-29T14:00:00Z',
+                'link' => 'https://githubnext.com/projects/copilot-workspace',
+                'image' => self::FALLBACK_IMAGES['Copilot'],
+                'category' => 'Copilot',
+                'content' => 'GitHub Next introduces task-driven, multi-file AI coding that rewrites how features ship.',
                 'is_manual' => true,
             ],
             [
                 // Cursor 1M devs — adoption de masse, signal fort de l'industrie
-                'title'     => 'Cursor reaches 1 million developers: the AI code editor that changed the workflow',
-                'date'      => '10/09/2024',
-                'rawDate'   => '2024-09-10T09:00:00Z',
-                'link'      => 'https://cursor.sh/blog',
-                'image'     => self::FALLBACK_IMAGES['AI IDE'],
-                'category'  => 'AI IDE',
-                'content'   => 'Cursor becomes the first AI-first IDE to reach 1M devs, signaling a permanent paradigm shift.',
+                'title' => 'Cursor reaches 1 million developers: the AI code editor that changed the workflow',
+                'date' => '10/09/2024',
+                'rawDate' => '2024-09-10T09:00:00Z',
+                'link' => 'https://cursor.sh/blog',
+                'image' => self::FALLBACK_IMAGES['AI IDE'],
+                'category' => 'AI IDE',
+                'content' => 'Cursor becomes the first AI-first IDE to reach 1M devs, signaling a permanent paradigm shift.',
                 'is_manual' => true,
             ],
             [
                 // The Future of Code — article pilier original
-                'title'     => 'The Future of Code: From Syntax to AI-Guided Vibe Engineering',
-                'date'      => '14/12/2025',
-                'rawDate'   => '2025-12-14T22:38:45Z',
-                'link'      => 'https://www.startuphub.ai/ai-news/ai-video/2025/the-future-of-code-from-syntax-to-ai-guided-vibe-engineering/',
-                'image'     => 'https://www.startuphub.ai/wp-content/uploads/2025/12/the-future-of-code-from-syntax-to-ai-guided-vibe-engineering.jpg',
-                'category'  => 'Frontend AI',
-                'content'   => 'AI-generated code evolution: from syntax mastery to intent-driven engineering.',
+                'title' => 'The Future of Code: From Syntax to AI-Guided Vibe Engineering',
+                'date' => '14/12/2025',
+                'rawDate' => '2025-12-14T22:38:45Z',
+                'link' => 'https://www.startuphub.ai/ai-news/ai-video/2025/the-future-of-code-from-syntax-to-ai-guided-vibe-engineering/',
+                'image' => 'https://www.startuphub.ai/wp-content/uploads/2025/12/the-future-of-code-from-syntax-to-ai-guided-vibe-engineering.jpg',
+                'category' => 'Frontend AI',
+                'content' => 'AI-generated code evolution: from syntax mastery to intent-driven engineering.',
                 'is_manual' => true,
             ],
             [
                 // Context is King — article pilier original
-                'title'     => '2025: The Year Context Became King (And How Developers Are Wielding It)',
-                'date'      => '14/12/2025',
-                'rawDate'   => '2025-12-14T23:17:42Z',
-                'link'      => 'https://www.cdotrends.com/story/4831/2025-year-context-became-king-and-how-developers-are-wielding-it',
-                'image'     => self::FALLBACK_IMAGES['AI Context'],
-                'category'  => 'AI Context',
-                'content'   => 'Developers now curate a "brain" for their AI agent — context windows define productivity.',
+                'title' => '2025: The Year Context Became King (And How Developers Are Wielding It)',
+                'date' => '14/12/2025',
+                'rawDate' => '2025-12-14T23:17:42Z',
+                'link' => 'https://www.cdotrends.com/story/4831/2025-year-context-became-king-and-how-developers-are-wielding-it',
+                'image' => self::FALLBACK_IMAGES['AI Context'],
+                'category' => 'AI Context',
+                'content' => 'Developers now curate a "brain" for their AI agent — context windows define productivity.',
                 'is_manual' => true,
             ],
             [
                 // Gorman Paradox — article pilier original
-                'title'     => 'The Gorman Paradox: Where Are All the AI-Generated Apps?',
-                'date'      => '15/12/2025',
-                'rawDate'   => '2025-12-15T08:15:52Z',
-                'link'      => 'https://news.ycombinator.com/item?id=46262545',
-                'image'     => self::FALLBACK_IMAGES['AI Limits'],
-                'category'  => 'AI Limits',
-                'content'   => 'Despite AI hype, production apps still need human validation and architectural judgment.',
+                'title' => 'The Gorman Paradox: Where Are All the AI-Generated Apps?',
+                'date' => '15/12/2025',
+                'rawDate' => '2025-12-15T08:15:52Z',
+                'link' => 'https://news.ycombinator.com/item?id=46262545',
+                'image' => self::FALLBACK_IMAGES['AI Limits'],
+                'category' => 'AI Limits',
+                'content' => 'Despite AI hype, production apps still need human validation and architectural judgment.',
                 'is_manual' => true,
             ],
         ];
@@ -214,17 +246,17 @@ class VeilleController extends Controller
 
         foreach ($feeds as $feedUrl) {
             try {
-                $fetched     = $this->parseFeed($feedUrl);
+                $fetched = $this->parseFeed($feedUrl);
                 $rssArticles = array_merge($rssArticles, $fetched);
             } catch (\Exception $e) {
-                Log::warning("VeilleController — flux RSS échoué: {$feedUrl} — " . $e->getMessage());
+                Log::warning("VeilleController — flux RSS échoué: {$feedUrl} — ".$e->getMessage());
             }
         }
 
         // ==========================================
         // 3. FILTRE + SCORING
         // ==========================================
-        $filteredRss      = [];
+        $filteredRss = [];
         $seenFingerprints = [];
 
         foreach ($goldArticles as $gold) {
@@ -428,9 +460,11 @@ class VeilleController extends Controller
 
         foreach ($rssArticles as $article) {
             $fp = $this->fingerprint($article['title']);
-            if (in_array($fp, $seenFingerprints)) continue;
+            if (in_array($fp, $seenFingerprints)) {
+                continue;
+            }
 
-            $text = strtolower($article['title'] . ' ' . ($article['content'] ?? ''));
+            $text = strtolower($article['title'].' '.($article['content'] ?? ''));
 
             // Blacklist check
             $blacklisted = false;
@@ -440,26 +474,32 @@ class VeilleController extends Controller
                     break;
                 }
             }
-            if ($blacklisted) continue;
+            if ($blacklisted) {
+                continue;
+            }
 
             // Scoring pertinence
             $aiScore = 0;
             $uiScore = 0;
             foreach ($aiTerms as $t) {
-                if (strpos($text, $t) !== false) $aiScore++;
+                if (strpos($text, $t) !== false) {
+                    $aiScore++;
+                }
             }
             foreach ($uiTerms as $t) {
-                if (strpos($text, $t) !== false) $uiScore++;
+                if (strpos($text, $t) !== false) {
+                    $uiScore++;
+                }
             }
 
             if ($aiScore >= 1 && $uiScore >= 1) {
                 // Image : RSS si valide, sinon variante News rotative
-                if (!$this->isValidImageUrl($article['image'] ?? null)) {
+                if (! $this->isValidImageUrl($article['image'] ?? null)) {
                     $article['image'] = self::NEWS_VARIANTS[$newsVariantIndex % count(self::NEWS_VARIANTS)];
                     $newsVariantIndex++;
                 }
-                $article['_score']  = $aiScore + $uiScore;
-                $filteredRss[]      = $article;
+                $article['_score'] = $aiScore + $uiScore;
+                $filteredRss[] = $article;
                 $seenFingerprints[] = $fp;
             }
         }
@@ -467,6 +507,7 @@ class VeilleController extends Controller
         // Trier par score desc, puis date desc
         usort($filteredRss, function ($a, $b) {
             $diff = ($b['_score'] ?? 0) - ($a['_score'] ?? 0);
+
             return $diff !== 0 ? $diff : strtotime($b['rawDate'] ?? '0') - strtotime($a['rawDate'] ?? '0');
         });
 
@@ -475,233 +516,233 @@ class VeilleController extends Controller
         // ==========================================
         $backupArticles = [
             [
-                'title'     => 'V0.dev and the rise of prompt-driven user interfaces',
-                'date'      => date('d/m/Y', strtotime('-2 days')),
-                'rawDate'   => date('Y-m-d\TH:i:s\Z', strtotime('-2 days')),
-                'link'      => 'https://v0.dev',
-                'image'     => self::FALLBACK_IMAGES['Prompt UI'],
-                'category'  => 'Prompt UI',
-                'content'   => 'Generating complete Tailwind interfaces from simple text descriptions.',
+                'title' => 'V0.dev and the rise of prompt-driven user interfaces',
+                'date' => date('d/m/Y', strtotime('-2 days')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-2 days')),
+                'link' => 'https://v0.dev',
+                'image' => self::FALLBACK_IMAGES['Prompt UI'],
+                'category' => 'Prompt UI',
+                'content' => 'Generating complete Tailwind interfaces from simple text descriptions.',
                 'is_manual' => true,
             ],
             [
-                'title'     => 'Windsurf IDE: the agentic code editor that outpaced Cursor',
-                'date'      => date('d/m/Y', strtotime('-3 days')),
-                'rawDate'   => date('Y-m-d\TH:i:s\Z', strtotime('-3 days')),
-                'link'      => 'https://codeium.com/windsurf',
-                'image'     => self::FALLBACK_IMAGES['AI IDE'],
-                'category'  => 'AI IDE',
-                'content'   => 'Next-gen AI-native development environments with full cascade context awareness.',
+                'title' => 'Windsurf IDE: the agentic code editor that outpaced Cursor',
+                'date' => date('d/m/Y', strtotime('-3 days')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-3 days')),
+                'link' => 'https://codeium.com/windsurf',
+                'image' => self::FALLBACK_IMAGES['AI IDE'],
+                'category' => 'AI IDE',
+                'content' => 'Next-gen AI-native development environments with full cascade context awareness.',
                 'is_manual' => true,
             ],
             [
-                'title'     => 'Lovable.dev: building full-stack apps through conversation',
-                'date'      => date('d/m/Y', strtotime('-4 days')),
-                'rawDate'   => date('Y-m-d\TH:i:s\Z', strtotime('-4 days')),
-                'link'      => 'https://lovable.dev/',
-                'image'     => self::FALLBACK_IMAGES['App Builder AI'],
-                'category'  => 'App Builder AI',
-                'content'   => 'How no-code meets AI to ship React apps at conversation speed.',
+                'title' => 'Lovable.dev: building full-stack apps through conversation',
+                'date' => date('d/m/Y', strtotime('-4 days')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-4 days')),
+                'link' => 'https://lovable.dev/',
+                'image' => self::FALLBACK_IMAGES['App Builder AI'],
+                'category' => 'App Builder AI',
+                'content' => 'How no-code meets AI to ship React apps at conversation speed.',
                 'is_manual' => true,
             ],
             [
-                'title'     => 'Bolt.new: zero-config full-stack apps from a single prompt',
-                'date'      => date('d/m/Y', strtotime('-5 days')),
-                'rawDate'   => date('Y-m-d\TH:i:s\Z', strtotime('-5 days')),
-                'link'      => 'https://bolt.new/',
-                'image'     => 'https://images.unsplash.com/photo-1526374870839-e155464bb9b2?q=80&w=600&auto=format&fit=crop',
-                'category'  => 'App Builder AI',
-                'content'   => 'StackBlitz brings Bolt.new for instant deployable web apps from plain-text prompts.',
+                'title' => 'Bolt.new: zero-config full-stack apps from a single prompt',
+                'date' => date('d/m/Y', strtotime('-5 days')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-5 days')),
+                'link' => 'https://bolt.new/',
+                'image' => 'https://images.unsplash.com/photo-1526374870839-e155464bb9b2?q=80&w=600&auto=format&fit=crop',
+                'category' => 'App Builder AI',
+                'content' => 'StackBlitz brings Bolt.new for instant deployable web apps from plain-text prompts.',
                 'is_manual' => true,
             ],
             [
-                'title'     => 'shadcn/ui and AI: auto-generating accessible component libraries',
-                'date'      => date('d/m/Y', strtotime('-6 days')),
-                'rawDate'   => date('Y-m-d\TH:i:s\Z', strtotime('-6 days')),
-                'link'      => 'https://ui.shadcn.com/',
-                'image'     => self::FALLBACK_IMAGES['Components'],
-                'category'  => 'Components',
-                'content'   => 'How copy-paste UI components become AI-first and context-aware.',
+                'title' => 'shadcn/ui and AI: auto-generating accessible component libraries',
+                'date' => date('d/m/Y', strtotime('-6 days')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-6 days')),
+                'link' => 'https://ui.shadcn.com/',
+                'image' => self::FALLBACK_IMAGES['Components'],
+                'category' => 'Components',
+                'content' => 'How copy-paste UI components become AI-first and context-aware.',
                 'is_manual' => true,
             ],
             [
-                'title'     => 'Framer Motion meets AI: procedural animation from text descriptions',
-                'date'      => date('d/m/Y', strtotime('-7 days')),
-                'rawDate'   => date('Y-m-d\TH:i:s\Z', strtotime('-7 days')),
-                'link'      => 'https://www.framer.com/motion/',
-                'image'     => self::FALLBACK_IMAGES['Animation AI'],
-                'category'  => 'Animation AI',
-                'content'   => 'Describing animations in plain English and letting AI implement them in React.',
+                'title' => 'Framer Motion meets AI: procedural animation from text descriptions',
+                'date' => date('d/m/Y', strtotime('-7 days')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-7 days')),
+                'link' => 'https://www.framer.com/motion/',
+                'image' => self::FALLBACK_IMAGES['Animation AI'],
+                'category' => 'Animation AI',
+                'content' => 'Describing animations in plain English and letting AI implement them in React.',
                 'is_manual' => true,
             ],
             [
-                'title'     => 'Why "Chat" is not the optimal UI for all AI interactions',
-                'date'      => date('d/m/Y', strtotime('-8 days')),
-                'rawDate'   => date('Y-m-d\TH:i:s\Z', strtotime('-8 days')),
-                'link'      => 'https://uxdesign.cc/',
-                'image'     => self::FALLBACK_IMAGES['UX Patterns'],
-                'category'  => 'UX Patterns',
-                'content'   => 'Moving from chatbots to invisible AI-enhanced UI controls and contextual interactions.',
+                'title' => 'Why "Chat" is not the optimal UI for all AI interactions',
+                'date' => date('d/m/Y', strtotime('-8 days')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-8 days')),
+                'link' => 'https://uxdesign.cc/',
+                'image' => self::FALLBACK_IMAGES['UX Patterns'],
+                'category' => 'UX Patterns',
+                'content' => 'Moving from chatbots to invisible AI-enhanced UI controls and contextual interactions.',
                 'is_manual' => true,
             ],
             [
-                'title'     => 'The state of AI-assisted Accessibility in Frontend Frameworks',
-                'date'      => date('d/m/Y', strtotime('-9 days')),
-                'rawDate'   => date('Y-m-d\TH:i:s\Z', strtotime('-9 days')),
-                'link'      => 'https://www.w3.org/WAI/',
-                'image'     => self::FALLBACK_IMAGES['A11y & AI'],
-                'category'  => 'A11y & AI',
-                'content'   => 'Using AI to automatically generate ARIA labels and fix contrast issues.',
+                'title' => 'The state of AI-assisted Accessibility in Frontend Frameworks',
+                'date' => date('d/m/Y', strtotime('-9 days')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-9 days')),
+                'link' => 'https://www.w3.org/WAI/',
+                'image' => self::FALLBACK_IMAGES['A11y & AI'],
+                'category' => 'A11y & AI',
+                'content' => 'Using AI to automatically generate ARIA labels and fix contrast issues.',
                 'is_manual' => true,
             ],
             [
-                'title'     => 'Evaluating LLM performance for CSS generation accuracy',
-                'date'      => date('d/m/Y', strtotime('-10 days')),
-                'rawDate'   => date('Y-m-d\TH:i:s\Z', strtotime('-10 days')),
-                'link'      => 'https://css-tricks.com/',
-                'image'     => self::FALLBACK_IMAGES['CSS AI'],
-                'category'  => 'CSS AI',
-                'content'   => 'Can AI really understand cascade, specificity and responsive breakpoints in 2026?',
+                'title' => 'Evaluating LLM performance for CSS generation accuracy',
+                'date' => date('d/m/Y', strtotime('-10 days')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-10 days')),
+                'link' => 'https://css-tricks.com/',
+                'image' => self::FALLBACK_IMAGES['CSS AI'],
+                'category' => 'CSS AI',
+                'content' => 'Can AI really understand cascade, specificity and responsive breakpoints in 2026?',
                 'is_manual' => true,
             ],
             [
-                'title'     => 'Figma to React: How Multi-modal LLMs are closing the design-to-code gap',
-                'date'      => date('d/m/Y', strtotime('-11 days')),
-                'rawDate'   => date('Y-m-d\TH:i:s\Z', strtotime('-11 days')),
-                'link'      => 'https://www.figma.com/blog/',
-                'image'     => self::FALLBACK_IMAGES['Design Systems'],
-                'category'  => 'Design Systems',
-                'content'   => 'Analyzing visuals instead of code allows for better UI reproduction at scale.',
+                'title' => 'Figma to React: How Multi-modal LLMs are closing the design-to-code gap',
+                'date' => date('d/m/Y', strtotime('-11 days')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-11 days')),
+                'link' => 'https://www.figma.com/blog/',
+                'image' => self::FALLBACK_IMAGES['Design Systems'],
+                'category' => 'Design Systems',
+                'content' => 'Analyzing visuals instead of code allows for better UI reproduction at scale.',
                 'is_manual' => true,
             ],
             [
-                'title'     => 'React Server Components and AI: streaming intelligence into the UI',
-                'date'      => date('d/m/Y', strtotime('-12 days')),
-                'rawDate'   => date('Y-m-d\TH:i:s\Z', strtotime('-12 days')),
-                'link'      => 'https://react.dev/blog',
-                'image'     => self::FALLBACK_IMAGES['Architecture'],
-                'category'  => 'Architecture',
-                'content'   => 'Streaming LLM responses directly within RSC payloads for reactive UI.',
+                'title' => 'React Server Components and AI: streaming intelligence into the UI',
+                'date' => date('d/m/Y', strtotime('-12 days')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-12 days')),
+                'link' => 'https://react.dev/blog',
+                'image' => self::FALLBACK_IMAGES['Architecture'],
+                'category' => 'Architecture',
+                'content' => 'Streaming LLM responses directly within RSC payloads for reactive UI.',
                 'is_manual' => true,
             ],
             [
-                'title'     => 'TypeScript + LLMs: stronger typed interfaces through AI code review',
-                'date'      => date('d/m/Y', strtotime('-13 days')),
-                'rawDate'   => date('Y-m-d\TH:i:s\Z', strtotime('-13 days')),
-                'link'      => 'https://www.typescriptlang.org/',
-                'image'     => self::FALLBACK_IMAGES['TypeScript AI'],
-                'category'  => 'TypeScript AI',
-                'content'   => 'How AI transforms TypeScript type generation, inference and error correction.',
+                'title' => 'TypeScript + LLMs: stronger typed interfaces through AI code review',
+                'date' => date('d/m/Y', strtotime('-13 days')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-13 days')),
+                'link' => 'https://www.typescriptlang.org/',
+                'image' => self::FALLBACK_IMAGES['TypeScript AI'],
+                'category' => 'TypeScript AI',
+                'content' => 'How AI transforms TypeScript type generation, inference and error correction.',
                 'is_manual' => true,
             ],
             [
-                'title'     => 'Tailwind CSS v4 and AI: smarter theming, zero configuration',
-                'date'      => date('d/m/Y', strtotime('-14 days')),
-                'rawDate'   => date('Y-m-d\TH:i:s\Z', strtotime('-14 days')),
-                'link'      => 'https://tailwindcss.com/blog',
-                'image'     => self::FALLBACK_IMAGES['CSS Tooling'],
-                'category'  => 'CSS Tooling',
-                'content'   => 'How AI pairs with utility-first CSS to remove boilerplate and enforce consistency.',
+                'title' => 'Tailwind CSS v4 and AI: smarter theming, zero configuration',
+                'date' => date('d/m/Y', strtotime('-14 days')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-14 days')),
+                'link' => 'https://tailwindcss.com/blog',
+                'image' => self::FALLBACK_IMAGES['CSS Tooling'],
+                'category' => 'CSS Tooling',
+                'content' => 'How AI pairs with utility-first CSS to remove boilerplate and enforce consistency.',
                 'is_manual' => true,
             ],
             [
-                'title'     => 'Next.js 15 and AI route handlers: building smarter API layers',
-                'date'      => date('d/m/Y', strtotime('-15 days')),
-                'rawDate'   => date('Y-m-d\TH:i:s\Z', strtotime('-15 days')),
-                'link'      => 'https://nextjs.org/blog',
-                'image'     => self::FALLBACK_IMAGES['Next.js AI'],
-                'category'  => 'Next.js AI',
-                'content'   => 'Integrating LLM calls directly into Next.js server actions and edge functions.',
+                'title' => 'Next.js 15 and AI route handlers: building smarter API layers',
+                'date' => date('d/m/Y', strtotime('-15 days')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-15 days')),
+                'link' => 'https://nextjs.org/blog',
+                'image' => self::FALLBACK_IMAGES['Next.js AI'],
+                'category' => 'Next.js AI',
+                'content' => 'Integrating LLM calls directly into Next.js server actions and edge functions.',
                 'is_manual' => true,
             ],
             [
-                'title'     => 'LLM hallucinations in UI code: patterns and guardrails for developers',
-                'date'      => date('d/m/Y', strtotime('-16 days')),
-                'rawDate'   => date('Y-m-d\TH:i:s\Z', strtotime('-16 days')),
-                'link'      => '#',
-                'image'     => 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=600&auto=format&fit=crop',
-                'category'  => 'AI Limits',
-                'content'   => 'When AI confidently generates broken CSS or wrong event handlers — and how to detect it.',
+                'title' => 'LLM hallucinations in UI code: patterns and guardrails for developers',
+                'date' => date('d/m/Y', strtotime('-16 days')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-16 days')),
+                'link' => '#',
+                'image' => 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=600&auto=format&fit=crop',
+                'category' => 'AI Limits',
+                'content' => 'When AI confidently generates broken CSS or wrong event handlers — and how to detect it.',
                 'is_manual' => true,
             ],
             [
-                'title'     => 'Design tokens and AI: automating consistent theming at scale',
-                'date'      => date('d/m/Y', strtotime('-17 days')),
-                'rawDate'   => date('Y-m-d\TH:i:s\Z', strtotime('-17 days')),
-                'link'      => '#',
-                'image'     => self::FALLBACK_IMAGES['Design Tokens'],
-                'category'  => 'Design Tokens',
-                'content'   => 'AI-driven token management for cross-platform design systems at enterprise scale.',
+                'title' => 'Design tokens and AI: automating consistent theming at scale',
+                'date' => date('d/m/Y', strtotime('-17 days')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-17 days')),
+                'link' => '#',
+                'image' => self::FALLBACK_IMAGES['Design Tokens'],
+                'category' => 'Design Tokens',
+                'content' => 'AI-driven token management for cross-platform design systems at enterprise scale.',
                 'is_manual' => true,
             ],
             [
-                'title'     => 'Svelte 5 runes and AI: reactive primitives meet intelligent code generation',
-                'date'      => date('d/m/Y', strtotime('-18 days')),
-                'rawDate'   => date('Y-m-d\TH:i:s\Z', strtotime('-18 days')),
-                'link'      => 'https://svelte.dev/blog',
-                'image'     => self::FALLBACK_IMAGES['Svelte AI'],
-                'category'  => 'Svelte AI',
-                'content'   => 'Svelte 5 reactive system as an ideal compilation target for LLM-generated components.',
+                'title' => 'Svelte 5 runes and AI: reactive primitives meet intelligent code generation',
+                'date' => date('d/m/Y', strtotime('-18 days')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-18 days')),
+                'link' => 'https://svelte.dev/blog',
+                'image' => self::FALLBACK_IMAGES['Svelte AI'],
+                'category' => 'Svelte AI',
+                'content' => 'Svelte 5 reactive system as an ideal compilation target for LLM-generated components.',
                 'is_manual' => true,
             ],
             [
-                'title'     => 'Micro-interactions tailored by AI based on real user behavior',
-                'date'      => date('d/m/Y', strtotime('-19 days')),
-                'rawDate'   => date('Y-m-d\TH:i:s\Z', strtotime('-19 days')),
-                'link'      => '#',
-                'image'     => self::FALLBACK_IMAGES['Adaptive UI'],
-                'category'  => 'Adaptive UI',
-                'content'   => 'Using local models to adjust animation timing and easing curves per user session.',
+                'title' => 'Micro-interactions tailored by AI based on real user behavior',
+                'date' => date('d/m/Y', strtotime('-19 days')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-19 days')),
+                'link' => '#',
+                'image' => self::FALLBACK_IMAGES['Adaptive UI'],
+                'category' => 'Adaptive UI',
+                'content' => 'Using local models to adjust animation timing and easing curves per user session.',
                 'is_manual' => true,
             ],
             [
-                'title'     => 'Testing AI-written frontend code: automated QA for generated components',
-                'date'      => date('d/m/Y', strtotime('-20 days')),
-                'rawDate'   => date('Y-m-d\TH:i:s\Z', strtotime('-20 days')),
-                'link'      => '#',
-                'image'     => self::FALLBACK_IMAGES['Testing AI'],
-                'category'  => 'Testing AI',
-                'content'   => 'Playwright and Vitest in CI/CD pipelines to validate AI-generated UI components.',
+                'title' => 'Testing AI-written frontend code: automated QA for generated components',
+                'date' => date('d/m/Y', strtotime('-20 days')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-20 days')),
+                'link' => '#',
+                'image' => self::FALLBACK_IMAGES['Testing AI'],
+                'category' => 'Testing AI',
+                'content' => 'Playwright and Vitest in CI/CD pipelines to validate AI-generated UI components.',
                 'is_manual' => true,
             ],
             [
-                'title'     => 'The ethical implications of AI-generated dark patterns in UI',
-                'date'      => date('d/m/Y', strtotime('-21 days')),
-                'rawDate'   => date('Y-m-d\TH:i:s\Z', strtotime('-21 days')),
-                'link'      => '#',
-                'image'     => self::FALLBACK_IMAGES['AI Ethics'],
-                'category'  => 'AI Ethics',
-                'content'   => 'Preventing AI from optimizing engagement at the cost of user wellbeing and privacy.',
+                'title' => 'The ethical implications of AI-generated dark patterns in UI',
+                'date' => date('d/m/Y', strtotime('-21 days')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-21 days')),
+                'link' => '#',
+                'image' => self::FALLBACK_IMAGES['AI Ethics'],
+                'category' => 'AI Ethics',
+                'content' => 'Preventing AI from optimizing engagement at the cost of user wellbeing and privacy.',
                 'is_manual' => true,
             ],
             [
-                'title'     => 'Replit Agent: from idea to deployed web app in minutes',
-                'date'      => date('d/m/Y', strtotime('-22 days')),
-                'rawDate'   => date('Y-m-d\TH:i:s\Z', strtotime('-22 days')),
-                'link'      => 'https://replit.com/',
-                'image'     => self::FALLBACK_IMAGES['Replit AI'],
-                'category'  => 'Replit AI',
-                'content'   => 'Cloud-based AI pair programmer handles full deployment cycles autonomously.',
+                'title' => 'Replit Agent: from idea to deployed web app in minutes',
+                'date' => date('d/m/Y', strtotime('-22 days')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-22 days')),
+                'link' => 'https://replit.com/',
+                'image' => self::FALLBACK_IMAGES['Replit AI'],
+                'category' => 'Replit AI',
+                'content' => 'Cloud-based AI pair programmer handles full deployment cycles autonomously.',
                 'is_manual' => true,
             ],
             [
-                'title'     => 'From wireframe to production: the AI-accelerated design-to-code pipeline',
-                'date'      => date('d/m/Y', strtotime('-23 days')),
-                'rawDate'   => date('Y-m-d\TH:i:s\Z', strtotime('-23 days')),
-                'link'      => '#',
-                'image'     => self::FALLBACK_IMAGES['Design to Code'],
-                'category'  => 'Design to Code',
-                'content'   => 'How AI shrinks the gap between design mockup and shipped, tested component.',
+                'title' => 'From wireframe to production: the AI-accelerated design-to-code pipeline',
+                'date' => date('d/m/Y', strtotime('-23 days')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-23 days')),
+                'link' => '#',
+                'image' => self::FALLBACK_IMAGES['Design to Code'],
+                'category' => 'Design to Code',
+                'content' => 'How AI shrinks the gap between design mockup and shipped, tested component.',
                 'is_manual' => true,
             ],
             [
-                'title'     => 'WebGL and generative AI: procedural 3D UI elements from plain prompts',
-                'date'      => date('d/m/Y', strtotime('-24 days')),
-                'rawDate'   => date('Y-m-d\TH:i:s\Z', strtotime('-24 days')),
-                'link'      => '#',
-                'image'     => self::FALLBACK_IMAGES['3D & AI'],
-                'category'  => '3D & AI',
-                'content'   => 'Three.js and WebGL scenes generated from natural language descriptions.',
+                'title' => 'WebGL and generative AI: procedural 3D UI elements from plain prompts',
+                'date' => date('d/m/Y', strtotime('-24 days')),
+                'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-24 days')),
+                'link' => '#',
+                'image' => self::FALLBACK_IMAGES['3D & AI'],
+                'category' => '3D & AI',
+                'content' => 'Three.js and WebGL scenes generated from natural language descriptions.',
                 'is_manual' => true,
             ],
         ];
@@ -718,7 +759,7 @@ class VeilleController extends Controller
 
         // Compléter avec les backups si nécessaire
         if (count($finalList) < self::TARGET) {
-            $needed    = self::TARGET - count($finalList);
+            $needed = self::TARGET - count($finalList);
             $finalList = array_merge($finalList, array_slice($backupArticles, 0, $needed));
         }
 
@@ -732,7 +773,7 @@ class VeilleController extends Controller
         //   2. Sinon → on lui attribue la première image du pool UNIQUE_IMAGE_POOL
         //      qui n'a pas encore été assignée dans cette liste.
         //      → Jamais deux articles avec la même image de fallback.
-        $usedFallbacks   = [];
+        $usedFallbacks = [];
         $fallbackPointer = 0;
 
         // Pré-enregistrer les images "réelles" déjà présentes
@@ -754,8 +795,8 @@ class VeilleController extends Controller
             $poolSize = count(self::UNIQUE_IMAGE_POOL);
             for ($i = 0; $i < $poolSize; $i++) {
                 $candidate = self::UNIQUE_IMAGE_POOL[($fallbackPointer + $i) % $poolSize];
-                if (!in_array($candidate, $usedFallbacks, true)) {
-                    $assigned        = $candidate;
+                if (! in_array($candidate, $usedFallbacks, true)) {
+                    $assigned = $candidate;
                     $fallbackPointer = ($fallbackPointer + $i + 1) % $poolSize;
                     break;
                 }
@@ -767,7 +808,7 @@ class VeilleController extends Controller
                 $fallbackPointer++;
             }
 
-            $art['image']    = $assigned;
+            $art['image'] = $assigned;
             $usedFallbacks[] = $assigned;
         }
         unset($art);
@@ -787,12 +828,19 @@ class VeilleController extends Controller
      */
     private function isValidImageUrl(?string $url): bool
     {
-        if (empty($url)) return false;
-        if (!preg_match('/^https?:\/\//i', $url)) return false;
+        if (empty($url)) {
+            return false;
+        }
+        if (! preg_match('/^https?:\/\//i', $url)) {
+            return false;
+        }
         $excluded = ['y18.svg', 'placeholder', 'data:image', 'noimage', 'default.png', 'blank.'];
         foreach ($excluded as $ex) {
-            if (stripos($url, $ex) !== false) return false;
+            if (stripos($url, $ex) !== false) {
+                return false;
+            }
         }
+
         return true;
     }
 
@@ -806,10 +854,14 @@ class VeilleController extends Controller
                 ->withHeaders(['User-Agent' => 'Mozilla/5.0 (compatible; PortfolioVeille/1.0)'])
                 ->get($feedUrl);
 
-            if (!$response->successful()) return [];
+            if (! $response->successful()) {
+                return [];
+            }
 
             $xml = simplexml_load_string($response->body());
-            if ($xml === false) return [];
+            if ($xml === false) {
+                return [];
+            }
 
             $namespaces = $xml->getNamespaces(true);
             if (isset($namespaces['atom'])) {
@@ -819,26 +871,30 @@ class VeilleController extends Controller
                 $entries = $xml->xpath('//entry') ?: $xml->xpath('//item');
             }
 
-            if (!$entries) return [];
+            if (! $entries) {
+                return [];
+            }
 
             $articles = [];
             foreach ($entries as $entry) {
-                $title = strip_tags((string)($entry->title ?? ''));
-                if (empty($title)) continue;
+                $title = strip_tags((string) ($entry->title ?? ''));
+                if (empty($title)) {
+                    continue;
+                }
 
                 // Lien
                 $link = '';
                 if (isset($entry->link['href'])) {
-                    $link = (string)$entry->link['href'];
+                    $link = (string) $entry->link['href'];
                 } elseif (isset($entry->link)) {
-                    $link = (string)$entry->link;
+                    $link = (string) $entry->link;
                 }
                 if (preg_match('/url=([^&]+)/', $link, $m)) {
                     $link = urldecode($m[1]);
                 }
 
-                $pubDate     = (string)($entry->published ?? $entry->pubDate ?? '');
-                $description = (string)($entry->content ?? $entry->description ?? '');
+                $pubDate = (string) ($entry->published ?? $entry->pubDate ?? '');
+                $description = (string) ($entry->content ?? $entry->description ?? '');
 
                 // Extraction image (guillemets doubles ET simples)
                 $image = null;
@@ -851,27 +907,30 @@ class VeilleController extends Controller
 
                 if ($title && $link) {
                     $articles[] = [
-                        'title'    => $title,
-                        'date'     => $this->formatDate($pubDate),
-                        'rawDate'  => $pubDate,
-                        'link'     => $link,
-                        'image'    => $image, // null = remplacé en étape 3
+                        'title' => $title,
+                        'date' => $this->formatDate($pubDate),
+                        'rawDate' => $pubDate,
+                        'link' => $link,
+                        'image' => $image, // null = remplacé en étape 3
                         'category' => 'News',
-                        'content'  => strip_tags($description),
+                        'content' => strip_tags($description),
                     ];
                 }
             }
 
             return $articles;
         } catch (\Exception $e) {
-            Log::warning("parseFeed échoué pour {$feedUrl}: " . $e->getMessage());
+            Log::warning("parseFeed échoué pour {$feedUrl}: ".$e->getMessage());
+
             return [];
         }
     }
 
     private function formatDate(string $dateString): string
     {
-        if (empty($dateString)) return date('d/m/Y');
+        if (empty($dateString)) {
+            return date('d/m/Y');
+        }
         try {
             return date('d/m/Y', strtotime($dateString));
         } catch (\Exception $e) {

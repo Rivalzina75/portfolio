@@ -66,17 +66,17 @@
         <div class="container footer-grid">
             <div>
                 <p class="foot-brand">Mekaoui Reda — BTS SIO SLAM</p>
-                <p style="font-size: 0.75rem; opacity: 0.7;">
+                <p class="footer-meta-text">
                     {{ __('copyright') }} © {{ date('Y') }} Mekaoui Reda. {{ __('All rights reserved') }}.
                 </p>
             </div>
             <div class="foot-downloads">
-                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">{{ __('Documents') }}</p>
+                <p class="footer-col-title">{{ __('Documents') }}</p>
                 <a href="{{ route('portfolio.cv') }}" download aria-label="{{ __('Download CV') }}">📄 {{ __('CV') }}</a>
                 <a href="{{ route('portfolio.tableau_synthese') }}" download aria-label="{{ __('Download Synthesis Table') }}">📊 {{ __('Synthesis Table') }}</a>
             </div>
             <div class="foot-links">
-                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">{{ __('Information') }}</p>
+                <p class="footer-col-title">{{ __('Information') }}</p>
                 <a href="https://github.com/Rivalzina75" target="_blank" rel="noopener noreferrer" aria-label="Voir mon GitHub">GitHub</a>
                 <a href="https://linkedin.com/in/reda-mekaoui" target="_blank" rel="noopener noreferrer" aria-label="Voir mon LinkedIn">LinkedIn</a>
                 <a href="{{ route('portfolio.home') }}#contact">{{ __('Contact') }}</a>

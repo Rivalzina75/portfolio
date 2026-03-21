@@ -8,7 +8,7 @@
     <div class="container">
         <div class="hero-simple">
             <p class="eyebrow">{{ __('E6 Case Study') }} &bull; {{ __('Case Study #2') }}</p>
-            <h1 style="font-size: clamp(2.5rem, 5vw, 4rem); color: var(--primary); margin-bottom: 16px; line-height: 1.1;">
+            <h1 class="page-hero-title">
                 {{ __('Personnel Project') }}
             </h1>
             <p class="hero-subtitle">{{ __('Personnel Subtitle') }}</p>
@@ -23,7 +23,6 @@
 
             <div class="hero-cta">
                 <a href="/files/Fiche_situation_professionnelle_Personnel_M2L.docx" class="btn primary" download>{{ __('Download case study') }}</a>
-                {{-- <a href="#" class="btn ghost" download>{{ __('Download documentation') }}</a> --}}
             </div>
         </div>
     </div>
@@ -96,8 +95,8 @@
 </section>
 
 <section class="section">
-    <div class="container" style="text-align: center;">
-        <a href="{{ route('portfolio.home') }}#projets" class="btn ghost" style="display: inline-flex; align-items: center; gap: 8px;">
+    <div class="container project-back">
+        <a href="{{ route('portfolio.home') }}#projets" class="btn ghost project-back-link">
             <span>&larr;</span> {{ __('Back to projects') }}
         </a>
     </div>

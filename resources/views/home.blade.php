@@ -121,26 +121,128 @@
             <p class="lede">{{ __('Practical application') }}</p>
         </div>
 
-        <div class="cards-grid two">
-            
-            <article class="card grid-block">
-                <h3>{{ __('Internship') }} : ??????</h3>
-                <p class="eyebrow" style="margin-top: 0.5rem; color: var(--primary);">5 {{ app()->getLocale() == 'fr' ? 'Janvier' : 'January' }} – 6 {{ app()->getLocale() == 'fr' ? 'Février' : 'February' }} 2026</p>
-                
-                <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(0, 255, 255, 0.05); border-radius: 8px; border: 1px dashed rgba(255, 255, 255, 0.2); text-align: center;">
-                    <p style="margin: 0; color: #a0aec0; font-style: italic;">{{ __('Upcoming internship') }}</p>
+        <div class="xp-grid">
+
+            {{-- ---- STAGE 2 : OhLogiciel / Scootup ---- --}}
+            <article class="xp-card xp-card--featured">
+                <div class="xp-card__header">
+                    <div class="xp-card__meta">
+                        <span class="xp-badge xp-badge--new">{{ app()->getLocale() == 'fr' ? '2ème année' : '2nd year' }}</span>
+                        <span class="xp-date">Janv. – Fév. 2026 · 5 {{ app()->getLocale() == 'fr' ? 'semaines' : 'weeks' }}</span>
+                    </div>
+                    <div class="xp-card__title-row">
+                        <div>
+                            <p class="xp-company">OhLogiciel</p>
+                            <h3 class="xp-role">{{ app()->getLocale() == 'fr' ? 'Développeur Fullstack Mobile & Backend' : 'Fullstack Mobile & Backend Developer' }}</h3>
+                        </div>
+                        <div class="xp-icon xp-icon--scootup">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+                        </div>
+                    </div>
+                    <p class="xp-project-label">{{ app()->getLocale() == 'fr' ? 'Projet' : 'Project' }} : <strong>Scootup</strong> — {{ app()->getLocale() == 'fr' ? 'Solution de stationnement sécurisé pour trottinettes électriques' : 'Secure e-scooter parking solution' }}</p>
+                </div>
+
+                <div class="xp-card__body">
+                    <div class="xp-missions">
+                        <p class="xp-missions__label">{{ app()->getLocale() == 'fr' ? 'Missions principales' : 'Key missions' }}</p>
+                        <ul>
+                            <li>{{ app()->getLocale() == 'fr' ? 'Développement complet de l\'application mobile client (React Native + Expo + TypeScript)' : 'Full development of the client mobile app (React Native + Expo + TypeScript)' }}</li>
+                            <li>{{ app()->getLocale() == 'fr' ? 'Conception et développement du backend REST API (NestJS + Prisma + PostgreSQL + PostGIS)' : 'Design & development of the REST API backend (NestJS + Prisma + PostgreSQL + PostGIS)' }}</li>
+                            <li>{{ app()->getLocale() == 'fr' ? 'Intégration paiement Stripe (SetupIntent), authentification Firebase SMS, filtrage géospatial' : 'Stripe payment integration (SetupIntent), Firebase SMS auth, geospatial filtering' }}</li>
+                            <li>{{ app()->getLocale() == 'fr' ? 'Pipeline CI/CD GitLab avec Docker — 78 tests Jest + Supertest à 93,23% de couverture' : 'GitLab CI/CD pipeline with Docker — 78 Jest + Supertest tests at 93.23% coverage' }}</li>
+                        </ul>
+                    </div>
+
+                    <div class="xp-stats">
+                        <div class="xp-stat">
+                            <span class="xp-stat__value">93%</span>
+                            <span class="xp-stat__label">{{ app()->getLocale() == 'fr' ? 'couverture tests' : 'test coverage' }}</span>
+                        </div>
+                        <div class="xp-stat">
+                            <span class="xp-stat__value">78</span>
+                            <span class="xp-stat__label">{{ app()->getLocale() == 'fr' ? 'tests E2E' : 'E2E tests' }}</span>
+                        </div>
+                        <div class="xp-stat">
+                            <span class="xp-stat__value">6</span>
+                            <span class="xp-stat__label">{{ app()->getLocale() == 'fr' ? 'défis résolus' : 'challenges solved' }}</span>
+                        </div>
+                    </div>
+
+                    <div class="xp-stack">
+                        <span class="skill-tag">React Native</span>
+                        <span class="skill-tag">TypeScript</span>
+                        <span class="skill-tag">NestJS</span>
+                        <span class="skill-tag">Prisma</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">PostGIS</span>
+                        <span class="skill-tag">Stripe</span>
+                        <span class="skill-tag">Firebase</span>
+                        <span class="skill-tag">GitLab CI/CD</span>
+                        <span class="skill-tag">Docker</span>
+                    </div>
+                </div>
+
+                <div class="xp-card__footer">
+                    <a href="{{ route('project.scootup') }}" class="btn primary btn-small">
+                        {{ app()->getLocale() == 'fr' ? 'Voir le projet' : 'View project' }} →
+                    </a>
+                    <a href="/files/Rapport_Stage_Scootup_Reda_Mekaoui.pdf" download class="btn ghost btn-small">
+                        {{ app()->getLocale() == 'fr' ? 'Télécharger le rapport' : 'Download report' }}
+                    </a>
                 </div>
             </article>
 
-            <article class="card grid-block">
-                <h3>{{ __('Internship') }} : Assuroweb</h3>
-                <p class="eyebrow" style="margin-top: 0.5rem; color: var(--primary);">5 {{ app()->getLocale() == 'fr' ? 'Mai' : 'May' }} – 6 {{ app()->getLocale() == 'fr' ? 'Juin' : 'June' }} 2025</p>
-                <ul class="list">
-                    <li>{!! __('Stage Assuroweb Line 1') !!}</li>
-                    <li>{!! __('Stage Assuroweb Line 2') !!}</li>
-                    <li>{!! __('Stage Assuroweb Line 3') !!}</li>
-                    <li>{!! __('Stage Assuroweb Line 4') !!}</li>
-                </ul>
+            {{-- ---- STAGE 1 : Assuroweb ---- --}}
+            <article class="xp-card">
+                <div class="xp-card__header">
+                    <div class="xp-card__meta">
+                        <span class="xp-badge">{{ app()->getLocale() == 'fr' ? '1ère année' : '1st year' }}</span>
+                        <span class="xp-date">Mai – Juin 2025 · 22 {{ app()->getLocale() == 'fr' ? 'jours' : 'days' }}</span>
+                    </div>
+                    <div class="xp-card__title-row">
+                        <div>
+                            <p class="xp-company">Assuroweb</p>
+                            <h3 class="xp-role">{{ app()->getLocale() == 'fr' ? 'Développeur Web Laravel' : 'Laravel Web Developer' }}</h3>
+                        </div>
+                        <div class="xp-icon xp-icon--assuroweb">
+                            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                        </div>
+                    </div>
+                    <p class="xp-project-label">{{ app()->getLocale() == 'fr' ? 'Comparateur d\'assurances en ligne' : 'Online insurance comparison platform' }}</p>
+                </div>
+
+                <div class="xp-card__body">
+                    <div class="xp-missions">
+                        <p class="xp-missions__label">{{ app()->getLocale() == 'fr' ? 'Missions principales' : 'Key missions' }}</p>
+                        <ul>
+                            <li>{{ app()->getLocale() == 'fr' ? 'Développement d\'un module complet d\'articles (CRUD, Eloquent ORM, routes dynamiques par slug)' : 'Full article module development (CRUD, Eloquent ORM, dynamic slug routing)' }}</li>
+                            <li>{{ app()->getLocale() == 'fr' ? 'Intégration d\'un éditeur de contenu riche Quill.js et interface d\'administration' : 'Rich content editor integration with Quill.js and admin interface' }}</li>
+                            <li>{{ app()->getLocale() == 'fr' ? 'Design responsive (mobile, tablette, bureau) et refonte CSS de l\'identité visuelle' : 'Responsive design (mobile, tablet, desktop) and CSS visual identity rework' }}</li>
+                            <li>{{ app()->getLocale() == 'fr' ? 'Déploiement en production via WinSCP / SSH — workflow Git par mission' : 'Production deployment via WinSCP / SSH — Git workflow per mission' }}</li>
+                        </ul>
+                    </div>
+
+                    <div class="xp-stack">
+                        <span class="skill-tag">Laravel</span>
+                        <span class="skill-tag">PHP 8</span>
+                        <span class="skill-tag">Blade</span>
+                        <span class="skill-tag">Eloquent ORM</span>
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">Quill.js</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Git / GitHub</span>
+                        <span class="skill-tag">SSH / WinSCP</span>
+                    </div>
+                </div>
+
+                <div class="xp-card__footer">
+                    <a href="{{ route('project.assuroweb') }}" class="btn primary btn-small">
+                        {{ app()->getLocale() == 'fr' ? 'Voir le projet' : 'View project' }} →
+                    </a>
+                    <a href="/files/RAPPORT DE STAGE 5 Mai-6 Juin _ MEKAOUI MOHAMED, BTS SIO1.pdf" download class="btn ghost btn-small">
+                        {{ app()->getLocale() == 'fr' ? 'Télécharger le rapport' : 'Download report' }}
+                    </a>
+                </div>
             </article>
 
         </div>
@@ -398,7 +500,6 @@
                                             <span class="mockup-dot"></span>
                                         </div>
                                         <div class="mockup-content">
-                                            {{-- <img src="{{ asset('images/projet_parking.png') }}" alt="{{ __('Parking Project') }}"> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -447,7 +548,7 @@
                             </div>
                         </div>
 
-                        <!-- Stage 2026 (placeholder) -->
+                        <!-- Scootup -->
                         <div class="swiper-slide">
                             <div class="project-card">
                                 <div class="project-preview">
@@ -458,20 +559,20 @@
                                             <span class="mockup-dot"></span>
                                         </div>
                                         <div class="mockup-content">
-                                            <img src="{{ asset('images/project-1.png') }}" alt="{{ __('Stage 2026 (forecast)') }}">
+                                            <img src="{{ asset('images/project-1.png') }}" alt="{{ __('Scootup') }}">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="project-info">
-                                    <h3>{{ __('Stage 2026 (forecast)') }}</h3>
-                                    <p>{{ __('Stage 2026 Description') }}</p>
+                                    <h3>{{ __('Scootup') }}</h3>
+                                    <p>{{ __('Scootup Description') }}</p>
                                     <div class="project-tags">
                                         <span class="tag">Laravel</span>
                                         <span class="tag">Docker</span>
                                         <span class="tag">Roadmap</span>
                                     </div>
                                     <div class="project-tags">
-                                        <a class="btn btn-small ghost" href="{{ route('project.stage2026') }}">{{ __('View project') }}</a>
+                                        <a class="btn btn-small ghost" href="{{ route('project.scootup') }}">{{ __('View project') }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -506,7 +607,7 @@
                     <p>
                         {{ __('Veille Definition') }}
                     </p>
-                    <h3 style="margin-top: 1.5rem;">{{ __('My topic: Generative AI in complex UI interactions') }}</h3>
+                    <h3 class="section-title-spaced">{{ __('My topic: Generative AI in complex UI interactions') }}</h3>
                     <p>
                         {{ __('Veille Topic Description') }}
                     </p>

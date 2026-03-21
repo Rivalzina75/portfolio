@@ -249,7 +249,7 @@ class VeilleController extends Controller
                 $fetched = $this->parseFeed($feedUrl);
                 $rssArticles = array_merge($rssArticles, $fetched);
             } catch (\Exception $e) {
-                Log::warning("VeilleController — flux RSS échoué: {$feedUrl} — ".$e->getMessage());
+                Log::warning("VeilleController — flux RSS échoué: {$feedUrl} — " . $e->getMessage());
             }
         }
 
@@ -464,7 +464,7 @@ class VeilleController extends Controller
                 continue;
             }
 
-            $text = strtolower($article['title'].' '.($article['content'] ?? ''));
+            $text = strtolower($article['title'] . ' ' . ($article['content'] ?? ''));
 
             // Blacklist check
             $blacklisted = false;
@@ -920,7 +920,7 @@ class VeilleController extends Controller
 
             return $articles;
         } catch (\Exception $e) {
-            Log::warning("parseFeed échoué pour {$feedUrl}: ".$e->getMessage());
+            Log::warning("parseFeed échoué pour {$feedUrl}: " . $e->getMessage());
 
             return [];
         }

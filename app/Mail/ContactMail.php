@@ -48,7 +48,7 @@ class ContactMail extends Mailable implements ShouldQueue
         return new Envelope(
             from: new Address(config('mail.from.address'), config('mail.from.name')),
             replyTo: [new Address($this->email, $this->name)],
-            subject: '📧 Portfolio - '.$this->subject,
+            subject: '📧 Portfolio - ' . $this->subject,
         );
     }
 

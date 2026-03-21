@@ -2157,8 +2157,8 @@ body {
 }
 
 .xp-card {
-    background: var(--card-bg, rgba(255,255,255,0.03));
-    border: 1px solid var(--border, rgba(255,255,255,0.1));
+    background: var(--card-bg, rgba(255, 255, 255, 0.03));
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.1));
     border-radius: 16px;
     overflow: hidden;
     display: flex;
@@ -2166,19 +2166,20 @@ body {
     gap: 0;
     transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
+
 .xp-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
 }
 
 .xp-card--featured {
     border-color: var(--primary, #00e5ff);
-    box-shadow: 0 0 0 1px var(--primary, #00e5ff), 0 8px 32px rgba(0,229,255,0.08);
+    box-shadow: 0 0 0 1px var(--primary, #00e5ff), 0 8px 32px rgba(0, 229, 255, 0.08);
 }
 
 .xp-card__header {
     padding: 1.5rem 1.5rem 1.25rem;
-    border-bottom: 1px solid var(--border, rgba(255,255,255,0.08));
+    border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
 }
 
 .xp-card__meta {
@@ -2201,14 +2202,15 @@ body {
     letter-spacing: 0.08em;
     padding: 0.2em 0.65em;
     border-radius: 20px;
-    background: rgba(255,255,255,0.07);
+    background: rgba(255, 255, 255, 0.07);
     color: var(--text-muted, #a0aec0);
-    border: 1px solid rgba(255,255,255,0.12);
+    border: 1px solid rgba(255, 255, 255, 0.12);
 }
+
 .xp-badge--new {
-    background: rgba(0,229,255,0.12);
+    background: rgba(0, 229, 255, 0.12);
     color: var(--primary, #00e5ff);
-    border-color: rgba(0,229,255,0.3);
+    border-color: rgba(0, 229, 255, 0.3);
 }
 
 .xp-card__title-row {
@@ -2245,12 +2247,14 @@ body {
     justify-content: center;
     flex-shrink: 0;
 }
+
 .xp-icon--scootup {
-    background: rgba(0,229,255,0.12);
+    background: rgba(0, 229, 255, 0.12);
     color: var(--primary, #00e5ff);
 }
+
 .xp-icon--assuroweb {
-    background: rgba(99,179,237,0.12);
+    background: rgba(99, 179, 237, 0.12);
     color: #63b3ed;
 }
 
@@ -2260,6 +2264,7 @@ body {
     margin: 0;
     line-height: 1.4;
 }
+
 .xp-project-label strong {
     color: var(--text, #fff);
 }
@@ -2292,11 +2297,12 @@ body {
 
 .xp-missions ul li {
     font-size: 0.875rem;
-    color: var(--text, rgba(255,255,255,0.85));
+    color: var(--text, rgba(255, 255, 255, 0.85));
     padding-left: 1.1rem;
     position: relative;
     line-height: 1.5;
 }
+
 .xp-missions ul li::before {
     content: '→';
     position: absolute;
@@ -2310,9 +2316,9 @@ body {
     display: flex;
     gap: 1.5rem;
     padding: 1rem 1.25rem;
-    background: rgba(0,229,255,0.04);
+    background: rgba(0, 229, 255, 0.04);
     border-radius: 10px;
-    border: 1px solid rgba(0,229,255,0.12);
+    border: 1px solid rgba(0, 229, 255, 0.12);
 }
 
 .xp-stat {
@@ -2342,7 +2348,7 @@ body {
 
 .xp-card__footer {
     padding: 1.25rem 1.5rem;
-    border-top: 1px solid var(--border, rgba(255,255,255,0.08));
+    border-top: 1px solid var(--border, rgba(255, 255, 255, 0.08));
     display: flex;
     gap: 0.75rem;
     flex-wrap: wrap;
@@ -2354,24 +2360,27 @@ body {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 0.75rem;
 }
+
 .livrable {
     display: flex;
     align-items: center;
     gap: 0.75rem;
     padding: 0.75rem 1rem;
     border-radius: 10px;
-    border: 1px solid var(--border, rgba(255,255,255,0.1));
-    background: var(--card-bg, rgba(255,255,255,0.03));
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.1));
+    background: var(--card-bg, rgba(255, 255, 255, 0.03));
 }
+
 .livrable--done {
-    border-color: rgba(104,211,145,0.3);
-    background: rgba(104,211,145,0.04);
+    border-color: rgba(104, 211, 145, 0.3);
+    background: rgba(104, 211, 145, 0.04);
 }
+
 .livrable__icon {
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    background: rgba(104,211,145,0.15);
+    background: rgba(104, 211, 145, 0.15);
     color: #68d391;
     display: flex;
     align-items: center;
@@ -2380,16 +2389,19 @@ body {
     font-weight: 800;
     flex-shrink: 0;
 }
+
 .livrable__info {
     display: flex;
     flex-direction: column;
     gap: 0.15rem;
 }
+
 .livrable__name {
     font-size: 0.875rem;
     font-weight: 600;
     color: var(--text, #fff);
 }
+
 .livrable__tech {
     font-size: 0.75rem;
     color: var(--text-muted, #a0aec0);
@@ -2400,44 +2412,52 @@ body {
     display: flex;
     flex-direction: column;
     gap: 0;
-    border: 1px solid var(--border, rgba(255,255,255,0.1));
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.1));
     border-radius: 16px;
     overflow: hidden;
 }
+
 .defi-item {
     display: flex;
     gap: 1.5rem;
     padding: 1.5rem;
-    border-bottom: 1px solid var(--border, rgba(255,255,255,0.08));
+    border-bottom: 1px solid var(--border, rgba(255, 255, 255, 0.08));
     transition: background 0.2s;
 }
+
 .defi-item:last-child {
     border-bottom: none;
 }
+
 .defi-item:hover {
-    background: rgba(255,255,255,0.02);
+    background: rgba(255, 255, 255, 0.02);
 }
+
 .defi-number {
     font-size: 2rem;
     font-weight: 900;
-    color: rgba(0,229,255,0.2);
+    color: rgba(0, 229, 255, 0.2);
     line-height: 1;
     min-width: 2.5rem;
     font-family: monospace;
 }
+
 .defi-content h3 {
     margin: 0 0 0.5rem;
     font-size: 1rem;
 }
+
 .defi-content p {
     margin: 0 0 0.4rem;
     font-size: 0.875rem;
     line-height: 1.6;
     color: var(--text-muted, #a0aec0);
 }
+
 .defi-content p strong {
     color: var(--text, #fff);
 }
+
 .defi-content p:last-child {
     margin-bottom: 0;
 }
@@ -2447,13 +2467,15 @@ body {
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
 }
+
 .stat-big {
     padding: 1.5rem;
     border-radius: 14px;
-    border: 1px solid var(--border, rgba(255,255,255,0.1));
-    background: var(--card-bg, rgba(255,255,255,0.03));
+    border: 1px solid var(--border, rgba(255, 255, 255, 0.1));
+    background: var(--card-bg, rgba(255, 255, 255, 0.03));
     text-align: center;
 }
+
 .stat-big__value {
     font-size: 2.5rem;
     font-weight: 900;
@@ -2461,12 +2483,14 @@ body {
     line-height: 1;
     margin-bottom: 0.4rem;
 }
+
 .stat-big__label {
     font-size: 0.85rem;
     font-weight: 600;
     color: var(--text, #fff);
     margin-bottom: 0.25rem;
 }
+
 .stat-big__sub {
     font-size: 0.72rem;
     color: var(--text-muted, #a0aec0);

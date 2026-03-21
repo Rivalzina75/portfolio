@@ -24,7 +24,13 @@
 
 html {
     scroll-behavior: smooth;
-    scroll-snap-type: y mandatory;
+}
+
+/* scroll-snap uniquement sur grand écran — désactivé sur mobile/tablette */
+@media (min-width: 1024px) {
+    html {
+        scroll-snap-type: y mandatory;
+    }
 }
 
 body {

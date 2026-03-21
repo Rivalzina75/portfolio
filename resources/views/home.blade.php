@@ -18,6 +18,17 @@
                 </g>
             </svg>
             <p class="hero-subtitle">{{ __('Full-stack developer in the making') }}</p>
+
+            {{-- Badges techno — aperçu rapide pour un recruteur --}}
+            <div class="hero-badges">
+                <span class="badge">Laravel</span>
+                <span class="badge">React Native</span>
+                <span class="badge">TypeScript</span>
+                <span class="badge">NestJS</span>
+                <span class="badge">PHP</span>
+                <span class="badge accent">{{ __('Immediate') }}</span>
+            </div>
+
             <div class="hero-cta">
                 <a class="btn primary" href="#presentation">{{ __('Learn more') }}</a>
                 <a class="btn ghost" href="{{ route('portfolio.cv') }}" download aria-label="{{ __('Download CV') }}">{{ __('Download my CV') }}</a>
@@ -169,9 +180,12 @@
 
                 <div class="skills-panel">
                     <div class="panel-content">
+
+                        {{-- LANGAGES --}}
                         <div class="panel-group is-active" id="langages" role="tabpanel">
                             <div class="skill-item"><img src="{{ asset('icons/php-original.svg') }}" alt="PHP" width="40" height="40"><p>PHP</p></div>
                             <div class="skill-item"><img src="{{ asset('icons/javascript-plain.svg') }}" alt="JavaScript" width="40" height="40"><p>JavaScript</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/typescript-original.svg') }}" alt="TypeScript" width="40" height="40"><p>TypeScript</p></div>
                             <div class="skill-item"><img src="{{ asset('icons/python-original.svg') }}" alt="Python" width="40" height="40"><p>Python</p></div>
                             <div class="skill-item"><img src="{{ asset('icons/html5-plain.svg') }}" alt="HTML5" width="40" height="40"><p>HTML5</p></div>
                             <div class="skill-item"><img src="{{ asset('icons/css3-plain.svg') }}" alt="CSS3" width="40" height="40"><p>CSS3</p></div>
@@ -179,45 +193,70 @@
                             <div class="skill-item"><img src="{{ asset('icons/c-original.svg') }}" alt="C" width="40" height="40"><p>C</p></div>
                         </div>
 
+                        {{-- FRAMEWORKS --}}
                         <div class="panel-group" id="frameworks" role="tabpanel" aria-hidden>
                             <div class="skill-item"><img src="{{ asset('icons/laravel-original.svg') }}" alt="Laravel" width="40" height="40"><p>Laravel</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/reactnative-original.svg') }}" alt="React Native" width="40" height="40"><p>React Native</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/nestjs-original.svg') }}" alt="NestJS" width="40" height="40"><p>NestJS</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/bootstrap-original.svg') }}" alt="Bootstrap" width="40" height="40"><p>Bootstrap</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/expo-original.svg') }}" alt="Expo" width="40" height="40"><p>Expo</p></div>
                         </div>
 
+                        {{-- STACK / ENV --}}
                         <div class="panel-group" id="stack" role="tabpanel" aria-hidden>
                             <div class="skill-item"><img src="{{ asset('icons/vitejs-original.svg') }}" alt="Vite" width="40" height="40"><p>Vite</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/nodejs-original.svg') }}" alt="Node.js" width="40" height="40"><p>Node.js</p></div>
                             <div class="skill-item"><img src="{{ asset('icons/composer-original.svg') }}" alt="Composer" width="40" height="40"><p>Composer</p></div>
                             <div class="skill-item"><img src="{{ asset('icons/npm-original.svg') }}" alt="NPM" width="40" height="40"><p>NPM</p></div>
                             <div class="skill-item"><img src="{{ asset('icons/docker-plain-wordmark.svg') }}" alt="Docker" width="40" height="40"><p>Docker</p></div>
                             <div class="skill-item"><img src="{{ asset('icons/linux-original.svg') }}" alt="Linux" width="40" height="40"><p>Linux</p></div>
-
                         </div>
 
+                        {{-- BASE DE DONNÉES --}}
                         <div class="panel-group" id="bdd" role="tabpanel" aria-hidden>
                             <div class="skill-item"><img src="{{ asset('icons/mysql-original.svg') }}" alt="MySQL" width="40" height="40"><p>MySQL</p></div>
-                            <div class="skill-item"><img src="{{ asset('icons/MCD-icon.png')}}" alt="MCD" width="40" height="40"><p>MCD</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/postgresql-original.svg') }}" alt="PostgreSQL" width="40" height="40"><p>PostgreSQL</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/prisma-original.svg') }}" alt="Prisma" width="40" height="40"><p>Prisma ORM</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/sqlite-original.svg') }}" alt="SQLite" width="40" height="40"><p>SQLite</p></div>
                         </div>
 
+                        {{-- OUTILS --}}
                         <div class="panel-group" id="outils" role="tabpanel" aria-hidden>
                             <div class="skill-item"><img src="{{ asset('icons/git-plain.svg') }}" alt="Git" width="40" height="40"><p>Git</p></div>
                             <div class="skill-item"><img src="{{ asset('icons/github-original.svg') }}" alt="GitHub" width="40" height="40"><p>GitHub</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/gitlab-original.svg') }}" alt="GitLab" width="40" height="40"><p>GitLab</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/vscode-original.svg') }}" alt="VS Code" width="40" height="40"><p>VS Code</p></div>
                             <div class="skill-item"><img src="{{ asset('icons/intellij-original.svg') }}" alt="IntelliJ IDEA" width="40" height="40"><p>IntelliJ IDEA</p></div>
-                            <div class="skill-item"><img src="{{ asset('icons/vscode-original.svg') }}" alt="Visual Studio Code" width="40" height="40"><p>VS Code</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/postman-original.svg') }}" alt="Postman" width="40" height="40"><p>Postman</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/trello-original.svg') }}" alt="Trello" width="40" height="40"><p>Trello</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/phpunit-logo-idea.png') }}" alt="PHPUnit" width="40" height="40"><p>PHPUnit</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/jest-plain.svg') }}" alt="Jest" width="40" height="40"><p>Jest</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/maven-original.svg') }}" alt="Maven" width="40" height="40"><p>Maven</p></div>
                         </div>
 
+                        {{-- RÉSEAU / CYBERSÉCURITÉ --}}
                         <div class="panel-group" id="réseau/cybersécurité" role="tabpanel" aria-hidden>
-                            <div class="skill-item"><img src="{{ asset('icons/icon-tcp-ip.jpg') }}" alt="TCP" width="40" height="40"><p>TCP</p></div>
-                            <div class="skill-item"><img src="{{ asset('icons/HTTP_logo.svg.png')}}" alt="HTTP" width="40" height="40"><p>HTTP</p></div>
-                            <div class="skill-item"><img src="{{ asset('icons/icon-mod-osi.jpg')}}" alt="modèle-osi" width="40" height="40"><p>{{ __('OSI Model') }}</p></div>
-                            <div class="skill-item"><img src="{{ asset('icons/dhcp.png')}}" alt="DHCP" width="40" height="40"><p>DHCP</p></div>
-                            <div class="skill-item"><img src="{{ asset('icons/DNS.png')}}" alt="DNS" width="40" height="40"><p>DNS</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/icon-tcp-ip.jpg') }}" alt="TCP/IP" width="40" height="40"><p>TCP/IP</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/HTTP_logo.svg.png') }}" alt="HTTP" width="40" height="40"><p>HTTP</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/icon-mod-osi.jpg') }}" alt="Modèle OSI" width="40" height="40"><p>{{ __('OSI Model') }}</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/dhcp.png') }}" alt="DHCP" width="40" height="40"><p>DHCP</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/DNS.png') }}" alt="DNS" width="40" height="40"><p>DNS</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/JWT-icon.webp') }}" alt="JWT" width="40" height="40"><p>JWT</p></div>
                         </div>
 
+                        {{-- AUTRE --}}
                         <div class="panel-group" id="autre" role="tabpanel" aria-hidden>
                             <div class="skill-item"><img src="{{ asset('icons/RGPD.png') }}" alt="RGPD" width="40" height="40"><p>RGPD</p></div>
                             <div class="skill-item"><img src="{{ asset('icons/CNIL-icon.webp') }}" alt="CNIL" width="40" height="40"><p>CNIL</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/MCD-icon.png') }}" alt="MCD" width="40" height="40"><p>Merise / MCD</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/stripe-icon.png') }}" alt="Stripe" width="40" height="40"><p>Stripe</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/githubactions-original.svg') }}" alt="GitHub Actions" width="40" height="40"><p>GitHub Actions</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/firebase-icon.png') }}" alt="Firebase" width="40" height="40"><p>Firebase</p></div>
+                            <div class="skill-item"><img src="{{ asset('icons/google-cloud-platform.png') }}" alt="GCP" width="40" height="40"><p>GCP</p></div>
+                        </div>
+
                     </div>
                 </div>
-            </div>
         </div>
     </section>
 
@@ -492,26 +531,29 @@
                         @endphp
 
                         <article class="veille-card" data-slot="{{ $i }}">
-                            <div class="veille-image no-image" style="@if($article) background: linear-gradient(135deg, {{ ['#00d9ff33', '#00ffcc22'][(($i) % 2)] }}, {{ ['#7f39fb22', '#ec489922'][(($i) % 2)] }}) @endif">
-                                @if($article)
-                                    <span style="font-weight:bold; color:var(--primary); font-size: 1.5rem;">
-                                        {{ $article['category'] }}
-                                    </span>
-                                @endif
-                            </div>
-                            
-                            {{-- Si l'article existe on met son titre, sinon un placeholder --}}
+                            {{-- Rendu serveur : affiche l'image réelle si disponible, sinon placeholder neutre --}}
+                            @if($article && !empty($article['image']) && str_starts_with($article['image'], 'http'))
+                                <div class="veille-image">
+                                    <img src="{{ $article['image'] }}"
+                                         alt="{{ $article['title'] }}"
+                                         loading="{{ $i < 3 ? 'eager' : 'lazy' }}"
+                                         onerror="this.parentElement.innerHTML='📰';this.parentElement.classList.add('no-image')">
+                                </div>
+                            @else
+                                <div class="veille-image no-image">📰</div>
+                            @endif
+
                             <p class="veille-title">
                                 {{ $article ? \Illuminate\Support\Str::limit($article['title'], 60) : __('Loading...') }}
                             </p>
-                            
+
                             <p class="veille-date">
                                 {{ $article ? __('Published on') . ' : ' . $article['date'] : '' }}
                             </p>
-                            
-                            <a class="veille-button veille-link" 
-                               href="{{ $article['link'] ?? '#' }}" 
-                               target="_blank" 
+
+                            <a class="veille-button veille-link"
+                               href="{{ $article['link'] ?? '#' }}"
+                               target="_blank"
                                rel="noopener">
                                {{ __('Read article') }}
                             </a>

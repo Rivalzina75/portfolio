@@ -19,16 +19,6 @@
             </svg>
             <p class="hero-subtitle">{{ __('Full-stack developer in the making') }}</p>
 
-            {{-- Badges techno — aperçu rapide pour un recruteur --}}
-            <div class="hero-badges">
-                <span class="badge">Laravel</span>
-                <span class="badge">React Native</span>
-                <span class="badge">TypeScript</span>
-                <span class="badge">NestJS</span>
-                <span class="badge">PHP</span>
-                <span class="badge accent">{{ __('Immediate') }}</span>
-            </div>
-
             <div class="hero-cta">
                 <a class="btn primary" href="#presentation">{{ __('Learn more') }}</a>
                 <a class="btn ghost" href="{{ route('portfolio.cv') }}" download aria-label="{{ __('Download CV') }}">{{ __('Download my CV') }}</a>

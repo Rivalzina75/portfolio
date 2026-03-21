@@ -10,7 +10,14 @@
     'subtitle' => __('Scootup project subtitle short'),
     'badges' => ['React Native', 'TypeScript', 'NestJS', 'PostgreSQL', 'PostGIS', 'Stripe', 'Firebase', 'GitLab CI/CD'],
     'downloads' => [
-        ['href' => '/files/Documentation_Scootup.pdf', 'label' => __('Download documentation')],
+        ['href' => app()->getLocale() === 'en' ? '/files/EN/Doc_Scootup_EN.pdf' : '/files/FR/Doc_Scootup_FR.pdf', 'label' => __('Download documentation')],
     ],
+    'contextText' => __('Scootup Context Text'),
+    'objectives' => [__('Scootup Obj 1'), __('Scootup Obj 2'), __('Scootup Obj 3')],
+    'workDone' => [__('Scootup Work 1'), __('Scootup Work 2')],
+    'results' => [__('Scootup Result 1'), __('Scootup Result 2')],
+    'skillLanguagesText' => __('Scootup Skills Languages'),
+    'skillFrameworksText' => __('Scootup Skills Frameworks'),
+    'skillToolsText' => __('Scootup Skills Tools'),
 ])
 @endsection

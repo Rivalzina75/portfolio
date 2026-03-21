@@ -10,7 +10,14 @@
     'subtitle' => __('Portfolio Subtitle'),
     'badges' => ['Laravel 11', 'JavaScript', 'CSS', 'Vite'],
     'downloads' => [
-        ['href' => route('portfolio.documentation'), 'label' => __('Download documentation')],
+        ['href' => app()->getLocale() === 'en' ? '/files/EN/Doc_Portfolio_EN.pdf' : '/files/FR/Doc_Portfolio_FR.pdf', 'label' => __('Download documentation')],
     ],
+    'contextText' => __('Portfolio Context Text'),
+    'objectives' => [__('Portfolio Obj 1'), __('Portfolio Obj 2'), __('Portfolio Obj 3'), __('Portfolio Obj 4')],
+    'workDone' => [__('Portfolio Work 1'), __('Portfolio Work 2')],
+    'results' => [__('Portfolio Result 1'), __('Portfolio Result 2')],
+    'skillLanguagesText' => __('Portfolio Skills Languages'),
+    'skillFrameworksText' => __('Portfolio Skills Frameworks'),
+    'skillToolsText' => __('Portfolio Skills Tools'),
 ])
 @endsection

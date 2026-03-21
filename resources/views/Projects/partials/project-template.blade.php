@@ -32,12 +32,20 @@
         <div class="cards-grid two">
             <article class="card">
                 <h3>{{ __('Context') }}</h3>
-                <p></p>
+                <p>{{ $contextText ?? '' }}</p>
             </article>
 
             <article class="card">
                 <h3>{{ __('Objectives') }}</h3>
-                <p></p>
+                @if(!empty($objectives))
+                    <ul class="list">
+                        @foreach($objectives as $objective)
+                            <li>{{ $objective }}</li>
+                        @endforeach
+                    </ul>
+                @else
+                    <p></p>
+                @endif
             </article>
         </div>
     </div>
@@ -53,12 +61,28 @@
         <div class="cards-grid two">
             <article class="card">
                 <h3>{{ __('Work done') }}</h3>
-                <p></p>
+                @if(!empty($workDone))
+                    <ul class="list">
+                        @foreach($workDone as $item)
+                            <li>{{ $item }}</li>
+                        @endforeach
+                    </ul>
+                @else
+                    <p></p>
+                @endif
             </article>
 
             <article class="card">
                 <h3>{{ __('Results') }}</h3>
-                <p></p>
+                @if(!empty($results))
+                    <ul class="list">
+                        @foreach($results as $result)
+                            <li>{{ $result }}</li>
+                        @endforeach
+                    </ul>
+                @else
+                    <p></p>
+                @endif
             </article>
         </div>
     </div>
@@ -74,17 +98,17 @@
         <div class="cards-grid three">
             <article class="card">
                 <h3>{{ __('Languages') }}</h3>
-                <p></p>
+                <p>{{ $skillLanguagesText ?? '' }}</p>
             </article>
 
             <article class="card">
                 <h3>{{ __('Frameworks') }}</h3>
-                <p></p>
+                <p>{{ $skillFrameworksText ?? '' }}</p>
             </article>
 
             <article class="card">
                 <h3>{{ __('Tools') }}</h3>
-                <p></p>
+                <p>{{ $skillToolsText ?? '' }}</p>
             </article>
         </div>
     </div>

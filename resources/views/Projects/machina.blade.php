@@ -9,7 +9,14 @@
     'subtitle' => __('Machina Subtitle'),
     'badges' => ['Laravel', 'Docker', 'PHP', 'HTML / CSS / JS'],
     'downloads' => [
-        ['href' => '/files/Documentation_Machina.pdf', 'label' => __('Download documentation')],
+        ['href' => app()->getLocale() === 'en' ? '/files/EN/Doc_Machina_EN.pdf' : '/files/FR/Doc_Machina_FR.pdf', 'label' => __('Download documentation')],
     ],
+    'contextText' => __('Machina Context Text'),
+    'objectives' => [__('Machina Obj 1'), __('Machina Obj 2'), __('Machina Obj 3')],
+    'workDone' => [__('Machina Work 1'), __('Machina Work 2')],
+    'results' => [__('Machina Result 1'), __('Machina Result 2')],
+    'skillLanguagesText' => __('Machina Skills Languages'),
+    'skillFrameworksText' => __('Machina Skills Frameworks'),
+    'skillToolsText' => __('Machina Skills Tools'),
 ])
 @endsection

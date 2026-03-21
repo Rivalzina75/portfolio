@@ -297,7 +297,7 @@
                                     </div>
                                 </div>
                                 <div class="project-info">
-                                    <h3>{{ __('Personal Portfolio') }}</h3>
+                                    <h3>{{ __('Portfolio') }}</h3>
                                     <p>{{ __('Portfolio Description') }}</p>
                                     <div class="project-tags">
                                         <span class="tag">Laravel</span>

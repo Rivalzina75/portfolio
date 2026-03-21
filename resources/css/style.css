@@ -173,6 +173,40 @@ body {
     padding: 60px 0 60px;
 }
 
+#presentation {
+    padding: 88px 0 44px;
+}
+
+#presentation .section-head {
+    margin-bottom: 28px;
+}
+
+#presentation .block-header {
+    margin-bottom: 1rem;
+}
+
+#presentation .grid-block,
+#presentation .cursus-frame {
+    padding: 1.35rem;
+}
+
+#presentation .presentation-grid {
+    gap: 1.2rem;
+}
+
+#presentation .block-intro {
+    margin-bottom: 1rem;
+}
+
+#presentation .options-flex {
+    gap: 1rem;
+    padding-top: 1rem;
+}
+
+#presentation .clean-list li {
+    margin-bottom: 0.7rem;
+}
+
 .section-head {
     margin-bottom: 56px;
     text-align: center;
@@ -2354,6 +2388,59 @@ body {
     flex-wrap: wrap;
 }
 
+/* ===== EXPERIENCE SIMPLE (HOME) ===== */
+.experience-simple-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.15rem;
+    max-width: 980px;
+    margin: 0 auto;
+}
+
+.experience-simple-card {
+    background: rgba(15, 23, 42, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 14px;
+    padding: 1.45rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.95rem;
+}
+
+.experience-simple-card h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    line-height: 1.35;
+}
+
+.experience-simple-meta {
+    margin: 0;
+    color: var(--primary);
+    font-size: 0.92rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.experience-simple-text {
+    margin: 0;
+    color: var(--text-secondary);
+    font-size: 1.06rem;
+    line-height: 1.7;
+}
+
+.experience-simple-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.experience-simple-card .btn {
+    margin-top: auto;
+    align-self: flex-start;
+    padding: 12px 18px;
+    font-size: 0.95rem;
+}
+
 /* ===== SCOOTUP PAGE SPECIFIC ===== */
 .livrables-grid {
     display: grid;
@@ -2517,5 +2604,9 @@ body {
 
     .defi-number {
         font-size: 1.2rem;
+    }
+
+    .experience-simple-grid {
+        grid-template-columns: 1fr;
     }
 }

@@ -39,17 +39,31 @@ Route::post('/api/veille/clear-cache', [VeilleController::class, 'clearCache'])
 
 // Téléchargements de documents
 Route::get('/files/cv', function () {
-    $path = public_path('files/CV-Mekaoui-Reda.pdf');
+    $locale = app()->getLocale();
+    if ($locale === 'en') {
+        $path = public_path('files/EN/CV_Mekaoui_Mohamed_EN.pdf');
+        $filename = 'CV_Mekaoui_Mohamed_EN.pdf';
+    } else {
+        $path = public_path('files/FR/CV_Mekaoui_Mohamed_FR.pdf');
+        $filename = 'CV_Mekaoui_Mohamed_FR.pdf';
+    }
     abort_unless(file_exists($path), 404);
 
-    return response()->download($path, 'CV_Mekaoui_Reda.pdf');
+    return response()->download($path, $filename);
 })->name('portfolio.cv');
 
 Route::get('/files/tableau-synthese', function () {
-    $path = public_path('files/TableauSyntheseBtsSioMekaouiReda.pdf');
+    $locale = app()->getLocale();
+    if ($locale === 'en') {
+        $path = public_path('files/EN/tableau_de_synthèse_Mekaoui_Mohamed_EN.pdf');
+        $filename = 'Tableau_Synthese_Mekaoui_Mohamed_EN.pdf';
+    } else {
+        $path = public_path('files/FR/tableau_de_synthèse_Mekaoui_Mohamed_FR.pdf');
+        $filename = 'tableau_de_synthèse_Mekaoui_Mohamed_FR.pdf';
+    }
     abort_unless(file_exists($path), 404);
 
-    return response()->download($path, 'Tableau_Synthese_BTS_SIO_Mekaoui_Reda.pdf');
+    return response()->download($path, $filename);
 })->name('portfolio.tableau_synthese');
 
 // Route for documentation-portfolio.pdf (FR/EN)

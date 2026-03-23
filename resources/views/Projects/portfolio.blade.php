@@ -1,12 +1,12 @@
 @extends('layouts.app')
 
-@section('title', __('Personal Portfolio'))
+@section('title', __('Portfolio'))
 @section('description', __('Portfolio Meta Description'))
 
 @section('content')
 @include('Projects.partials.project-template', [
     'eyebrow' => __('E6 Case Study') . ' • ' . __('Case Study #1'),
-    'projectTitle' => __('Personal Portfolio'),
+    'projectTitle' => __('Portfolio'),
     'subtitle' => __('Portfolio Subtitle'),
     'badges' => ['Laravel 11', 'JavaScript', 'CSS', 'Vite'],
     'downloads' => [

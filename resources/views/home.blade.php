@@ -124,7 +124,7 @@
         <div class="experience-simple-grid">
 
             <article class="experience-simple-card">
-                <h3>{{ __('Internship') }} · Scootup — OhLogiciel</h3>
+                <h3>{{ __('Internship') }} · Scootup — OhLogiciel Micro entreprise Handoura Oualid</h3>
                 <p class="experience-simple-meta">
                     {{ __('Scootup experience period') }}
                 </p>
@@ -141,7 +141,7 @@
             </article>
 
             <article class="experience-simple-card">
-                <h3>{{ __('Internship') }} · Assuroweb</h3>
+                <h3>{{ __('Internship') }} · Assuroweb — OhLogiciel Micro entreprise Handoura Oualid</h3>
                 <p class="experience-simple-meta">
                     {{ __('Assuroweb experience period') }}
                 </p>

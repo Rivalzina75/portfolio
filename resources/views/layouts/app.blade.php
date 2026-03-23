@@ -78,8 +78,7 @@
             <div class="foot-links">
                 <p class="footer-col-title">{{ __('Information') }}</p>
                 <a href="https://github.com/Rivalzina75" target="_blank" rel="noopener noreferrer" aria-label="Voir mon GitHub">GitHub</a>
-                <a href="https://linkedin.com/in/reda-mekaoui" target="_blank" rel="noopener noreferrer" aria-label="Voir mon LinkedIn">LinkedIn</a>
-                <a href="{{ route('portfolio.home') }}#contact">{{ __('Contact') }}</a>
+                <a href="https://www.linkedin.com/in/reda-mekaoui-76412a322/" target="_blank" rel="noopener noreferrer" aria-label="Voir mon LinkedIn">LinkedIn</a>
             </div>
         </div>
     </footer>

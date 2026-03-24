@@ -476,7 +476,7 @@
                                     </div>
                                 </div>
                                 <div class="project-info">
-                                    <h3>{{ __('Scootup') }}</h3>
+                                    <h3>{{ __('Scootup (Internship)') }}</h3>
                                     <p>{{ __('Scootup Description') }}</p>
                                     <div class="project-tags">
                                         <span class="tag">Laravel</span>

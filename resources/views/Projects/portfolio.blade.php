@@ -8,7 +8,9 @@
     'eyebrow' => __('E6 Case Study') . ' • ' . __('Case Study #1'),
     'projectTitle' => __('Portfolio'),
     'subtitle' => __('Portfolio Subtitle'),
-    'badges' => ['Laravel 11', 'JavaScript', 'CSS', 'Vite'],
+    'projectImage' => asset('images/portfolio.png'),
+    'projectIcon' => '🧑‍💻',
+    'badges' => ['Laravel 12', 'JavaScript', 'CSS', 'Vite'],
     'downloads' => [
         ['href' => app()->getLocale() === 'en' ? '/files/EN/Doc_Portfolio_EN.pdf' : '/files/FR/Doc_Portfolio_FR.pdf', 'label' => __('Download documentation')],
     ],

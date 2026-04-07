@@ -14,7 +14,7 @@ class VeilleController extends Controller
 
     private const CACHE_TTL = 10800;        // 3h
 
-    private const CACHE_KEY = 'veille_articles_v5';
+    private const CACHE_KEY = 'veille_articles_v8';
 
     /**
      * Palette d'images de fallback par catégorie.
@@ -119,9 +119,16 @@ class VeilleController extends Controller
 
     public function getArticles()
     {
-        $articles = Cache::remember(self::CACHE_KEY, self::CACHE_TTL, function () {
-            return $this->fetchAllArticles();
-        });
+        try {
+            $articles = Cache::remember(self::CACHE_KEY, self::CACHE_TTL, function () {
+                return $this->fetchAllArticles();
+            });
+        } catch (\Throwable $e) {
+            Log::warning('VeilleController — cache indisponible, fallback direct', [
+                'error' => $e->getMessage(),
+            ]);
+            $articles = $this->fetchAllArticles();
+        }
 
         return response()->json($articles);
     }
@@ -659,7 +666,7 @@ class VeilleController extends Controller
                 'title' => 'LLM hallucinations in UI code: patterns and guardrails for developers',
                 'date' => date('d/m/Y', strtotime('-16 days')),
                 'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-16 days')),
-                'link' => '#',
+                'link' => 'https://spectrum.ieee.org/ai-hallucination',
                 'image' => 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?q=80&w=600&auto=format&fit=crop',
                 'category' => 'AI Limits',
                 'content' => 'When AI confidently generates broken CSS or wrong event handlers — and how to detect it.',
@@ -669,7 +676,7 @@ class VeilleController extends Controller
                 'title' => 'Design tokens and AI: automating consistent theming at scale',
                 'date' => date('d/m/Y', strtotime('-17 days')),
                 'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-17 days')),
-                'link' => '#',
+                'link' => 'https://www.w3.org/community/design-tokens/',
                 'image' => self::FALLBACK_IMAGES['Design Tokens'],
                 'category' => 'Design Tokens',
                 'content' => 'AI-driven token management for cross-platform design systems at enterprise scale.',
@@ -689,7 +696,7 @@ class VeilleController extends Controller
                 'title' => 'Micro-interactions tailored by AI based on real user behavior',
                 'date' => date('d/m/Y', strtotime('-19 days')),
                 'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-19 days')),
-                'link' => '#',
+                'link' => 'https://www.nngroup.com/articles/microinteractions/',
                 'image' => self::FALLBACK_IMAGES['Adaptive UI'],
                 'category' => 'Adaptive UI',
                 'content' => 'Using local models to adjust animation timing and easing curves per user session.',
@@ -699,7 +706,7 @@ class VeilleController extends Controller
                 'title' => 'Testing AI-written frontend code: automated QA for generated components',
                 'date' => date('d/m/Y', strtotime('-20 days')),
                 'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-20 days')),
-                'link' => '#',
+                'link' => 'https://playwright.dev/docs/intro',
                 'image' => self::FALLBACK_IMAGES['Testing AI'],
                 'category' => 'Testing AI',
                 'content' => 'Playwright and Vitest in CI/CD pipelines to validate AI-generated UI components.',
@@ -709,7 +716,7 @@ class VeilleController extends Controller
                 'title' => 'The ethical implications of AI-generated dark patterns in UI',
                 'date' => date('d/m/Y', strtotime('-21 days')),
                 'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-21 days')),
-                'link' => '#',
+                'link' => 'https://www.nngroup.com/articles/dark-patterns/',
                 'image' => self::FALLBACK_IMAGES['AI Ethics'],
                 'category' => 'AI Ethics',
                 'content' => 'Preventing AI from optimizing engagement at the cost of user wellbeing and privacy.',
@@ -729,7 +736,7 @@ class VeilleController extends Controller
                 'title' => 'From wireframe to production: the AI-accelerated design-to-code pipeline',
                 'date' => date('d/m/Y', strtotime('-23 days')),
                 'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-23 days')),
-                'link' => '#',
+                'link' => 'https://www.figma.com/blog/introducing-dev-mode/',
                 'image' => self::FALLBACK_IMAGES['Design to Code'],
                 'category' => 'Design to Code',
                 'content' => 'How AI shrinks the gap between design mockup and shipped, tested component.',
@@ -739,7 +746,7 @@ class VeilleController extends Controller
                 'title' => 'WebGL and generative AI: procedural 3D UI elements from plain prompts',
                 'date' => date('d/m/Y', strtotime('-24 days')),
                 'rawDate' => date('Y-m-d\TH:i:s\Z', strtotime('-24 days')),
-                'link' => '#',
+                'link' => 'https://threejs.org/',
                 'image' => self::FALLBACK_IMAGES['3D & AI'],
                 'category' => '3D & AI',
                 'content' => 'Three.js and WebGL scenes generated from natural language descriptions.',
@@ -757,8 +764,9 @@ class VeilleController extends Controller
         // RSS triés par pertinence
         $finalList = array_merge($finalList, $filteredRss);
 
-        // Compléter avec les backups si nécessaire
-        if (count($finalList) < self::TARGET) {
+        // Les backups sont reserves au mode secours:
+        // uniquement quand aucun article RSS pertinent n'a pu etre conserve.
+        if (count($filteredRss) === 0 && count($finalList) < self::TARGET) {
             $needed = self::TARGET - count($finalList);
             $finalList = array_merge($finalList, array_slice($backupArticles, 0, $needed));
         }
@@ -785,6 +793,10 @@ class VeilleController extends Controller
 
         foreach ($finalList as &$art) {
             unset($art['_score']); // clé interne non exposée au frontend
+
+            if (! $this->isValidArticleUrl($art['link'] ?? null)) {
+                $art['link'] = null;
+            }
 
             if ($this->isValidImageUrl($art['image'] ?? null)) {
                 continue; // image réelle : on ne touche pas
@@ -844,6 +856,61 @@ class VeilleController extends Controller
         return true;
     }
 
+    private function isValidArticleUrl(?string $url): bool
+    {
+        if (empty($url)) {
+            return false;
+        }
+
+        $url = trim($url);
+
+        if ($url === '#' || str_starts_with($url, '/')) {
+            return false;
+        }
+        if (! preg_match('/^https?:\/\//i', $url)) {
+            return false;
+        }
+
+        if (filter_var($url, FILTER_VALIDATE_URL) === false) {
+            return false;
+        }
+
+        // Exclut les liens qui reviennent vers le portfolio lui-meme.
+        if ($this->isOwnPortfolioUrl($url)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private function isOwnPortfolioUrl(string $url): bool
+    {
+        $parsedUrlHost = parse_url($url, PHP_URL_HOST);
+        $urlHost = $this->normalizeHost(is_string($parsedUrlHost) ? $parsedUrlHost : null);
+        if ($urlHost === '') {
+            return false;
+        }
+
+        $parsedAppHost = parse_url((string) config('app.url'), PHP_URL_HOST);
+        $appHost = $this->normalizeHost(is_string($parsedAppHost) ? $parsedAppHost : null);
+        if ($appHost !== '' && $urlHost === $appHost) {
+            return true;
+        }
+
+        return in_array($urlHost, ['localhost', '127.0.0.1', '::1'], true);
+    }
+
+    private function normalizeHost(?string $host): string
+    {
+        if (! is_string($host) || $host === '') {
+            return '';
+        }
+
+        $normalized = strtolower(trim($host));
+
+        return preg_replace('/^www\./', '', $normalized) ?? '';
+    }
+
     /**
      * Parse un flux Atom/RSS Google Alerts.
      */
@@ -859,6 +926,7 @@ class VeilleController extends Controller
             }
 
             $xml = simplexml_load_string($response->body());
+
             if ($xml === false) {
                 return [];
             }
@@ -891,6 +959,10 @@ class VeilleController extends Controller
                 }
                 if (preg_match('/url=([^&]+)/', $link, $m)) {
                     $link = urldecode($m[1]);
+                }
+                $link = html_entity_decode(trim($link), ENT_QUOTES | ENT_HTML5, 'UTF-8');
+                if (! $this->isValidArticleUrl($link)) {
+                    $link = '';
                 }
 
                 $pubDate = (string) ($entry->published ?? $entry->pubDate ?? '');

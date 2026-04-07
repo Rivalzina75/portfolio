@@ -7,6 +7,8 @@
 @include('Projects.partials.project-template', [
     'projectTitle' => 'Next2You',
     'subtitle' => __('Next2You Subtitle'),
+    'projectImage' => asset('images/next2you.png'),
+    'projectIcon' => '🤝',
     'badges' => ['Laravel', 'Docker', 'PHP', 'JavaScript'],
     'downloads' => [
         ['href' => app()->getLocale() === 'en' ? '/files/EN/Doc_Next2You_EN.pdf' : '/files/FR/Doc_Next2You_FR.pdf', 'label' => __('Download documentation')],

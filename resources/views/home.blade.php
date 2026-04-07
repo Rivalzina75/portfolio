@@ -292,13 +292,13 @@
                                             <span class="mockup-dot"></span>
                                         </div>
                                         <div class="mockup-content">
-                                            <img src="{{ asset('images/portfolio.png') }}" alt="{{ __('Personal Portfolio') }}">
+                                            <img src="{{ asset('images/portfolio.png') }}" alt="{{ __('Personal Portfolio') }}" loading="lazy">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="project-info">
                                     <h3>{{ __('Portfolio') }}</h3>
-                                    <p>{{ __('Portfolio Description') }}</p>
+                                    <p>{{ __('Personal Portfolio Description') }}</p>
                                     <div class="project-tags">
                                         <span class="tag">Laravel</span>
                                         <span class="tag">Vite</span>
@@ -322,7 +322,7 @@
                                             <span class="mockup-dot"></span>
                                         </div>
                                         <div class="mockup-content">
-                                            <img src="{{ asset('images/assuroweb.png') }}" alt="Assuroweb">
+                                            <img src="{{ asset('images/assuroweb.png') }}" alt="Assuroweb" loading="lazy">
                                         </div>
                                     </div>
                                 </div>
@@ -352,7 +352,7 @@
                                             <span class="mockup-dot"></span>
                                         </div>
                                         <div class="mockup-content">
-                                            <img src="{{ asset('images/next2you.png') }}" alt="Next2You">
+                                            <img src="{{ asset('images/next2you.png') }}" alt="Next2You" loading="lazy">
                                         </div>
                                     </div>
                                 </div>
@@ -382,7 +382,7 @@
                                             <span class="mockup-dot"></span>
                                         </div>
                                         <div class="mockup-content">
-                                            <img src="{{ asset('images/machina.png') }}" alt="Machina">
+                                            <img src="{{ asset('images/machina.png') }}" alt="Machina" loading="lazy">
                                         </div>
                                     </div>
                                 </div>
@@ -412,6 +412,7 @@
                                             <span class="mockup-dot"></span>
                                         </div>
                                         <div class="mockup-content">
+                                            <img src="{{ asset('images/parking.svg') }}" alt="{{ __('Parking Project') }}" loading="lazy">
                                         </div>
                                     </div>
                                 </div>
@@ -441,7 +442,7 @@
                                             <span class="mockup-dot"></span>
                                         </div>
                                         <div class="mockup-content">
-                                            <img src="{{ asset('images/portfolio.png') }}" alt="Projet Personnel M2L">
+                                            <img src="{{ asset('images/personnel.svg') }}" alt="{{ __('Personnel Project') }}" loading="lazy">
                                         </div>
                                     </div>
                                 </div>
@@ -471,7 +472,7 @@
                                             <span class="mockup-dot"></span>
                                         </div>
                                         <div class="mockup-content">
-                                            <img src="{{ asset('images/project-1.png') }}" alt="{{ __('Scootup') }}">
+                                            <img src="{{ asset('images/scootup.svg') }}" alt="{{ __('Scootup') }}" loading="lazy">
                                         </div>
                                     </div>
                                 </div>
@@ -479,9 +480,9 @@
                                     <h3>{{ __('Scootup (Internship)') }}</h3>
                                     <p>{{ __('Scootup Description') }}</p>
                                     <div class="project-tags">
-                                        <span class="tag">Laravel</span>
-                                        <span class="tag">Docker</span>
-                                        <span class="tag">Roadmap</span>
+                                        <span class="tag">React Native</span>
+                                        <span class="tag">TypeScript</span>
+                                        <span class="tag">NestJS</span>
                                     </div>
                                     <div class="project-tags">
                                         <a class="btn btn-small ghost" href="{{ route('project.scootup') }}">{{ __('View project') }}</a>
@@ -531,6 +532,24 @@
                         @php
                             // On récupère l'article n° $i s'il existe, sinon null
                             $article = $articles[$i] ?? null;
+
+                            $link = is_array($article) ? ($article['link'] ?? null) : null;
+                            $linkHost = is_string($link) ? parse_url($link, PHP_URL_HOST) : null;
+                            $appHost = parse_url((string) config('app.url'), PHP_URL_HOST);
+
+                            $normalizeHost = static function (?string $host): string {
+                                if (! is_string($host) || $host === '') {
+                                    return '';
+                                }
+
+                                return preg_replace('/^www\./', '', strtolower($host)) ?? '';
+                            };
+
+                            $hasValidLink = is_string($link)
+                                && filter_var($link, FILTER_VALIDATE_URL)
+                                && preg_match('/^https?:\/\//i', $link)
+                                && $link !== '#'
+                                && $normalizeHost(is_string($linkHost) ? $linkHost : null) !== $normalizeHost(is_string($appHost) ? $appHost : null);
                         @endphp
 
                         <article class="veille-card" data-slot="{{ $i }}">
@@ -550,15 +569,21 @@
                                 {{ $article ? \Illuminate\Support\Str::limit($article['title'], 60) : __('Loading...') }}
                             </p>
 
-                            <p class="veille-date">
+                            <p class="veille-date" data-label-published="{{ __('Published on') }}">
                                 {{ $article ? __('Published on') . ' : ' . $article['date'] : '' }}
                             </p>
 
-                            <a class="veille-button veille-link"
-                               href="{{ $article['link'] ?? '#' }}"
-                               target="_blank"
-                               rel="noopener">
-                               {{ __('Read article') }}
+                            <a class="veille-button veille-link {{ $hasValidLink ? '' : 'is-disabled' }}"
+                               data-label-read="{{ __('Read article') }}"
+                               data-label-unavailable="{{ __('Source unavailable') }}"
+                               @if($hasValidLink)
+                                   href="{{ $link }}"
+                                   target="_blank"
+                                   rel="noopener noreferrer"
+                               @else
+                                   aria-disabled="true"
+                               @endif>
+                               {{ $hasValidLink ? __('Read article') : __('Source unavailable') }}
                             </a>
                         </article>
                     @endfor

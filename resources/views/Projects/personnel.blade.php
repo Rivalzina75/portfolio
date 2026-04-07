@@ -8,6 +8,8 @@
     'eyebrow' => __('E6 Case Study') . ' • ' . __('Case Study #2'),
     'projectTitle' => __('Personnel Project'),
     'subtitle' => __('Personnel Subtitle'),
+    'projectImage' => asset('images/personnel.svg'),
+    'projectIcon' => '👥',
     'badges' => ['Java', 'JDBC', 'MySQL', 'JUnit 5'],
     'downloads' => [
         ['href' => app()->getLocale() === 'en' ? '/files/EN/Doc_Personnel_EN.pdf' : '/files/FR/Doc_Personnel_FR.pdf', 'label' => __('Download documentation')],

@@ -162,15 +162,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Fallback articles if RSS fails
     const fallbackArticles = [
-        { title: "ChatGPT et Copilot peinent sur les interactions UI complexes", date: "12/12/2025", image: null, link: "#" },
-        { title: "Pourquoi les assistants IA surestiment le swipe mobile", date: "10/12/2025", image: null, link: "#" },
-        { title: "Front-end low-code : limites sur les micro-interactions", date: "08/12/2025", image: null, link: "#" },
-        { title: "Code qualité : valider le CSS animé proposé par l'IA", date: "05/12/2025", image: null, link: "#" },
-        { title: "Debugging du code IA pour les gestures", date: "03/12/2025", image: null, link: "#" },
-        { title: "Copilot UI : du rôle de rédacteur à validateur", date: "30/11/2025", image: null, link: "#" },
-        { title: "Accessibilité : focus states oubliés par l'IA", date: "28/11/2025", image: null, link: "#" },
-        { title: "Performance : animations générées et reflow", date: "26/11/2025", image: null, link: "#" }
+        { title: "ChatGPT et Copilot peinent sur les interactions UI complexes", date: "12/12/2025", image: null, link: "https://github.blog/tag/github-copilot/" },
+        { title: "Pourquoi les assistants IA surestiment le swipe mobile", date: "10/12/2025", image: null, link: "https://www.nngroup.com/articles/generative-ai-ux/" },
+        { title: "Front-end low-code : limites sur les micro-interactions", date: "08/12/2025", image: null, link: "https://www.smashingmagazine.com/tag/artificial-intelligence/" },
+        { title: "Code qualité : valider le CSS animé proposé par l'IA", date: "05/12/2025", image: null, link: "https://web.dev/articles/ai-assistance" },
+        { title: "Debugging du code IA pour les gestures", date: "03/12/2025", image: null, link: "https://martinfowler.com/articles/exploring-gen-ai.html" },
+        { title: "Copilot UI : du rôle de rédacteur à validateur", date: "30/11/2025", image: null, link: "https://code.visualstudio.com/docs/copilot/overview" },
+        { title: "Accessibilité : focus states oubliés par l'IA", date: "28/11/2025", image: null, link: "https://www.w3.org/WAI/fundamentals/accessibility-intro/" },
+        { title: "Performance : animations générées et reflow", date: "26/11/2025", image: null, link: "https://web.dev/performance" }
     ];
+
+    const bootstrapArticles = Array.isArray(window.__VEILLE_ARTICLES__) ? window.__VEILLE_ARTICLES__ : [];
+
+    const hasValidArticleLink = (url) => {
+        if (typeof url !== 'string') {
+            return false;
+        }
+
+        const trimmedUrl = url.trim();
+        if (!trimmedUrl || trimmedUrl === '#') {
+            return false;
+        }
+
+        try {
+            const parsed = new URL(trimmedUrl, window.location.origin);
+            if (!/^https?:$/i.test(parsed.protocol)) {
+                return false;
+            }
+
+            const normalizeHost = (host) => host.replace(/^www\./i, '').toLowerCase();
+            const currentHost = normalizeHost(window.location.hostname);
+            const articleHost = normalizeHost(parsed.hostname);
+
+            // Evite les redirections vers le portfolio lui-meme.
+            return articleHost !== '' && articleHost !== currentHost;
+        } catch (error) {
+            return false;
+        }
+    };
 
     const fallbackImage = (imageEl) => {
         if (!imageEl) return;
@@ -211,8 +240,30 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (titleEl) titleEl.textContent = art.title;
-            if (dateEl) dateEl.textContent = `Date : ${art.date}`;
-            if (linkEl) linkEl.setAttribute('href', art.link || '#');
+            if (dateEl) {
+                const publishedLabel = dateEl.dataset.labelPublished || 'Published on';
+                dateEl.textContent = `${publishedLabel} : ${art.date}`;
+            }
+            if (linkEl) {
+                const readLabel = linkEl.dataset.labelRead || 'Read article';
+                const unavailableLabel = linkEl.dataset.labelUnavailable || 'Source unavailable';
+
+                if (hasValidArticleLink(art.link)) {
+                    linkEl.setAttribute('href', art.link);
+                    linkEl.setAttribute('target', '_blank');
+                    linkEl.setAttribute('rel', 'noopener noreferrer');
+                    linkEl.classList.remove('is-disabled');
+                    linkEl.removeAttribute('aria-disabled');
+                    linkEl.textContent = readLabel;
+                } else {
+                    linkEl.removeAttribute('href');
+                    linkEl.removeAttribute('target');
+                    linkEl.removeAttribute('rel');
+                    linkEl.classList.add('is-disabled');
+                    linkEl.setAttribute('aria-disabled', 'true');
+                    linkEl.textContent = unavailableLabel;
+                }
+            }
         });
     };
 
@@ -258,12 +309,22 @@ document.addEventListener('DOMContentLoaded', () => {
         fetch('/api/veille/articles')
             .then(response => response.json())
             .then(data => {
-                veilleArticles = data && data.length ? data : fallbackArticles;
+                const apiArticles = Array.isArray(data) ? data : [];
+
+                if (apiArticles.length > 0) {
+                    veilleArticles = apiArticles;
+                } else if (bootstrapArticles.length > 0) {
+                    console.warn('API veille vide, utilisation des articles serveur de secours.');
+                    veilleArticles = bootstrapArticles;
+                } else {
+                    console.warn('Aucune source veille disponible, utilisation du fallback local.');
+                    veilleArticles = fallbackArticles;
+                }
                 startRotation();
             })
             .catch(error => {
                 console.warn('Failed to fetch RSS articles, using fallback:', error);
-                veilleArticles = fallbackArticles;
+                veilleArticles = bootstrapArticles.length > 0 ? bootstrapArticles : fallbackArticles;
                 startRotation();
             });
     }
@@ -280,7 +341,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ========== Navigation Active State (fixed) ==========
     const sections = document.querySelectorAll('.section[id]');
-    const navLinks = document.querySelectorAll('.nav a[href^="#"]');
+    const navLinks = document.querySelectorAll('.nav a[href*="#"]');
 
     const updateActiveNav = () => {
         let current = '';
@@ -293,8 +354,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         navLinks.forEach(link => {
-            const href = link.getAttribute('href');
-            if (href === `#${current}`) {
+            const href = link.getAttribute('href') || '';
+            const hashStart = href.indexOf('#');
+            const hash = hashStart >= 0 ? href.slice(hashStart) : '';
+
+            if (hash === `#${current}`) {
                 link.classList.add('active');
             } else {
                 link.classList.remove('active');
@@ -308,9 +372,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // ========== Smooth Scroll ==========
     navLinks.forEach(link => {
         link.addEventListener('click', e => {
-            e.preventDefault();
             const href = link.getAttribute('href');
-            const target = document.querySelector(href);
+            if (!href || !href.includes('#')) {
+                return;
+            }
+
+            const targetUrl = new URL(href, window.location.origin);
+            if (targetUrl.pathname !== window.location.pathname) {
+                return;
+            }
+
+            e.preventDefault();
+            const target = document.querySelector(targetUrl.hash);
             if (target) {
                 const top = target.offsetTop - 70;
                 window.scrollTo({ top, behavior: 'smooth' });

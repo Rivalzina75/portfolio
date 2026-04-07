@@ -8,6 +8,8 @@
     'eyebrow' => __('Scootup project eyebrow'),
     'projectTitle' => 'Scootup',
     'subtitle' => __('Scootup project subtitle short'),
+    'projectImage' => asset('images/scootup.svg'),
+    'projectIcon' => '🛴',
     'badges' => ['React Native', 'TypeScript', 'NestJS', 'PostgreSQL', 'PostGIS', 'Stripe', 'Firebase', 'GitLab CI/CD'],
     'downloads' => [
         ['href' => app()->getLocale() === 'en' ? '/files/EN/Doc_Scootup_EN.pdf' : '/files/FR/Doc_Scootup_FR.pdf', 'label' => __('Download documentation')],

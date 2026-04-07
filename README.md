@@ -1,59 +1,85 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Portfolio BTS SIO SLAM - Reda Mekaoui
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Portfolio professionnel developpe avec Laravel 12 pour presenter mon parcours BTS SIO SLAM, mes experiences de stage, mes projets et ma veille technologique.
 
-## About Laravel
+## 1) Contexte pedagogique
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Ce projet s'inscrit dans le cadre du BTS SIO (Services Informatiques aux Organisations), option SLAM (Solutions Logicielles et Applications Metiers), promotion 2024-2026.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Ce portfolio sert de support principal pour l'epreuve E5, avec un objectif simple: montrer des realisations concretes, expliquer les choix techniques et prouver la progression professionnelle.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Finalite pour l'epreuve E5
 
-## Learning Laravel
+- Presenter mon parcours de formation et mes stages
+- Justifier les competences mobilisees sur des cas reels
+- Centraliser les preuves (pages projets, documents, livrables)
+- Montrer ma demarche de veille technologique et d'amelioration continue
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+## 2) Objectifs du portfolio
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- Mettre a disposition un support clair pour un jury BTS SIO
+- Valoriser des projets realises en contexte scolaire et en entreprise
+- Demontrer une architecture web moderne (Laravel + Vite + JavaScript)
+- Proposer une interface bilingue (FR/EN) avec fallback documentaire EN -> FR
+- Illustrer une veille active sur l'IA generative appliquee aux interfaces frontend
 
-## Laravel Sponsors
+## 3) Fonctionnalites principales
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- Page d'accueil complete: presentation, parcours, experiences, competences
+- Carousel de projets avec pages detaillees
+- Section veille technologique dynamique (RSS + rotation automatique)
+- Formulaire de contact AJAX avec validation backend
+- Telechargement de documents (CV, tableau de synthese)
+- Gestion de langue FR/EN via session
 
-### Premium Partners
+## 4) Focus E5: ce que le site permet de montrer
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+- Demarche projet: contexte, objectifs, realisation, resultats
+- Competences techniques: backend, frontend, base de donnees, outillage
+- Methodes de travail: qualite, organisation, documentation
+- Capacite d'analyse: veille technologique et selection d'informations pertinentes
 
-## Contributing
+## 5) Stack technique
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+- Backend: PHP 8.2+, Laravel 12
+- Frontend: Blade, JavaScript, CSS, Vite
+- Bibliotheques UI: Swiper, Anime.js
+- Outils: Composer, npm, Docker/Sail, PHPUnit
+- Donnees/cache: MySQL (Sail) ou configuration locale adaptee
 
-## Code of Conduct
+## 6) Architecture du projet
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- app/Http/Controllers: logique applicative (HomeController, VeilleController)
+- resources/views: templates Blade (accueil + pages projets)
+- resources/js/script.js: interactions frontend (carousel, veille, navigation, contact)
+- resources/css/style.css: design global du portfolio
+- routes/routes.php: routes web et endpoint API de veille
+- lang/fr.json et lang/en.json: textes traduits
+- public/files: documents telechargeables (CV, tableau de synthese, documentations)
 
-## Security Vulnerabilities
+## 7) Veille technologique
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Le module de veille:
 
-## License
+- agrege plusieurs flux RSS (Google Alerts)
+- applique un filtrage thematique (IA + UI/frontend)
+- dedoublonne et score les articles
+- met les resultats en cache
+- affiche une rotation de cartes dans la section veille
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Sujet de veille principal: IA generative dans les interactions UI complexes (qualite du code genere, accessibilite, micro-interactions, fiabilite en production).
+
+## 8) Documents utiles pour le jury
+
+- CV FR
+- Tableau de synthese FR
+- Pages projets detaillees
+- Documentations associees aux realisations
+
+## 9) Auteur
+
+Reda Mekaoui
+
+- GitHub: https://github.com/Rivalzina75
+- LinkedIn: https://www.linkedin.com/in/reda-mekaoui-76412a322/
+

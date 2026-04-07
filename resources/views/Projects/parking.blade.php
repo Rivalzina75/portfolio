@@ -7,6 +7,8 @@
 @include('Projects.partials.project-template', [
     'projectTitle' => __('Parking Project'),
     'subtitle' => __('Parking Subtitle'),
+    'projectImage' => asset('images/parking.svg'),
+    'projectIcon' => '🅿️',
     'badges' => ['Laravel', 'MySQL', 'JavaScript'],
     'downloads' => [
         ['href' => app()->getLocale() === 'en' ? '/files/EN/Doc_Parking_EN.pdf' : '/files/FR/Doc_Parking_FR.pdf', 'label' => __('Download documentation')],

@@ -40,6 +40,7 @@ Route::post('/api/veille/clear-cache', [VeilleController::class, 'clearCache'])
 // Téléchargements de documents
 Route::get('/files/cv', function () {
     $locale = app()->getLocale();
+
     if ($locale === 'en') {
         $path = public_path('files/EN/CV_Mekaoui_Mohamed_EN.pdf');
         $filename = 'CV_Mekaoui_Mohamed_EN.pdf';
@@ -47,6 +48,13 @@ Route::get('/files/cv', function () {
         $path = public_path('files/FR/CV_Mekaoui_Mohamed_FR.pdf');
         $filename = 'CV_Mekaoui_Mohamed_FR.pdf';
     }
+
+    // Fallback EN -> FR si le document EN n'est pas disponible.
+    if (! file_exists($path)) {
+        $path = public_path('files/FR/CV_Mekaoui_Mohamed_FR.pdf');
+        $filename = 'CV_Mekaoui_Mohamed_FR.pdf';
+    }
+
     abort_unless(file_exists($path), 404);
 
     return response()->download($path, $filename);
@@ -54,6 +62,7 @@ Route::get('/files/cv', function () {
 
 Route::get('/files/tableau-synthese', function () {
     $locale = app()->getLocale();
+
     if ($locale === 'en') {
         $path = public_path('files/EN/tableau_de_synthèse_Mekaoui_Mohamed_EN.pdf');
         $filename = 'Tableau_Synthese_Mekaoui_Mohamed_EN.pdf';
@@ -61,6 +70,13 @@ Route::get('/files/tableau-synthese', function () {
         $path = public_path('files/FR/tableau_de_synthèse_Mekaoui_Mohamed_FR.pdf');
         $filename = 'tableau_de_synthèse_Mekaoui_Mohamed_FR.pdf';
     }
+
+    // Fallback EN -> FR si le document EN n'est pas disponible.
+    if (! file_exists($path)) {
+        $path = public_path('files/FR/tableau_de_synthèse_Mekaoui_Mohamed_FR.pdf');
+        $filename = 'tableau_de_synthèse_Mekaoui_Mohamed_FR.pdf';
+    }
+
     abort_unless(file_exists($path), 404);
 
     return response()->download($path, $filename);
@@ -69,12 +85,19 @@ Route::get('/files/tableau-synthese', function () {
 // Route for documentation-portfolio.pdf (FR/EN)
 Route::get('/documents/documentation-portfolio.pdf', function () {
     $locale = session('locale', config('app.locale'));
+
     if ($locale === 'en') {
-        $path = public_path('files/documentation-portfolioEN.pdf');
-        $filename = 'documentation-portfolioEN.pdf';
+        $path = public_path('files/EN/Doc_Portfolio_EN.pdf');
+        $filename = 'Doc_Portfolio_EN.pdf';
     } else {
-        $path = public_path('files/documentation-portfolio.pdf');
-        $filename = 'documentation-portfolio.pdf';
+        $path = public_path('files/FR/Doc_Portfolio_FR.pdf');
+        $filename = 'Doc_Portfolio_FR.pdf';
+    }
+
+    // Fallback EN -> FR si le document EN n'est pas disponible.
+    if (! file_exists($path)) {
+        $path = public_path('files/FR/Doc_Portfolio_FR.pdf');
+        $filename = 'Doc_Portfolio_FR.pdf';
     }
 
     abort_unless(file_exists($path), 404);

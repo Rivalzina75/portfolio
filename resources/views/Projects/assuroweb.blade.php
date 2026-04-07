@@ -8,6 +8,8 @@
     'eyebrow' => __('Assuroweb project eyebrow'),
     'projectTitle' => 'Assuroweb',
     'subtitle' => __('Assuroweb project subtitle short'),
+    'projectImage' => asset('images/assuroweb.png'),
+    'projectIcon' => '🛡️',
     'badges' => ['Laravel', 'PHP 8', 'MySQL', 'Quill.js', 'Docker', 'WinSCP / SSH'],
     'downloads' => [
         ['href' => app()->getLocale() === 'en' ? '/files/EN/Doc_Assuroweb_EN.pdf' : '/files/FR/Doc_Assuroweb_FR.pdf', 'label' => __('Download documentation')],

@@ -7,6 +7,8 @@
 @include('Projects.partials.project-template', [
     'projectTitle' => 'Machina',
     'subtitle' => __('Machina Subtitle'),
+    'projectImage' => asset('images/machina.png'),
+    'projectIcon' => '🏭',
     'badges' => ['Laravel', 'Docker', 'PHP', 'HTML / CSS / JS'],
     'downloads' => [
         ['href' => app()->getLocale() === 'en' ? '/files/EN/Doc_Machina_EN.pdf' : '/files/FR/Doc_Machina_FR.pdf', 'label' => __('Download documentation')],

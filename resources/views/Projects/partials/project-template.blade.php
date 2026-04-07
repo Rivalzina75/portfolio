@@ -48,7 +48,7 @@
             {{-- Left: Content --}}
             <div class="project-hero-content">
                 <nav class="project-breadcrumb">
-                    <a href="{{ route('portfolio.home') }}#projets">{{ __('Projects') }}</a>
+                    <a href="{{ route('portfolio.home') }}#projects">{{ __('Projects') }}</a>
                     <span class="breadcrumb-sep">/</span>
                     <span class="breadcrumb-current">{{ $projectTitle }}</span>
                 </nav>
@@ -301,7 +301,7 @@
 {{-- ==================== BACK NAVIGATION ==================== --}}
 <section class="section project-nav-section">
     <div class="container">
-        <a href="{{ route('portfolio.home') }}#projets" class="back-link">
+        <a href="{{ route('portfolio.home') }}#projects" class="back-link">
             <span class="back-link-arrow">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <line x1="19" y1="12" x2="5" y2="12"/>

@@ -343,11 +343,35 @@ document.addEventListener('DOMContentLoaded', () => {
     const sections = document.querySelectorAll('.section[id]');
     const navLinks = document.querySelectorAll('.nav a[href*="#"]');
 
+    const hashAliases = {
+        '#projets': '#projects',
+    };
+
+    const normalizeHash = (hash = '') => {
+        const normalized = hash.toLowerCase();
+        return hashAliases[normalized] || normalized;
+    };
+
+    const scrollToHashTarget = (hash, behavior = 'smooth') => {
+        const normalizedHash = normalizeHash(hash);
+        if (!normalizedHash) {
+            return false;
+        }
+
+        const target = document.querySelector(normalizedHash);
+        if (!target) {
+            return false;
+        }
+
+        const top = target.getBoundingClientRect().top + window.scrollY - 70;
+        window.scrollTo({ top, behavior });
+        return true;
+    };
+
     const updateActiveNav = () => {
         let current = '';
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
             if (window.scrollY >= sectionTop - 120) {
                 current = section.getAttribute('id');
             }
@@ -358,7 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const hashStart = href.indexOf('#');
             const hash = hashStart >= 0 ? href.slice(hashStart) : '';
 
-            if (hash === `#${current}`) {
+            if (normalizeHash(hash) === `#${current}`) {
                 link.classList.add('active');
             } else {
                 link.classList.remove('active');
@@ -378,18 +402,33 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             const targetUrl = new URL(href, window.location.origin);
+            const normalizedHash = normalizeHash(targetUrl.hash);
+            if (!normalizedHash) {
+                return;
+            }
+
             if (targetUrl.pathname !== window.location.pathname) {
                 return;
             }
 
             e.preventDefault();
-            const target = document.querySelector(targetUrl.hash);
-            if (target) {
-                const top = target.offsetTop - 70;
-                window.scrollTo({ top, behavior: 'smooth' });
+            if (scrollToHashTarget(normalizedHash, 'smooth')) {
+                if (window.location.hash !== normalizedHash) {
+                    history.replaceState(null, '', normalizedHash);
+                }
                 navMenu?.classList.remove('open');
             }
         });
+    });
+
+    if (window.location.hash) {
+        window.setTimeout(() => {
+            scrollToHashTarget(window.location.hash, 'auto');
+        }, 0);
+    }
+
+    window.addEventListener('hashchange', () => {
+        scrollToHashTarget(window.location.hash, 'smooth');
     });
 
     // ========== Contact Form AJAX ==========
@@ -464,13 +503,3 @@ if (scrollToTopBtn) {
         });
     });
 }
-
-// Ensure the page scrolls to the #veille section on reload if the user was there
-window.addEventListener('DOMContentLoaded', () => {
-    if (window.location.hash === '#veille') {
-        const veilleSection = document.querySelector('#veille');
-        if (veilleSection) {
-            veilleSection.scrollIntoView({ behavior: 'smooth' });
-        }
-    }
-});

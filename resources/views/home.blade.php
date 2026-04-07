@@ -265,7 +265,7 @@
     </section>
 
     {{-- ========== PROJETS SECTION ========== --}}
-    <section id="projets" class="section">
+    <section id="projects" class="section">
         <div class="container">
             <div class="section-head">
                 <p class="eyebrow">{{ __('Achievements') }}</p>

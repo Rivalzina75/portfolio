@@ -43,7 +43,7 @@
                 <a href="{{ route('portfolio.home') }}#parcours" class="nav a">{{ __('Journey') }}</a>
                 <a href="{{ route('portfolio.home') }}#experience" class="nav a">{{ __('Experience') }}</a>
                 <a href="{{ route('portfolio.home') }}#competences" class="nav a">{{ __('Skills') }}</a>
-                <a href="{{ route('portfolio.home') }}#projets" class="nav a">{{ __('Projects') }}</a>
+                <a href="{{ route('portfolio.home') }}#projects" class="nav a">{{ __('Projects') }}</a>
                 <a href="{{ route('portfolio.home') }}#veille" class="nav a">{{ __('Tech Watch') }}</a>
                 <a href="{{ route('portfolio.home') }}#contact" class="nav a">{{ __('Contact') }}</a>
             </nav>

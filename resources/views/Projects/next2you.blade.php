@@ -5,7 +5,7 @@
 
 @section('content')
 @include('Projects.partials.project-template', [
-    'projectTitle' => 'Next2You',
+    'projectTitle' => __('Next2You'),
     'subtitle' => __('Next2You Subtitle'),
     'projectImage' => asset('images/next2you.png'),
     'projectIcon' => '🤝',

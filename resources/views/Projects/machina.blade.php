@@ -5,7 +5,7 @@
 
 @section('content')
 @include('Projects.partials.project-template', [
-    'projectTitle' => 'Machina',
+    'projectTitle' => __('Machina'),
     'subtitle' => __('Machina Subtitle'),
     'projectImage' => asset('images/machina.png'),
     'projectIcon' => '🏭',
